@@ -29,11 +29,12 @@ thead, tr, article, aside, canvas, details, embed, figure, figcaption, footer, h
     box-sizing: border-box;
     transition:all .2s;
     line-height:1.5;
+    font-size:15px;
 
 }
 
 html, body, table, input, textarea, nav, button, div, p, span,
-#main_wrap span, h1, h2, h3, h4, h6, tr, td, ol, ul, li, select, pre, a {
+#main_wrap span, h1, h2, h3, h4, h6, tr, td, ol, ul, li, select, pre, a, label {
     font-size:15px;
     font-family:"Pretendard","Open Sans",Malgun Gothic,"맑은 고딕",AppleGothic,Dotum,"돋움",sans-serif;
     color:var(--text-color); font-weight: 400;
@@ -56,7 +57,7 @@ time, mark, audio, video {
     margin: 0;
     padding: 0;
     border: 0;
-    font-size: 100%;
+    font-size: 15px;
     font: inherit;
     vertical-align: inherit;
     text-decoration: none;
