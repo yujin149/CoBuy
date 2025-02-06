@@ -1,0 +1,82 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
+
+:root{
+    /*color*/
+    --bk-color:#000;
+    --white-color:#fff;
+    --white-opacity:rgba(255,255,255,0.6);
+    --text-color:#606060;
+    --small-color:#888;
+    --main-color: #3dd7ab;
+    --gray-color:#d7d7d7;
+    --red-color: #e70303;
+    --yellow-color:#ffb624;
+    --green-color:#6ab960;
+    --blue-color:#0d6eff ;
+    --bk-bg:#202020;
+    --gray-bg1:#f5f5f5;
+    --gray-bg2:#eceeef;
+    --box-shadow:0px 0px 5px rgba(0,0,0,0.05);
+
+}
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre,a, abbr, acronym, address, big, cite, code, del, dfn, em, img,
+ins, kbd, q, s, samp, small, strike, strong, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, input, legend, table, caption, tbody, tfoot,
+thead, tr, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark,audio, video,th,td {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+    transition:all .2s;
+    line-height:1.5;
+
+}
+
+html, body, table, input, textarea, nav, button, div, p, span,
+#main_wrap span, h1, h2, h3, h4, h6, tr, td, ol, ul, li, select, pre, a {
+    font-size:15px;
+    font-family:"Pretendard","Open Sans",Malgun Gothic,"맑은 고딕",AppleGothic,Dotum,"돋움",sans-serif;
+    color:var(--text-color); font-weight: 400;
+}
+
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: inherit;
+    text-decoration: none;
+    list-style:none;
+    color:var(--text-color);
+    font-family: "pretendard",sans-serif;
+}
+
+
+/*공통사항 layout*/
+/*검색*/
+.searchWrap{position:relative;}
+.searchWrap:after{position:absolute; top:50%; right:0; transform: translateY(-50%); display: flex; justify-content: center; align-items: center; width:50px; height:40px;}
+.searchWrap input{outline: none; border:1px solid var(--gray-color); border-radius: 40px; height:40px; padding-left:15px; padding-right:40px; width:100%;}
+.searchWrap span{display:flex; justify-content: center;align-items: center; position:absolute; top:50%; right:0; transform:translateY(-50%); width:50px;height:40px; cursor: pointer;}
+/*.searchWrap span:before{content:''; display: block; width:18px; height:18px; border:2px solid var(--bk-color); position:absolute; top:50%; left:0; border-radius: 50%; transform:translateY(-50%);}
+.searchWrap span:after{content:''; display: block; width:8px; height:2px; border-radius: 5px; background:var(--bk-color); position:absolute; top:calc(50% + 10px); right:15px; transform: translateY(-50%) rotate(45deg);}*/
+.searchWrap span img{width:24px;}
+
+/*입력폼*/
+label{cursor:pointer;}
+input::placeholder{color:var(--small-color);}
+input[type="text"], input[type=password]{background:inherit; border:1px solid var(--gray-color); border-radius:10px; height:45px; padding:0 10px; outline: none;}
