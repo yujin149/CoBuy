@@ -31,6 +31,7 @@
 
 
 /*아이디 비밀번호 찾기 페이지 */
+/*아이디 찾기*/
 .findWrap .memberInner .tabWrap li{width:50%;}
 .findWrap .findIdForm {margin-top:30px;}
 .findWrap .findIdForm .findIdInput li{display: flex; flex-direction: column; margin-bottom:30px;}
@@ -44,20 +45,28 @@
 .memberWrap .memberInner .backWrap a{font-size:14px;display: inline-block; color:var(--small-color); margin-left:30px; }
 .memberWrap .memberInner .backWrap a:first-child{margin-left:0;}
 
+/*아이디 찾기 findId.html*/
+
+.findWrap .noneFind{padding-top:40px; display: none;}
+.findWrap .findIdWrap .txt{color:var(--bk-color); font-size:16px; font-weight:600; padding:120px 20px 0; position:relative; text-align: center; word-break: keep-all; }
+.findWrap .findIdWrap .txt:before{content:''; display: block; background:url("/images/notiIcon.png") no-repeat center; background-size:100%; position:absolute; top:0; left:50%; transform: translateX(-50%); width:90px; height:90px;}
+
+.findWrap .findIdWrap .btnWrap{margin-top:40px;}
+.findWrap .findIdWrap .btnWrap .btn{width:100%; height:50px; display: flex; justify-content: center; align-items: center; font-weight:700; border-radius: 10px; font-size:15px;}
+.findWrap .findIdWrap .btnWrap .findIdBtn{background:var(--bk-color); color:var(--white-color);}
+.findWrap .findIdWrap .btnWrap .loginBtn{background:var(--white-color); color:var(--bk-color); border:1px solid var(--bk-color);margin-top:10px;}
+
+.findWrap .findUser{padding-top:40px;}
+.findWrap .findIdWrap .findUser .txt span{color:var(--bk-color); font-size:24px;}
+.findWrap .findIdWrap .findUser .txt:before{content:''; display: block; background: url("/images/checkIcon.png")no-repeat center; background-size:100%;}
+
 /*비밀번호 찾기*/
 .findWrap .findPwForm{margin-top:30px;}
 .findWrap .findPwForm .findPwInput li {display: flex; flex-direction: column; margin-bottom:30px;}
 .findWrap .findPwForm .findPwInput li .tit {color:var(--bk-color); font-weight:600; font-size:15px; margin-bottom:5px;}
 .findWrap .findIdForm .findPwInput li input{font-size:15px; height:50px; width: 100%;}
 
-
-
-
-
-
-
-
-
+/*비밀번호 찾기 완료*/
 
 
 
@@ -74,7 +83,7 @@
     /*로그인 페이지*/
     .memberWrap .memberInner{padding:30px 3vw; border-radius: 10px;}
     .memberWrap .memberInner .title{font-size:24px;}
-    .memberWrap .memberInner .tabWrap{margin-top:16px; border-radius: 5px;}
+    .memberWrap .memberInner .tabWrap{margin-top:26px; border-radius: 5px;}
     .memberWrap .memberInner .tabWrap li a{font-size:14px;}
     .memberWrap .memberInner .tabWrap li a.active{border-radius: 5px;}
     .loginWrap .loginInner .loginBox{margin-top:10px;}
@@ -101,10 +110,20 @@
 
     .memberWrap .memberInner .moveLogin{font-size:13px;}
 
+    /*아이디 찾기 완료*/
+    .findWrap .findIdWrap .txt{font-size:14px; padding:90px 20px 0;}
+    .findWrap .findIdWrap .txt:before{width:70px; height:70px;}
+    .findWrap .findIdWrap .findUser .txt span{font-size:22px;}
+
+    .findWrap .findIdWrap .btnWrap{margin-top:30px;}
+    .findWrap .findIdWrap .btnWrap .btn{border-radius: 5px; font-size:14px;}
+
+
     /*비밀번호 찾기*/
     .findWrap .findPwForm{margin-top:30px;}
     .findWrap .findPwForm .findPwInput li{margin-bottom:20px;}
     .findWrap .findPwForm .findPwInput li .tit{font-size:14px;}
     input[type="text"], input[type=password]{border-radius: 5px;}
+
 
 }

@@ -9,59 +9,24 @@
 <div layout:fragment="content">
     <div class="memberWrap findWrap">
         <div class="memberInner">
-            <p class="title">아이디 · 비밀번호 찾기</p>
-            <ul class="tabWrap">
-                <li><a class="active" href="#tab01">아이디 찾기</a></li>
-                <li><a href="#tab02">비밀번호 찾기</a></li>
-            </ul>
+            <p class="title">비밀번호 재설정</p>
+            <form action="/updatePw" class="findPwForm">
+                <ul class="findPwInput">
+                    <li>
+                        <p class="tit">새 비밀번호</p>
+                        <input type="password" placeholder="비밀번호를 입력해주세요.">
+                    </li>
+                    <li>
+                        <p class="tit">비밀번호 확인</p>
+                        <input type="password" placeholder="비밀번호 다시 한번 입력해주세요.">
+                    </li>
+                </ul>
+                <div class="btnWrap">
+                    <button class="findPwBtn btn" type="submit">비밀번호 변경</button>
+                </div>
+            </form>
 
-            <div class="tabCont active" id="tab01">
-                <form class="findIdForm" action="/findId">
-                    <ul class="findIdInput">
-                        <li>
-                            <label for="email">
-                                <input id="email" name="findId" type="radio">
-                                <span class="tit">이메일로 찾기</span>
-                            </label>
-                            <input class="email" placeholder="이메일을 입력해주세요." type="text">
-                        </li>
-                        <li>
-                            <label for="phone">
-                                <input id="phone" name="findId" type="radio">
-                                <span class="tit">휴대폰 번호으로 찾기</span>
-                            </label>
-                            <input class="phone" placeholder="휴대폰 번호를 입력해주세요." type="text">
-                        </li>
-                    </ul>
-                    <div class="btnWrap">
-                        <button type="submit" class="findIdBtn btn">아이디 찾기</button>
-                    </div>
-                </form>
 
-            </div>
-
-            <div class="tabCont" id="tab02">
-                <form class="findPwForm" action="/findPw">
-                    <ul class="findPwInput">
-                        <li>
-                            <p class="tit">아이디</p>
-                            <input type="text" placeholder="아이디를 입력해주세요.">
-                        </li>
-                        <li>
-                            <p class="tit">이름</p>
-                            <input type="text" placeholder="이름을 입력해주세요.">
-                        </li>
-                        <li>
-                            <p class="tit">휴대폰 번호</p>
-                            <input type="text" placeholder="휴대폰 번호를 입력해주세요.">
-                        </li>
-                    </ul>
-                    <div class="btnWrap">
-                        <button type="submit" class="findPwBtn btn">비밀번호 찾기</button>
-                    </div>
-                </form>
-
-            </div>
         </div>
     </div>
 </div>
