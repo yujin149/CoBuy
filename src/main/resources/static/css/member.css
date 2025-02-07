@@ -35,8 +35,29 @@
 .findWrap .findIdForm {margin-top:30px;}
 .findWrap .findIdForm .findIdInput li{display: flex; flex-direction: column; margin-bottom:30px;}
 .findWrap .findIdForm .findIdInput li label{display: flex; justify-content: flex-start; align-items: center; margin-bottom:5px; }
-.findWrap .findIdForm .findIdInput li .tit{color:var(--bk-color); font-weight:500; font-size:15px; margin-left:5px;}
+.findWrap .findIdForm .findIdInput li .tit{color:var(--bk-color); font-weight:600; font-size:15px; margin-left:5px;}
+.findWrap .findIdForm .findIdInput li input[type='text']{font-size:15px; height:50px;}
+
 .findWrap .btnWrap button{width:100%; display: flex; justify-content: center; align-items: center; cursor:pointer; height:50px; border:none; border-radius: 10px; outline: none; color:var(--white-color); background:var(--bk-color); font-weight:700;}
+
+.memberWrap .memberInner .backWrap{width:100%; display:flex; justify-content:center; align-items:center; margin-top:20px;}
+.memberWrap .memberInner .backWrap a{font-size:14px;display: inline-block; color:var(--small-color); margin-left:30px; }
+.memberWrap .memberInner .backWrap a:first-child{margin-left:0;}
+
+/*비밀번호 찾기*/
+.findWrap .findPwForm{margin-top:30px;}
+.findWrap .findPwForm .findPwInput li {display: flex; flex-direction: column; margin-bottom:30px;}
+.findWrap .findPwForm .findPwInput li .tit {color:var(--bk-color); font-weight:600; font-size:15px; margin-bottom:5px;}
+.findWrap .findIdForm .findPwInput li input{font-size:15px; height:50px; width: 100%;}
+
+
+
+
+
+
+
+
+
 
 
 
@@ -45,21 +66,22 @@
 @media (max-width: 768px) {
     /* ruleset for 768px - 481px 태플릿*/
     /*로그인 페이지 모두 동일*/
-    .loginWrap .loginInner{width:94%; max-height:94vh; overflow-y:auto; }
+    .memberWrap .memberInner{width:94%; max-height:94vh; overflow-y:auto; }
 }
 
 @media (max-width: 480px) {
     /* ruleset for 480px 모바일*/
-    .loginWrap .loginInner{padding:30px 3vw; border-radius: 10px;}
-    .loginWrap .loginInner .title{font-size:24px;}
-    .loginWrap .loginInner .tabWrap{margin-top:16px; border-radius: 5px;}
-    .loginWrap .loginInner .tabWrap li a{font-size:14px;}
-    .loginWrap .loginInner .tabWrap li a.active{border-radius: 5px;}
+    /*로그인 페이지*/
+    .memberWrap .memberInner{padding:30px 3vw; border-radius: 10px;}
+    .memberWrap .memberInner .title{font-size:24px;}
+    .memberWrap .memberInner .tabWrap{margin-top:16px; border-radius: 5px;}
+    .memberWrap .memberInner .tabWrap li a{font-size:14px;}
+    .memberWrap .memberInner .tabWrap li a.active{border-radius: 5px;}
     .loginWrap .loginInner .loginBox{margin-top:10px;}
 
     .loginWrap .loginInner .loginBox ul li{margin-bottom:10px;}
     .loginWrap .loginInner .loginBox ul li input{height:45px; border-radius: 5px;}
-    .loginWrap .loginInner .loginBox ul li input{font-size:14px;}
+    input[type="text"], input[type=password]{font-size:14px; }
     .loginWrap .loginInner .loginBox .findWrap{margin-top:15px;}
     .loginWrap .loginInner .loginBox .findWrap li a{font-size:13px;}
     .loginWrap .loginInner .btnWrap button{font-size:14px; height:45px;border-radius: 5px;}
@@ -68,4 +90,21 @@
     .loginWrap .loginInner .snsLoginWrap li:nth-child(1) a{background-size:17px;}
     .loginWrap .loginInner .snsLoginWrap li:nth-child(2) a{background-size:17px;}
     .loginWrap .loginInner .snsLoginWrap li:nth-child(3) a{background-size:17px;}
+
+
+    /*아이디 찾기*/
+    .findWrap .findIdForm{margin-top:20px;}
+    .findWrap .findIdForm .findIdInput li{margin-bottom:20px;}
+    .findWrap .findIdForm .findIdInput li .tit{font-size:14px;}
+    .findWrap .findIdForm .findIdInput li input[type='text']{border-radius: 5px; height:45px;}
+    .findWrap .btnWrap button{font-size:14px; height:45px; border-radius: 5px;}
+
+    .memberWrap .memberInner .moveLogin{font-size:13px;}
+
+    /*비밀번호 찾기*/
+    .findWrap .findPwForm{margin-top:30px;}
+    .findWrap .findPwForm .findPwInput li{margin-bottom:20px;}
+    .findWrap .findPwForm .findPwInput li .tit{font-size:14px;}
+    input[type="text"], input[type=password]{border-radius: 5px;}
+
 }

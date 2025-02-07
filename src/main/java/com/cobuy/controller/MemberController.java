@@ -23,6 +23,16 @@ public class MemberController {
         return "member/findMember";
     }
 
+    @GetMapping(value = "/findId")
+    public String findId() {
+        return "member/findId";
+    }
+
+    @GetMapping(value = "/findPw")
+    public String findPw() {
+        return "member/findPw";
+    }
+
     /*업체 회원가입*/
     @GetMapping(value = "/admin/join")
     public String joinAdmin() {

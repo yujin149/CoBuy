@@ -1,5 +1,7 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
 
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css');/* regular-400, medium-500, semibold-600, bold-700 */
+
 :root{
     /*color*/
     --bk-color:#000;
@@ -7,7 +9,8 @@
     --white-opacity:rgba(255,255,255,0.6);
     --text-color:#606060;
     --small-color:#888;
-    --main-color: #3dd7ab;
+    --main-color: #000;
+    --main-color2: #3dd7ab;
     --gray-color:#d7d7d7;
     --red-color: #e70303;
     --yellow-color:#ffb624;
@@ -81,3 +84,9 @@ time, mark, audio, video {
 label{cursor:pointer;}
 input::placeholder{color:var(--small-color);}
 input[type="text"], input[type=password]{background:inherit; border:1px solid var(--gray-color); border-radius:10px; height:45px; padding:0 10px; outline: none;}
+
+/*라디오 버튼 커스텀*/
+input[type='radio'] {-webkit-appearance: none; -moz-appearance: none; appearance: none; width: 15px; height: 15px; border: 1px solid var(--gray-color); border-radius: 50%; outline: none; cursor: pointer;}
+
+input[type='radio']:checked {
+    background-color: var(--main-color); border: 3px solid #fff; box-shadow: 0 0 0 1px var(--main-color); transition: 0s;}

@@ -33,6 +33,5 @@ build/
 .vscode/
 
 ### add ###
-pom.xml
 .gradle
 .idea
