@@ -64,9 +64,24 @@
 .findWrap .findPwForm{margin-top:30px;}
 .findWrap .findPwForm .findPwInput li {display: flex; flex-direction: column; margin-bottom:30px;}
 .findWrap .findPwForm .findPwInput li .tit {color:var(--bk-color); font-weight:600; font-size:15px; margin-bottom:5px;}
-.findWrap .findIdForm .findPwInput li input{font-size:15px; height:50px; width: 100%;}
+.findWrap .findIdForm .findPwInput li input{font-size:15px; height:50px; width: 100%; }
 
 /*비밀번호 찾기 완료*/
+.findWrap .updatePwWrap .tit{font-size:24px; color:var(--bk-color); font-weight:600; text-align: center; padding:120px 20px 0; position:relative;}
+.findWrap .updatePwWrap .tit:before{content:''; display: block; background: url("/images/checkIcon.png")no-repeat center; background-size:100%; position:absolute; top:0; left:50%; transform: translateX(-50%); width:90px; height:90px;}
+.findWrap .updatePwWrap .txt{font-size:15px; margin-top:15px; text-align: center; line-height:1.5;}
+.findWrap .updatePwWrap .btnWrap a{width:100%; height:50px; display: flex; justify-content: center; align-items: center; font-weight:700; border-radius: 10px; font-size:15px; background:var(--bk-color); color:var(--white-color); margin-top:40px;}
+
+
+/*회원가입 step01 join.html*/
+.joinWrap .memberInner > .txt{font-size:15px; margin:15px 0 30px; text-align: center;}
+.joinWrap .memberInner .selectJoin li a{display: flex; justify-content: center; align-items: center; border-radius: 10px; border:1px solid var(--gray-color); color:var(--bk-color); font-size:15px; font-weight:600; height:50px; margin-top:10px;}
+.joinWrap .memberInner .selectJoin li:last-child a{background:var(--bk-color); color:var(--white-color); border-color:var(--bk-color);}
+
+
+
+
+
 
 
 
@@ -125,5 +140,15 @@
     .findWrap .findPwForm .findPwInput li .tit{font-size:14px;}
     input[type="text"], input[type=password]{border-radius: 5px;}
 
+    /*비밀번호 찾기 완료*/
+    .findWrap .updatePwWrap .tit{font-size:22px; padding:90px 20px 0;}
+    .findWrap .updatePwWrap .tit:before{width:70px; height:70px;}
+    .findWrap .updatePwWrap .txt{font-size:14px; line-height: 1.3;}
+    .findWrap .updatePwWrap .btnWrap a{margin-top:30px; font-size:14px; height:45px; border-radius: 5px;}
+
+
+    /*회원가입 step01 join.html*/
+    .joinWrap .memberInner > .txt{font-size:14px; margin:5px 0 20px;}
+    .joinWrap .memberInner .selectJoin li a{height:45px; border-radius: 5px; font-size:14px;}
 
 }

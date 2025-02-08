@@ -1,10 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html
+    layout:decorate="~{layouts/userLoginLayout}"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>회원가입</title>
 </head>
-<body>
-
+<body class="memberBody">
+<div layout:fragment="content">
+    <div class="memberWrap joinWrap">
+        <div class="memberInner">
+            <p class="title">회원가입</p>
+            <ul class="selectJoin">
+                <li><a href="admin/member/joinAdmin"></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
 </body>
 </html>

@@ -40,6 +40,11 @@ public class MemberController {
     @GetMapping(value = "/updatePw")
     public String updatePw() {return "member/updatePw";}
 
+    /*회원가입 step01*/
+    @GetMapping(value = "/join")
+    public String join() {
+        return "member/join";
+    }
     /*업체 회원가입*/
     @GetMapping(value = "/admin/join")
     public String joinAdmin() {
@@ -51,7 +56,7 @@ public class MemberController {
         return "admin/member/joinAdmin";
     }
     /*개인 회원가입*/
-    @GetMapping(value = "/join")
+    @GetMapping(value = "/member/join")
     public String joinUser() {
         return "member/joinMember";
     }
