@@ -37,9 +37,9 @@
 .findWrap .findIdForm .findIdInput li{display: flex; flex-direction: column; margin-bottom:30px;}
 .findWrap .findIdForm .findIdInput li label{display: flex; justify-content: flex-start; align-items: center; margin-bottom:5px; }
 .findWrap .findIdForm .findIdInput li .tit{color:var(--bk-color); font-weight:600; font-size:15px; margin-left:5px;}
-.findWrap .findIdForm .findIdInput li input[type='text']{font-size:15px; height:50px;}
+.findWrap .findIdForm .findIdInput li input[type='text']{font-size:15px; height:45px;}
 
-.findWrap .btnWrap button{width:100%; display: flex; justify-content: center; align-items: center; cursor:pointer; height:50px; border:none; border-radius: 10px; outline: none; color:var(--white-color); background:var(--bk-color); font-weight:700;}
+.findWrap .btnWrap button{width:100%; display: flex; justify-content: center; align-items: center; cursor:pointer; height:45px; border:none; border-radius: 10px; outline: none; color:var(--white-color); background:var(--bk-color); font-weight:700;}
 
 .memberWrap .memberInner .backWrap{width:100%; display:flex; justify-content:center; align-items:center; margin-top:20px;}
 .memberWrap .memberInner .backWrap a{font-size:14px;display: inline-block; color:var(--small-color); margin-left:30px; }
@@ -79,11 +79,40 @@
 .joinWrap .memberInner .selectJoin li:last-child a{background:var(--bk-color); color:var(--white-color); border-color:var(--bk-color);}
 
 
+/*회원가입 step02 joinMember.html*/
+.memberBody.joinBody{min-width:inherit; min-height:inherit;}
+.joinWrap01.memberWrap .memberInner{position:inherit; top:0 ;left:0; transform: inherit; margin: 60px auto;}
+.joinWrap .joinForm .list{margin-top:30px;}
+.joinWrap .joinForm .list .titleBox{display: flex; justify-content: flex-start; align-items: center;}
+.joinWrap .joinForm .list .titleBox .tit{font-size:15px; font-weight:700; color:var(--bk-color);}
+.joinWrap .joinForm .list .titleBox .star{color:var(--red-color); font-size:15px; margin-top:-5px; margin-left:2px; font-weight:700;}
+.joinWrap .joinForm .list .titleBox .error{color:var(--red-color); font-size:13px; margin-left:5px;}
+.joinWrap .joinForm .list .txtBox{margin-top:5px; display: flex; justify-content: space-between; align-items: center;}
+.joinWrap .joinForm .list .txtBox input{width:100%; height:45px;}
+
+.joinWrap .joinForm .list01 .txtBox input{width:calc(100% - 130px);}
+.joinWrap .joinForm .list01 .txtBox .btn{width:120px; height:45px; border-radius: 10px; background:var(--bk-color); color:var(--white-color); font-size:15px; font-weight:700; display: flex; justify-content: center; align-items: center;}
+
+.joinWrap .joinForm .list02 .txtBox select{height:45px; width:30%; border-radius: 10px; border:1px solid var(--gray-color); padding:0 10px; outline: none; cursor: pointer;}
+.joinWrap .joinForm .list02 .txtBox input{width:30%;}
+.joinWrap .joinForm .list02 .txtBox .hyphen{font-size:15px;}
+.joinWrap .joinForm .list03 .txtBox input{width:30%;}
+.joinWrap .joinForm .list03 .txtBox .hyphen{font-size:15px;}
+.joinWrap .joinForm .list03 .txtBox select{height:45px; width:30%; border-radius: 10px; border:1px solid var(--gray-color); padding:0 10px; outline: none; cursor: pointer;}
+
+.joinWrap .joinForm .list .txtBox input[type="date"]{border:1px solid var(--gray-color); font-size:15px; padding:0 10px; border-radius: 10px; border:1px solid var(--gray-color); outline: none;}
 
 
+.joinWrap .joinForm .list04 .txtBox{flex-direction: column;}
+.joinWrap .joinForm .list04 .txtBox .txt{display: flex; justify-content: space-between; align-items: center; width:100%;}
+.joinWrap .joinForm .list04 .txtBox .txt input{width:calc(50% - 5px);}
+.joinWrap .joinForm .list04 .txtBox .txt01 input{width:calc(100% - 130px);}
+.joinWrap .joinForm .list04 .txtBox .txt01 .btn{width:120px; height:45px; display: flex; justify-content: center; align-items: center; border-radius: 10px; background:var(--bk-color); color:var(--white-color); font-size:15px; font-weight:700; }
+.joinWrap .joinForm .list04 .txtBox > input{margin:5px 0;}
+.joinWrap .joinForm .list04 .txtBox input:read-only{background:var(--gray-bg1)}
 
-
-
+.joinWrap form .btnWrap button{display: flex; justify-content: center; align-items: center; margin-top:30px; border-radius: 10px; background: var(--bk-color); color:var(--white-color); font-size:15px; font-weight: 700; height:50px; width:100%; outline: none; border:none;
+    cursor: pointer;}
 
 
 /*반응형 쿼리문 START*/
@@ -91,6 +120,7 @@
     /* ruleset for 768px - 481px 태플릿*/
     /*로그인 페이지 모두 동일*/
     .memberWrap .memberInner{width:94%; max-height:94vh; overflow-y:auto; }
+    .joinWrap01.memberWrap .memberInner{overflow-y:inherit; max-height:inherit;}
 }
 
 @media (max-width: 480px) {
@@ -150,5 +180,19 @@
     /*회원가입 step01 join.html*/
     .joinWrap .memberInner > .txt{font-size:14px; margin:5px 0 20px;}
     .joinWrap .memberInner .selectJoin li a{height:45px; border-radius: 5px; font-size:14px;}
+
+    /*회원가입 step02 joinMember.html*/
+    .joinWrap01.memberWrap .memberInner{margin:40px auto;}
+    .joinWrap .joinForm .list{margin-top:20px;}
+    .joinWrap .joinForm .list .titleBox .tit{font-size:14px;}
+    .joinWrap .joinForm .list .titleBox .star{font-size:14px;}
+    .joinWrap .joinForm .list .titleBox .error{font-size:13px;}
+    .joinWrap .joinForm .list01 .txtBox .btn{border-radius: 5px; font-size:14px;}
+    .joinWrap .joinForm .list02 .txtBox select{border-radius: 5px; font-size:14px;}
+    .joinWrap .joinForm .list .txtBox input[type="date"]{font-size:14px; border-radius: 5px;}
+    .joinWrap .joinForm .list04 .txtBox .txt01 .btn{font-size:14px; border-radius: 5px;}
+    .joinWrap form .btnWrap button{margin-top:20px; font-size:14px; height:45px; border-radius: 5px;}
+
+
 
 }

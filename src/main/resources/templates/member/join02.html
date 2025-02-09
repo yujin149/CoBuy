@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html
+    layout:decorate="~{layouts/userLoginLayout}"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title>회원가입</title>
+</head>
+<body class="memberBody">
+<div layout:fragment="content">
+    <div class="memberWrap findWrap">
+        <div class="memberInner">
+            <div class="updatePwWrap">
+                <p class="tit">회원가입 완료</p>
+                <p class="txt">
+                    정상적으로 회원가입이 완료되었습니다.<br>
+                    로그인 후 서비스를 이용해주세요.
+                </p>
+
+                <div class="btnWrap">
+                    <a href="/login" class="loginBtn btn">로그인</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

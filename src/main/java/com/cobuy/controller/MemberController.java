@@ -61,4 +61,8 @@ public class MemberController {
         return "member/joinMember";
     }
 
+    /*회원가입완료*/
+    @GetMapping(value = "/join02")
+    public String join02() {return "member/join02";}
+
 }
