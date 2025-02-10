@@ -73,7 +73,7 @@
 			<artifactId>querydsl-core</artifactId>
 			<version>5.0.0</version>
 		</dependency>
-		
+
 		<!--Thymeleaf Layout Dialect 의존성 추가-->
 		<!--하나의 레이아웃을 여러 페이지에 적용하기 위해.-->
 		<dependency>
