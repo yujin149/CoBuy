@@ -53,7 +53,7 @@ public class MemberController {
     /*셀러 회원가입*/
     @GetMapping(value = "/admin/seller/join")
     public String joinSeller() {
-        return "admin/member/joinAdmin";
+        return "admin/member/joinSeller";
     }
     /*개인 회원가입*/
     @GetMapping(value = "/member/join")
