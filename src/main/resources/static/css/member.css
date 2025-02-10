@@ -130,14 +130,14 @@
 
 
 /*반응형 쿼리문 START*/
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
     /* ruleset for 768px - 481px 태플릿*/
     /*로그인 페이지 모두 동일*/
     .memberWrap .memberInner{width:94%; max-height:94vh; overflow-y:auto; }
     .joinWrap01.memberWrap .memberInner{overflow-y:inherit; max-height:inherit;}
 }
 
-@media (max-width: 480px) {
+@media screen and (max-width: 480px) {
     /* ruleset for 480px 모바일*/
     /*로그인 페이지*/
     .memberWrap .memberInner{padding:30px 3vw; border-radius: 10px;}

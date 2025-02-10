@@ -1,0 +1,35 @@
+.productCont{background:var(--gray-bg2);}
+
+/*상품 목록 .list.html*/
+.productWrap{border-left:1px solid var(--gray-color); border-right:1px solid var(--gray-color); max-width: 640px; width:94vw; margin:66px auto 0; padding:0 20px; background:var(--white-color); box-shadow: var(--box-shadow);}
+.productWrap .productListBox{padding-top:40px; display: flex; justify-content: flex-start; align-items: flex-start; flex-wrap:wrap;}
+.productWrap .productListBox li{width:calc(50% - 5px); margin-right:10px; margin-bottom:40px;}
+.productWrap .productListBox li:nth-child(2n){margin-right:0;}
+.productWrap .productListBox li .imgBox{width:100%; height:0;padding-bottom:100%; position:relative;}
+.productWrap .productListBox li .imgBox img{position:absolute; top:0; left:0; width:100%; height: 100%; border-radius: 10px; border:1px solid var(--gray-color);}
+.productWrap .productListBox li .txtBox{margin-top:10px;}
+.productWrap .productListBox li .txtBox .tit{color:var(--bk-color); font-weight:700; font-size:18px; line-height: 1.3;}
+.productWrap .productListBox li .txtBox .priceBox{margin-top:10px; display: flex; justify-content: flex-start; align-items: center;}
+.productWrap .productListBox li .txtBox span{font-size:20px; font-weight:700;}
+.productWrap .productListBox li .txtBox .percent{color:var(--red-color);}
+.productWrap .productListBox li .txtBox .discount{color:var(--bk-color); margin:0 5px;}
+.productWrap .productListBox li .txtBox .price{font-size:15px; color:var(--small-color); font-weight:400; position:relative;}
+.productWrap .productListBox li .txtBox .price:after{content:''; display: block; width:calc(100% + 4px); height:1px; background:var(--small-color); position:absolute;top:50%; left:0; transform: translateY(-50%);}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
