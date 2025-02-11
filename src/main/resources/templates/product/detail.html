@@ -6,7 +6,149 @@
 
 <body class="productCont">
 <div layout:fragment="content" >
-    <div class="productWrap">
+    <div class="prodDetailWrap">
+        <div class="swiper prodImgSlide">
+            <ul class="swiper-wrapper" >
+                <li class="swiper-slide">
+                    <div class="imgBox">
+                        <img src="https://picsum.photos/800/800"/>
+                    </div>
+                </li>
+                <li class="swiper-slide">
+                    <div class="imgBox">
+                        <img src="https://picsum.photos/700/900"/>
+                    </div>
+                </li>
+                <li class="swiper-slide">
+                    <div class="imgBox">
+                        <img src="https://picsum.photos/900/700"/>
+                    </div>
+                </li>
+                <li class="swiper-slide">
+                    <div class="imgBox">
+                        <img src="https://picsum.photos/600/600"/>
+                    </div>
+                </li>
+            </ul>
+            <div class="swiper-pagination"></div>
+        </div>
+
+        <div class="prodDetailInner">
+            <div class="prodInfoWrap">
+                <p class="title">플로리드 레이어 블러셔</p>
+                <p class="prodTxt">상품정보 간단하게 설명이 들어갑니다.</p>
+                <!--
+                <p class="priceBox">
+                    <span class="percent">36%</span>
+                    <span class="discount">31,900원</span>
+                    <span class="price">50,000원</span>
+                </p>
+                -->
+                <ul class="info">
+                    <li>
+                        <p class="tit">정상가</p>
+                        <p class="txt"><span class="cost">50,000원</span></p>
+                    </li>
+                    <li class="discount">
+                        <p class="tit">판매가</p>
+                        <p class="txt"><span class="percent">36%</span> 31,900원</p>
+                    </li>
+                    <li>
+                        <p class="tit">국내·해외배송</p>
+                        <p class="txt">국내배송</p>
+                    </li>
+                    <li>
+                        <p class="tit">배송방법</p>
+                        <p class="txt">택배</p>
+                    </li>
+                    <li class="delivery">
+                        <p class="tit">배송비</p>
+                        <p class="txt"><span class="bold">2,500원</span><span class="detail">(20,000원 이상 구매 시 무료)</span></p>
+                    </li>
+                </ul>
+
+                <div class="optionList">
+                    <p class="tit">옵션</p>
+                    <select name="prodOpt" id="prodOpt">
+                        <option value="선택">[필수] 옵션을 선택해주세요.</option>
+                        <option value="01">선택 옵션01</option>
+                        <option value="02">선택 옵션02</option>
+                        <option value="03">선택 옵션03</option>
+                    </select>
+                </div>
+
+                <ul class="prodCntWrap">
+                    <li>
+                        <div class="leftBox">
+                            <p class="tit">플로리드 레이어 블러셔</p>
+                            <p class="option">선택 옵션01</p>
+                            <div class="countBox">
+                                <input type="number" value="1">
+                                <span class="plus">+</span>
+                                <span class="minus">-</span>
+                            </div>
+
+                        </div>
+                        <p class="price">31,900원 <a href="#" class="delectBtn">삭제</a></p>
+                    </li>
+                </ul>
+                <div class="totalPrice">
+                    <p class="tit">총 상품 금액</p>
+                    <p class="total">31,900원 <span class="count">(1개)</span></p>
+                </div>
+
+                <div class="buyWrap">
+                    <a href="/mypage/cart" class="cartBtn">장바구니 담기</a>
+                    <a href="/mypage/pay" class="payBtn">결제하기</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="prodContWrap">
+            <ul class="tabWrap">
+                <li><a href="#tab01" class="active">상품 상세정보</a></li>
+                <li><a href="#tab02">배송안내</a></li>
+                <li><a href="#tab03">교환 및 반품안내</a></li>
+            </ul>
+
+            <div id="tab01" class="tabCont active">
+                <img src="https://picsum.photos/800/300"/>
+                <img src="https://picsum.photos/800/1200"/>
+            </div>
+
+            <ul id="tab02" class="tabCont cont01">
+                <li>
+                    <p class="tit">배송안내</p>
+                    <p class="txt">
+                        - 20,000원 이상 구매 시 무료배송이며, 기본배송료는 2,500원 입니다. (도서, 산간, 오지 일부지역은 배송비가 추가될 수 있습니다)<br>
+                        - 본 상품의 평균 배송일은 결제완료 후 2일입니다. 배송예정일은 주문시점(주문순서)에 따른 유동성이 발생하므로 평균 배송일과는 차이가 발생할 수 있습니다.
+                    </p>
+                </li>
+            </ul>
+            <ul id="tab03" class="tabCont cont01">
+                <li>
+                    <p class="tit">교환 및 반품 안내</p>
+                    <p class="txt">
+                        - 상품 개봉으로 상품 가치 훼손 시에는 상품수령후 7일 이내라도 교환 및 반품이 불가능합니다.<br>
+                        - 저단가 상품, 일부 특가 상품은 고객 변심에 의한 교환, 반품은 고객께서 배송비를 부담하셔야 합니다(제품의 하자,배송오류는 제외)<br>
+                        - 일부 특가 상품의 경우, 인수 후에는 제품 하자나 오배송의 경우를 제외한 고객님의 단순변심에 의한 교환, 반품이 불가능할 수 있사오니, 각 상품의 상품상세정보를 꼭 참조하십시오.
+                    </p>
+                </li>
+                <li>
+                    <p class="tit">환불안내</p>
+                    <p class="txt">
+                        - 상품 청약철회 가능기간은 상품 수령일로 부터 7일 이내 입니다.
+                    </p>
+                </li>
+                <li>
+                    <p class="tit">AS안내</p>
+                    <p class="txt">
+                        - 소비자분쟁해결 기준(공정거래위원회 고시)에 따라 피해를 보상받을 수 있습니다.<br>
+                        - A/S는 판매자에게 문의하시기 바랍니다.
+                    </p>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
 </body>
