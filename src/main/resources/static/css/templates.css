@@ -2,13 +2,41 @@ img{width:100%;}
 
 /*헤더 영역header.html*/
 .headerWrap {width:100%; background:var(--gray-bg2);  }
+.mheaderWrap{display: none;}
 .headerWrap .headerInner{display: flex; justify-content: space-between; align-items: center; max-width:640px; width:100vw; margin:0 auto; height:66px; border:1px solid var(--gray-color);box-shadow: var(--box-shadow); border-top:none; padding:0 20px; position:fixed; z-index: 9999999; background:var(--white-color); top:0; left:50%; transform: translateX(-50%);}
-.headerWrap .headerInner .homeBtn{display: flex; justify-content: center; align-items: center; width:28px; height:100%; margin-right:80px;}
+.headerWrap .headerInner .leftIcon{display: flex; justify-content: flex-start; align-items: center; width:115px;}
+.headerWrap .headerInner .leftIcon a{display: flex; justify-content: center; align-items: center; width:28px; height:100%;}
+.headerWrap .headerInner .leftIcon .menuBtn{margin-right:10px;}
 .headerWrap .headerInner .title{font-size:20px; font-weight:700; color:var(--bk-color);}
 .headerWrap .headerInner .rightIcon{display: flex; justify-content: flex-end; align-items: center; width:120px;}
 .headerWrap .headerInner .rightIcon li {margin-left:10px;}
 .headerWrap .headerInner .rightIcon li a{display: flex; justify-content: center; align-items: center; width:28px; height:100%; position:relative;}
 .headerWrap .headerInner .rightIcon li a .count{display: flex; justify-content: center; align-items: center; width:15px; height:15px; font-size:11px; font-weight: 700; color:var(--white-color); background:var(--main-color2); position:absolute; bottom:10px; right:-5px; border-radius: 50%; letter-spacing: -0.5px;}
+
+
+
+/*메뉴*/
+.menuWrap{position:fixed; max-width:640px; width:100vw; height:100vh; top:0; left:50%; transform: translateX(-50%);z-index: 9999999;  display: none;}
+.menuWrap .bgB{position:absolute; top:0; left:0; width:100%; height:100%; background:var(--bg-opacity); z-index: 999999;}
+.menuWrap .menuBox{position:absolute; top:0; left:0; width:70%; height:100%; background:#fff; z-index: 9999998;}
+.menuWrap .menuBox .infoWrap{padding:0 20px 30px; border-bottom:10px solid var(--gray-bg2)}
+.menuWrap .menuBox .infoWrap .titBox{display: flex; justify-content: space-between; align-items: center; height:66px;}
+
+.menuWrap .menuBox .infoWrap .logoutInfo{display: none}
+.menuWrap .menuBox .infoWrap .loginInfo{display: block}
+
+.menuWrap .menuBox .infoWrap .loginInfo .titBox {align-items: flex-end;}
+.menuWrap .menuBox .infoWrap .titBox .tit{color:var(--bk-color); font-size:20px; font-weight:700; width:calc(100% - 60px); display: flex; flex-wrap:wrap;}
+.menuWrap .menuBox .infoWrap .titBox .tit span{display: block; width:100%; font-size:15px; color:var(--small-color); font-weight:400; margin-top:2px;}
+
+.menuWrap .menuBox .infoWrap .titBox .closeBtn{width:28px; height:66px; display: flex; justify-content: center; align-items: center;}
+.menuWrap .menuBox .infoWrap .titBox .closeBtn img{width:28px; height:28px;}
+.menuWrap .menuBox .infoWrap .btnWrap{display: flex; justify-content: space-between; align-items: center; margin-top:20px;}
+.menuWrap .menuBox .infoWrap .btnWrap a{display: flex; justify-content: center; align-items: center; width:calc(50% - 5px); border-radius: 5px; color:var(--main-color2); border:1px solid var(--main-color2); height:50px; font-weight:500; font-size:15px;}
+.menuWrap .menuBox .infoWrap .btnWrap a:nth-child(2){background:var(--main-color2); color:var(--white-color);}
+.menuWrap .menuBox .menuList{padding:15px 20px;}
+.menuWrap .menuBox .menuList li a{color:var(--bk-color); font-size:20px; font-weight:700; display:block; width:100%; padding:15px 0;}
+
 
 /*푸터 영역 footer.html*/
 .footerInner{max-width:640px; width:100vw; margin:0 auto; background:var(--gray-bg1); border:1px solid var(--gray-color); padding:20px; }
@@ -27,9 +55,22 @@ img{width:100%;}
     /* ruleset for 768px - 481px 태플릿*/
     .headerWrap .headerInner{padding:0 3vw; border-left:none; border-right:none;}
     .footerInner{padding:20px 3vw; border-left:none; border-right:none;}
+
 }
 
+@media screen and (max-width: 480px) {
+    /* ruleset for 768px - 481px 태플릿*/
+    .pcheaderWrap {display: none;}
+    .mheaderWrap{display: flex;}
 
+    .menuWrap .menuBox{width:85%;}
+    .menuWrap .menuBox .infoWrap{padding: 0 3vw 20px;}
+    .menuWrap .menuBox .infoWrap .titBox .tit{font-size:18px;}
+    .menuWrap .menuBox .infoWrap .titBox .tit span{font-size:14px;}
+    .menuWrap .menuBox .infoWrap .btnWrap a{height:40px; font-size:14px;}
+    .menuWrap .menuBox .menuList li a{font-size:18px;}
+
+}
 
 
 
