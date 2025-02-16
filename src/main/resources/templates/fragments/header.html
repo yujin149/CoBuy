@@ -8,7 +8,7 @@
                     <a href="#" class="menuBtn"><img th:src="@{/images/menuIcon.png}" alt="메뉴"></a>
                     <a href="/product" class="homeBtn"><img th:src="@{/images/homeIcon.png}" alt="홈으로 이동"></a>
                 </div>
-                <p class="title">상품 목록</p>
+                <p class="title" th:text="${pageTitle}">1depth 타이틀</p>
                 <ul class="rightIcon">
                     <li><a href="/mypage/profile"><img th:src="@{/images/mypageIcon.png}" alt="마이페이지"></a></li>
                     <li><a href="/cart"><img th:src="@{/images/cartIcon.png}" alt="장바구니"> <span class="count cartCnt">0</span></a></li>
@@ -22,7 +22,7 @@
                 <div class="leftIcon">
                     <a href="#" class="menuBtn"><img th:src="@{/images/menuIcon.png}" alt="메뉴"></a>
                 </div>
-                <p class="title">상품 목록</p>
+                <p class="title" th:text="${pageTitle}">1depth 타이틀</p>
                 <ul class="rightIcon">
                     <li><a href="/product" class="homeBtn"><img th:src="@{/images/homeIcon.png}" alt="홈으로 이동"></a></li>
                     <li><a href="#"><img th:src="@{/images/alarmIcon.png}" alt="알림"><span class="count alarmCnt">2</span></a></li>

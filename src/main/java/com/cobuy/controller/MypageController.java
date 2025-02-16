@@ -2,6 +2,7 @@ package com.cobuy.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
@@ -9,13 +10,29 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class MypageController {
     /*회원정보 수정 페이지*/
     @GetMapping(value = "/mypage/profile")
-    public String profile() {return "mypage/profile";}
+    public String profile(Model model) {
+        model.addAttribute("pageTitle", "회원정보 수정");
+        return "mypage/profile";
+    }
 
     /*장바구니*/
     @GetMapping(value = "/cart")
-    public String cart() {return "mypage/cart";}
+    public String cart(Model model) {
+        model.addAttribute("pageTitle", "장바구니");
+        return "mypage/cart";
+    }
 
-    /*장바구니*/
+    /*구매내역*/
     @GetMapping(value = "/order")
-    public String order() {return "mypage/order";}
+    public String order(Model model) {
+        model.addAttribute("pageTitle", "구매내역");
+        return "mypage/order";
+    }
+
+    /*결제하기*/
+    @GetMapping(value = "/pay")
+    public String pay(Model model) {
+        model.addAttribute("pageTitle", "결제하기");
+        return "mypage/pay";
+    }
 }
