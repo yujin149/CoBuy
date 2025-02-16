@@ -7,8 +7,104 @@
 </head>
 <body class="mypageCont">
 <div layout:fragment="content">
-    <div class="mypageWrap">
+    <div class="mypageWrap cartWrap">
+        <div class="allChkBox">
+            <label for="allChk">
+                <input type="checkbox" id="allChk">
+                <p class="tit">전체선택 <span class="pl">(</span><span class="chkCount">1</span> / <span class="total">12</span><span class="pl">)</span></p>
+            </label>
+            <a href="#" class="deleteBtn">선택 삭제</a>
+        </div>
+        <div class="mypageInner">
+            <div class="noneProd">
+                <p class="title">장바구니에 담긴 상품이 없어요</p>
+                <p class="txt">원하는 상품을 담아보세요</p>
 
+                <a href="/product" class="moreBtn">상품 보러 가기</a>
+            </div>
+            <ul class="cartList">
+                <li>
+                    <div class="list">
+                        <input type="checkbox" class="prodChk">
+                        <div class="prodInfoWrap">
+                            <div class="prodBox">
+                                <a href="/product/detail" class="prodImg">
+                                    <img src="https://picsum.photos/800/800"/>
+                                </a>
+                                <div class="txtBox">
+                                    <p class="tit">로우 플리츠 니트스커트</p>
+                                    <p class="option"><span>아이보리</span><span>FREE</span></p>
+                                    <div class="prodPrice">
+                                        <div class="countBox">
+                                            <input type="number" value="1" >
+                                            <span class="plus">+</span>
+                                            <span class="minus">-</span>
+                                        </div>
+                                        <div class="priceInfo">
+                                            <p class="oriPrice">60,000원</p>
+                                            <p class="price">43,000원</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list">
+                        <input type="checkbox" class="prodChk">
+                        <div class="prodInfoWrap">
+                            <div class="prodBox">
+                                <a href="/product/detail" class="prodImg">
+                                    <img src="https://picsum.photos/800/800"/>
+                                </a>
+                                <div class="txtBox">
+                                    <p class="tit">로우 플리츠 니트스커트</p>
+                                    <p class="option"><span>아이보리</span><span>FREE</span></p>
+                                    <div class="prodPrice">
+                                        <div class="countBox">
+                                            <input type="number" value="1" >
+                                            <span class="plus">+</span>
+                                            <span class="minus">-</span>
+                                        </div>
+                                        <div class="priceInfo">
+                                            <p class="oriPrice">60,000원</p>
+                                            <p class="price">43,000원</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="totalPrice">
+                        <span class="prod">상품 금액 43,000원</span>
+                        <span>+</span>
+                        <span class="fee">배송비 2,500원</span>
+                        <span>=</span>
+                        <span class="total">45,500원</span>
+                    </p>
+                    <a href="#" class="deleteBtn">삭제</a>
+                </li>
+
+            </ul>
+            <ul class="totalInfo">
+                <li>
+                    <p class="tit">총 상품 금액</p>
+                    <p class="txt">103,000원</p>
+                </li>
+                <li>
+                    <p class="tit">총 배송비</p>
+                    <p class="txt">2,500원</p>
+                </li>
+                <li class="total">
+                    <p class="tit">총 결제예상 금액</p>
+                    <p class="txt">105,500원</p>
+                </li>
+            </ul>
+        </div>
+        <div class="orderBtnWrap">
+            <a href="/order">총 <span class="price">105,500원</span> 구매하기</a>
+        </div>
     </div>
 </div>
 </body>

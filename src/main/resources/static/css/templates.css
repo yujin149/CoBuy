@@ -16,7 +16,7 @@ img{width:100%;}
 
 
 /*메뉴*/
-.menuWrap{position:fixed; max-width:640px; width:100vw; height:100vh; top:0; left:50%; transform: translateX(-50%);z-index: 9999999;  display: none;}
+.menuWrap{position:fixed; max-width:640px; width:100%; height:100vh; top:0; left:50%; transform: translateX(-50%);z-index: 9999999;  display: none;}
 .menuWrap .bgB{position:absolute; top:0; left:0; width:100%; height:100%; background:var(--bg-opacity); z-index: 999999;}
 .menuWrap .menuBox{position:absolute; top:0; left:0; width:70%; height:100%; background:#fff; z-index: 9999998;}
 .menuWrap .menuBox .infoWrap{padding:0 20px 30px; border-bottom:10px solid var(--gray-bg2)}
@@ -70,6 +70,10 @@ img{width:100%;}
     .menuWrap .menuBox .infoWrap .btnWrap a{height:40px; font-size:14px;}
     .menuWrap .menuBox .menuList li a{font-size:18px;}
 
+    .footerInner{padding:15px 3vw;}
+    .footerInner .footerMenu li a{font-size:13px;}
+    .footerInner .footerMenu li:after{height:9px;}
+    .footerInner .copyright{margin-top:5px; font-size:12px;}
 }
 
 
