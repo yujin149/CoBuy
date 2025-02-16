@@ -7,8 +7,116 @@
 </head>
 <body class="mypageCont">
 <div layout:fragment="content">
-    <div class="mypageWrap">
+    <div class="mypageWrap joinWrap">
+        <div class="titleWrap">
+            <p class="title">회원정보 수정</p>
 
+            <form action="/product">
+                <ul class="joinForm">
+                    <li class="list">
+                        <div class="titleBox">
+                            <p class="tit">아이디</p>
+                            <span class="star">*</span>
+                        </div>
+                        <div class="txtBox">
+                            <input type="text" value="user01" readonly>
+                        </div>
+                    </li>
+                    <li class="list">
+                        <div class="titleBox">
+                            <p class="tit">비밀번호</p>
+                            <span class="star">*</span>
+                            <span class="error">8 ~ 16자의 비밀번호를 입력해주세요. </span>
+                        </div>
+                        <div class="txtBox">
+                            <input type="password" placeholder="비밀번호 입력(8 ~ 16자)">
+                        </div>
+                    </li>
+                    <li class="list">
+                        <div class="titleBox">
+                            <p class="tit">비밀번호 확인</p>
+                            <span class="star">*</span>
+                            <span class="error">비밀번호가 일치하지 않습니다.</span>
+                        </div>
+                        <div class="txtBox">
+                            <input type="password" placeholder="비밀번호 확인">
+                        </div>
+                    </li>
+                    <li class="list">
+                        <div class="titleBox">
+                            <p class="tit">이름</p>
+                            <span class="star">*</span>
+                            <span class="error">이름을 입력해주세요.</span>
+                        </div>
+                        <div class="txtBox">
+                            <input type="text" placeholder="이름을 입력해주세요.">
+                        </div>
+                    </li>
+                    <li class="list list02">
+                        <div class="titleBox">
+                            <p class="tit">휴대폰 번호</p>
+                            <span class="star">*</span>
+                            <span class="error">이미 가입된 번호입니다.</span>
+                        </div>
+                        <div class="txtBox">
+                            <select name="phone01" id="phone01">
+                                <option value="010">010</option>
+                                <option value="011">011</option>
+                                <option value="016">016</option>
+                                <option value="017">017</option>
+                                <option value="018">018</option>
+                                <option value="019">019</option>
+                            </select>
+                            <span class="hyphen">-</span>
+                            <input type="text">
+                            <span class="hyphen">-</span>
+                            <input type="text">
+                        </div>
+                    </li>
+
+
+                    <li class="list">
+                        <div class="titleBox">
+                            <p class="tit">이메일</p>
+                            <span class="star">*</span>
+                            <span class="error">이미 가입된 이메일입니다.</span>
+                        </div>
+                        <div class="txtBox">
+                            <input type="text" placeholder="이메일을 입력해주세요.">
+                        </div>
+                    </li>
+                    <li class="list">
+                        <div class="titleBox">
+                            <p class="tit">생년월일</p>
+                        </div>
+                        <div class="txtBox">
+                            <input type="date">
+                        </div>
+                    </li>
+                    <li class="list list04">
+                        <div class="titleBox">
+                            <p class="tit">주소</p>
+                            <span class="star">*</span>
+                            <span class="error">주소를 입력해주세요.</span>
+                        </div>
+                        <div class="txtBox">
+                            <div class="txt01 txt">
+                                <input type="text" class="postcode" placeholder="우편번호" readonly>
+                                <a href="#" class="btn">우편번호 검색</a>
+                            </div>
+                            <input type="text" placeholder="주소" readonly>
+                            <div class="txt02 txt">
+                                <input type="text" placeholder="상세주소 입력">
+                                <input type="text" readonly>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="btnWrap">
+                    <button type="submit">회원정보 수정</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 </body>

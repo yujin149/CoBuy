@@ -1,0 +1,20 @@
+.mypageCont{background:var(--gray-bg2);}
+.mypageWrap{padding:40px 20px; margin:66px auto 0; border-left:1px solid var(--gray-color); border-right: 1px solid var(--gray-color); max-width: 640px; background:var(--white-color); box-shadow: var(--box-shadow); }
+.mypageWrap .titleWrap .title{font-size:20px; font-weight:700; color:var(--bk-color);}
+.mypageWrap .titleWrap .title{font-size:20px; font-weight:700; color:var(--bk-color);}
+
+/*회원정보수정*/
+.mypageWrap .joinForm .list input:read-only{background:var(--gray-bg1);}
+
+
+/*반응형 쿼리문 START*/
+@media screen and (max-width: 768px) {
+    /* ruleset for 768px - 481px 태플릿*/
+    .mypageWrap{padding:40px 3vw; border:none;}
+
+}
+
+@media screen and (max-width: 480px) {
+    .mypageWrap{padding:26px 3vw;}
+    .mypageWrap .titleWrap .title{font-size:18px;}
+}
