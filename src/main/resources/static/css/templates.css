@@ -39,7 +39,7 @@ img{width:100%;}
 
 
 /*푸터 영역 footer.html*/
-.footerInner{max-width:640px; width:100vw; margin:0 auto; background:var(--gray-bg1); border:1px solid var(--gray-color); padding:20px; }
+.footerInner{max-width:640px; width:100%; margin:0 auto; background:var(--gray-bg1); border:1px solid var(--gray-color); padding:20px; }
 .footerInner .footerMenu{display: flex; justify-content: center; align-items: center;}
 .footerInner .footerMenu li{position:relative; padding:0 12px;}
 .footerInner .footerMenu li:after{content:''; display: block; width:1px; height:10px; background:var(--gray-color); position:absolute; top:50%; right:0; transform: translateY(-50%);}

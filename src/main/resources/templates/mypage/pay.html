@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html
+    layout:decorate="~{layouts/userLayout}"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title>주문/결제</title>
+</head>
+<body class="mypageCont">
+<div layout:fragment="content">
+
+    <div class="mypageWrap cartWrap payWrap">
+        <div class="mypageInner">
+            <div class="payList payInfo">
+                <p class="title">주문자 정보</p>
+                <ul>
+                    <li class="list">
+                        <div class="titBox">
+                            <p class="tit">이름</p>
+                            <span class="error">이름을 입력해주세요.</span>
+                        </div>
+                        <div class="txtBox">
+                            <input placeholder="이름을 입력해주세요." type="text">
+                        </div>
+                    </li>
+                    <li class="list list02">
+                        <div class="titBox">
+                            <p class="tit">휴대폰 번호</p>
+                            <span class="error">휴대폰 번호를 입력해주세요.</span>
+                        </div>
+                        <div class="txtBox">
+                            <select name="phone01">
+                                <option value="010">010</option>
+                                <option value="011">011</option>
+                                <option value="016">016</option>
+                                <option value="017">017</option>
+                                <option value="018">018</option>
+                                <option value="019">019</option>
+                            </select>
+                            <span class="hyphen">-</span>
+                            <input name="phone02" type="text">
+                            <span class="hyphen">-</span>
+                            <input name="phone03" type="text">
+                        </div>
+                    </li>
+                    <li class="list">
+                        <div class="titBox">
+                            <p class="tit">이메일</p>
+                            <span class="error">이메일을 입력해주세요.</span>
+                        </div>
+                        <div class="txtBox">
+                            <input placeholder="이메일을 입력해주세요." type="text">
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="payList receiveInfo">
+                <p class="title">배송지 정보</p>
+                <div class="selectInfo">
+                    <label for="sameInfo">
+                        <input id="sameInfo" name="info" type="radio">
+                        <span>주문자와 동일</span>
+                    </label>
+                    <label for="inputInfo">
+                        <input checked id="inputInfo" name="info" type="radio">
+                        <span>직접입력</span>
+                    </label>
+                </div>
+                <ul>
+                    <li class="list">
+                        <div class="titBox">
+                            <p class="tit">받는 분</p>
+                            <span class="error">받는 분 성함을 입력해주세요.</span>
+                        </div>
+                        <div class="txtBox">
+                            <input placeholder="받는 분 성함을 입력해주세요." type="text">
+                        </div>
+                    </li>
+                    <li class="list list02">
+                        <div class="titBox">
+                            <p class="tit">휴대폰 번호</p>
+                            <span class="error">휴대폰 번호를 입력해주세요.</span>
+                        </div>
+                        <div class="txtBox">
+                            <select name="receivePhone01">
+                                <option value="010">010</option>
+                                <option value="011">011</option>
+                                <option value="016">016</option>
+                                <option value="017">017</option>
+                                <option value="018">018</option>
+                                <option value="019">019</option>
+                            </select>
+                            <span class="hyphen">-</span>
+                            <input name="receivePhone02" type="text">
+                            <span class="hyphen">-</span>
+                            <input name="receivePhone03" type="text">
+                        </div>
+                    </li>
+                    <li class="list list03">
+                        <div class="titBox">
+                            <p class="tit">주소</p>
+                            <span class="error">주소를 입력해주세요.</span>
+                        </div>
+                        <div class="txtBox">
+                            <div class="txt01 txt">
+                                <input class="postcode" placeholder="우편번호" readonly type="text">
+                                <a class="btn" href="#">우편번호 검색</a>
+                            </div>
+                            <input placeholder="주소" readonly type="text">
+                            <div class="txt02 txt">
+                                <input placeholder="상세주소 입력" type="text">
+                                <input readonly type="text">
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list">
+                        <div class="titBox">
+                            <p class="tit">배송 시 요청사항</p>
+                        </div>
+                        <div class="txtBox">
+                            <input type="text">
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="payList prodList">
+                <p class="title">주문상품 정보</p>
+
+                <ul>
+                    <li class="list">
+                        <a class="prodImg" href="/product/detail">
+                            <img src="https://picsum.photos/800/800"/>
+                        </a>
+                        <div class="txtBox">
+                            <p class="tit">로우 플리츠 니트스커트</p>
+                            <p class="option"><span>아이보리</span><span>FREE</span><span>1개</span></p>
+                            <p>배송비 <span>2,500원</span></p>
+                            <p class="totalPrice"><span class="oriPrice">60,000원</span><span class="price">45,500원</span></p>
+                        </div>
+                    </li>
+                    <li class="list">
+                        <a class="prodImg" href="/product/detail">
+                            <img src="https://picsum.photos/800/800"/>
+                        </a>
+                        <div class="txtBox">
+                            <p class="tit">로우 플리츠 니트스커트</p>
+                            <p class="option"><span>아이보리</span><span>FREE</span><span>1개</span></p>
+                            <p>배송비 <span>2,500원</span></p>
+                            <p class="totalPrice"><span class="oriPrice">60,000원</span><span class="price">45,500원</span></p>
+                        </div>
+                    </li>
+                    <li class="list">
+                        <a class="prodImg" href="/product/detail">
+                            <img src="https://picsum.photos/800/800"/>
+                        </a>
+                        <div class="txtBox">
+                            <p class="tit">로우 플리츠 니트스커트</p>
+                            <p class="option"><span>아이보리</span><span>FREE</span><span>1개</span></p>
+                            <p>배송비 <span>2,500원</span></p>
+                            <p class="totalPrice"><span class="oriPrice">60,000원</span><span class="price">45,500원</span></p>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+
+            <div class="payList totalProd">
+                <p class="title">결제 정보</p>
+                <ul>
+                    <li>
+                        <p class="tit">주문상품</p>
+                        <p class="txt">180,000원</p>
+                    </li>
+                    <li>
+                        <p class="tit">배송비</p>
+                        <p class="txt">7,500원</p>
+                    </li>
+                    <li>
+                        <p class="tit">할인</p>
+                        <p class="txt discount">-51,000원</p>
+                    </li>
+                    <li class="total">
+                        <p class="tit">최종 결제 금액</p>
+                        <p class="txt">136,500원</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="orderBtnWrap">
+            <a href="/pay">총 <span class="price">136,500원</span> 구매하기</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

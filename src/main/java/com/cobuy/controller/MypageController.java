@@ -32,7 +32,7 @@ public class MypageController {
     /*결제하기*/
     @GetMapping(value = "/pay")
     public String pay(Model model) {
-        model.addAttribute("pageTitle", "결제하기");
+        model.addAttribute("pageTitle", "주문/결제");
         return "mypage/pay";
     }
 }

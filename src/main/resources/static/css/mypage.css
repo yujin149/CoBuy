@@ -26,7 +26,7 @@
 .cartWrap .cartList li .prodInfoWrap .prodBox{ display: flex; justify-content: space-between; align-items: flex-start; width:100%; }
 
 .cartWrap .cartList li .prodInfoWrap .prodBox .prodImg{width:100px; height:100px; position:relative;}
-.cartWrap .cartList li .prodInfoWrap .prodBox .prodImg img{width:100%; height:100%; position:absolute; top:50%; left:50%; transform: translate(-50%, -50%); object-fit: contain; border-radius: 10px; border:1px solid var(--gray-color);}
+.cartWrap .cartList li .prodInfoWrap .prodBox .prodImg img{width:100%; height:100%; position:absolute; top:50%; left:50%; transform: translate(-50%, -50%); object-fit: cover; border-radius: 10px; border:1px solid var(--gray-color);}
 .cartWrap .cartList li .prodInfoWrap .prodBox .txtBox{width:calc(100% - 100px); padding:10px;}
 .cartWrap .cartList li .prodInfoWrap .prodBox .txtBox .tit{font-size:16px; font-weight:700; color:var(--bk-color); padding-right:30px;}
 
@@ -60,13 +60,13 @@
 
 .cartWrap .totalInfo{background:var(--white-color); padding:30px 20px; border-radius: 10px;}
 .cartWrap .totalInfo li{width:100%; display: flex;justify-content: space-between; align-items: center; margin-bottom:15px;}
-.cartWrap .totalInfo li p{color:var(--small-color); font-size:15px; font-weight:500;}
-.cartWrap .totalInfo li .txt{color:var(--bk-color);}
+.cartWrap .totalInfo li p{color:var(--small-color); font-size:15px;}
+.cartWrap .totalInfo li .txt{color:var(--bk-color); font-weight:500;}
 .cartWrap .totalInfo li.total{margin-bottom:0;}
 .cartWrap .totalInfo li.total p{color:var(--bk-color); font-size:18px; font-weight:700;}
 .cartWrap .totalInfo li.total .txt{color:var(--main-color2);}
 
-.cartWrap .orderBtnWrap{position: fixed; bottom:0; left:50%; transform: translateX(-50%); width:100vw; height:85px; max-width: 640px; padding:15px 20px; background: var(--white-color); z-index: 999999; border:1px solid var(--gray-color);border-bottom:none;}
+.cartWrap .orderBtnWrap{position: fixed; bottom:0; left:50%; transform: translateX(-50%); width:100%; height:85px; max-width: 640px; padding:15px 20px; background: var(--white-color); z-index: 999999; border:1px solid var(--gray-color);border-bottom:none;}
 .cartWrap .orderBtnWrap a{background:var(--main-color2); display: flex; justify-content: center;align-items: center; border-radius: 10px; height:55px; color:var(--white-color); font-weight:700;}
 .cartWrap .orderBtnWrap a span{ color:var(--white-color); font-weight:700; display: block; margin:0 5px;}
 
@@ -76,6 +76,92 @@
 .cartWrap .noneProd .title{color:var(--bk-color);font-weight:700;}
 .cartWrap .noneProd .txt{color:var(--small-color); font-size:14px;margin-top:5px;}
 .cartWrap .noneProd .moreBtn{font-size:14px; margin-top:20px; width:120px;height:35px; border-radius: 30px; background:var(--main-color2); color:var(--white-color); font-weight:700; display: flex; justify-content: center;align-items: center;}
+
+
+
+/*주문 결제*/
+.payWrap .payList{background:var(--white-color); border-radius: 10px; padding:20px;}
+.payWrap .payList .title{font-size:17px; font-weight:700; color:var(--bk-color);}
+.payWrap .payList li{margin-top:30px;}
+.payWrap .payList li .titBox{display: flex;justify-content: flex-start; align-items: center;}
+.payWrap .payList li .tit{font-size:15px; font-weight:700; color:var(--bk-color);}
+.payWrap .payList li .error{color:var(--red-color); font-size:13px; margin-left:5px;}
+.payWrap .payList li .txtBox{display: flex; justify-content: space-between; align-items: center; margin-top:5px;}
+.payWrap .payList li .txtBox input{width:100%;height:45px;}
+.payWrap .payList li.list02 .txtBox select{width:30%; height:45px; border-radius: 10px; border:1px solid var(--gray-color); padding:0 10px; outline: none; cursor: pointer;}
+.payWrap .payList li.list02 .txtBox input{width: 30%;}
+
+.payWrap .receiveInfo{margin-top:10px;}
+.payWrap .receiveInfo .selectInfo{margin-top:30px; display: flex;justify-content: flex-start;align-items: center;}
+.payWrap .receiveInfo .selectInfo label{display: flex;justify-content: flex-start;align-items: center;}
+.payWrap .receiveInfo .selectInfo label:first-child{margin-right:30px;}
+.payWrap .receiveInfo .selectInfo label input{margin-right:5px; width:15px; height:15px;}
+.payWrap .receiveInfo .selectInfo label span{font-size:15px; display: block; vertical-align: middle; margin-top:1px; color:var(--bk-color);}
+
+.payWrap .payList li.list03 .txtBox{flex-wrap: wrap;}
+.payWrap .payList li.list03 .txtBox input:read-only{background:var(--gray-bg1)}
+.payWrap .payList li.list03 .txtBox .txt{display: flex; justify-content: space-between; align-items: center; width:100%;}
+.payWrap .payList li.list03 .txtBox .txt01 input{width:calc(100% - 130px);}
+.payWrap .payList li.list03 .txtBox .txt01 .btn{width:120px; height:45px; display: flex; justify-content: center; align-items: center; border-radius: 10px; background:var(--bk-color); color:var(--white-color); font-size:15px; font-weight:700;}
+.payWrap .payList li.list03 .txtBox > input{margin:5px 0;}
+.payWrap .payList li.list03 .txtBox .txt02 input:first-child{margin-right:10px;}
+
+.payWrap .prodList{margin-top:10px;}
+.payWrap .prodList .list{display: flex; justify-content: space-between; align-items: flex-start; border-top:1px solid var(--gray-color); margin-top:15px; padding-top:15px;}
+.payWrap .prodList .list:first-child{border-top:none; }
+.payWrap .prodList .list .prodImg{display: block; width:120px; height:120px; position:relative;}
+.payWrap .prodList .list .prodImg img{width:100%; height:100%; position:absolute;top:50%; left:50%; transform: translate(-50%, -50%);object-fit: cover; border-radius: 10px; border:1px solid var(--gray-color);}
+.payWrap .prodList .list .txtBox{width:calc(100% - 140px);display: block; }
+.payWrap .prodList .list .txtBox p{width:100%; font-size:14px; font-weight:500; color:var(--small-color); margin-bottom:3px;}
+.payWrap .prodList .list .txtBox p span{font-size:14px;color:var(--small-color);}
+.payWrap .prodList .list .txtBox .tit{font-size:16px; font-weight:700; color:var(--bk-color);}
+.payWrap .prodList .list .txtBox .option span{margin-right:8px; padding-right:8px; position:relative; }
+.payWrap .prodList .list .txtBox .option span:after{content:''; display: block; width:1px; height:10px; background:var(--gray-color); position:absolute; top:50%; right:0; transform: translateY(-50%);}
+.payWrap .prodList .list .txtBox .option span:last-child{margin-right:0; padding-right:0;}
+.payWrap .prodList .list .txtBox .option span:last-child:after{display: none;}
+.payWrap .prodList .list .txtBox .totalPrice {display: flex; justify-content: flex-start; align-items: center; margin-top:20px; }
+.payWrap .prodList .list .txtBox .totalPrice .oriPrice{color:var(--small-color); font-size:14px; margin-right:8px; position:relative;}
+.payWrap .prodList .list .txtBox .totalPrice .oriPrice:after{content:'';display: block; width:calc(100% + 2px);height:1px; background:var(--small-color); position:absolute; top:50%; left:-1px; transform: translateY(-50%);}
+.payWrap .prodList .list .txtBox .totalPrice .price{color:var(--bk-color); font-weight:700; font-size:16px;}
+
+
+.payWrap .totalProd{margin-top:10px;}
+.payWrap .totalProd li{display: flex; justify-content: space-between; align-items: center; margin-top:15px;}
+.payWrap .totalProd li:first-child{margin-top:30px;}
+.payWrap .totalProd li p{font-size:15px; color:var(--bk-color); font-weight:500;}
+.payWrap .totalProd li .tit{font-weight:400; color:var(--small-color);}
+.payWrap .totalProd li .discount{color:var(--red-color);}
+.payWrap .totalProd li.total{padding-top:15px; border-top:1px solid
+    var(--gray-color);}
+.payWrap .totalProd li.total .tit{color:var(--bk-color); font-size:18px; font-weight:700;}
+.payWrap .totalProd li.total .txt{color:var(--main-color2); font-size:18px; font-weight:700;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /*반응형 쿼리문 START*/
@@ -132,4 +218,40 @@
 
     .cartWrap .orderBtnWrap{padding:10px 3vw; height:66px;}
     .cartWrap .orderBtnWrap a{height:45px; border-radius: 5px; font-size:14px;}
+
+
+
+    /*주문 결제*/
+    .payWrap .payList .title{font-size:16px;}
+    .payWrap .payList li{margin-top:20px;}
+    .payWrap .payList li .tit{font-size:14px;}
+    .payWrap .payList li.list02 .txtBox select{font-size:14px; border-radius: 5px;}
+    .payWrap .receiveInfo .selectInfo{margin-top:20px;}
+    .payWrap .receiveInfo .selectInfo label input{width:14px; height:14px;}
+    .payWrap .receiveInfo .selectInfo label span{font-size:14px;}
+
+    .payWrap .payList li.list03 .txtBox .txt01 .btn{font-size:14px; border-radius: 5px;}
+
+    .payWrap .prodList .list{margin-top:10px; padding-top:10px;}
+    .payWrap .prodList .list .prodImg{width:95px; height:95px;}
+    .payWrap .prodList .list .txtBox{width: calc(100% - 105px);}
+    .payWrap .prodList .list .txtBox .tit{font-size:15px;}
+    .payWrap .prodList .list .txtBox p{font-size:13px;}
+    .payWrap .prodList .list .txtBox p span{font-size:13px;}
+
+    .payWrap .prodList .list .txtBox .totalPrice{margin-top:10px;}
+    .payWrap .prodList .list .txtBox .totalPrice .oriPrice{font-size:13px;}
+    .payWrap .prodList .list .txtBox .totalPrice .price{font-size:15px;}
+
+    .payWrap .payList li{margin-top:15px;}
+    .payWrap .totalProd li:first-child{margin-top:20px;}
+    .payWrap .totalProd li p{font-size:13px;}
+    .payWrap .payList li .tit{font-size:13px;}
+    .payWrap .totalProd li.total .tit{font-size:15px;}
+    .payWrap .totalProd li.total .txt{font-size:15px;}
+
+
+
+
+
 }
