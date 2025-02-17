@@ -136,29 +136,32 @@
 .payWrap .totalProd li.total .tit{color:var(--bk-color); font-size:18px; font-weight:700;}
 .payWrap .totalProd li.total .txt{color:var(--main-color2); font-size:18px; font-weight:700;}
 
+/* 주문내역 */
+.orderWrap .orderList li{margin-top:30px;}
+.orderWrap .orderList li:first-child{margin-top:0px;}
+.orderWrap .orderList .titleBox{display: flex; justify-content: space-between; align-items: flex-end; margin-bottom:10px;}
+.orderWrap .orderList .titleBox .tit{display: flex; justify-content: flex-start; align-items: center; color:var(--bk-color); font-size:15px; font-weight:500;}
+.orderWrap .orderList .titleBox .info{font-size:14px; height:30px; border-radius: 40px; width:80px; border:1px solid var(--green-color); display: flex; justify-content: center; align-items: center; color:var(--green-color); font-weight:600;}
+.orderWrap .orderList .titleBox .info02{color:var(--red-color); border-color:var(--red-color);}
 
+.orderWrap .orderList .prodInfo{display: flex; justify-content: space-between; align-items: flex-start; background:var(--white-color); padding:20px; border-top:1px dashed var(--gray-color);}
+.orderWrap .orderList .prodInfo:nth-child(2){border-radius: 10px 10px 0 0; border-top:none;}
+.orderWrap .orderList .prodInfo .prodImg{display: block; width:100px; height:100px; position:relative; }
+.orderWrap .orderList .prodInfo .prodImg img{width:100%; height:100%; object-fit: cover; position:absolute; top:50%; left:50%; transform: translate(-50%, -50%); border-radius: 10px; border:1px solid var(--gray-color);}
+.orderWrap .orderList .prodInfo .txtBox{width:calc(100% - 120px); margin-top:10px;}
+.orderWrap .orderList .prodInfo .txtBox .tit{font-size:16px; font-weight:700; color:var(--bk-color);}
+.orderWrap .orderList .prodInfo .txtBox p{width:100%; font-size:14px; font-weight:500; color:var(--small-color); margin-bottom:3px;}
+.orderWrap .orderList .prodInfo .txtBox p span{font-size:14px; color:var(--small-color); }
+.orderWrap .orderList .prodInfo .txtBox .option span{margin-right:8px; padding-right:8px; position:relative;}
+.orderWrap .orderList .prodInfo .txtBox .option span:after{content:''; display: block; width:1px; height:10px; background: var(--gray-color); position:absolute; top:50%; right:0; transform: translateY(-50%);}
+.orderWrap .orderList .prodInfo .txtBox .option span:last-child{padding-right:0; margin-right:0;}
+.orderWrap .orderList .prodInfo .txtBox .option span:last-child:after{display: none;}
+.orderWrap .orderList .prodInfo .txtBox .price {font-size:16px; font-weight:700; color:var(--bk-color); margin-top:20px;}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.orderWrap .orderList .totalInfo{border-radius: 0 0 10px 10px; padding:10px 20px; border-top:1px solid var(--gray-color); display: flex; justify-content: flex-end;}
+.orderWrap .orderList .totalInfo a{display: flex; justify-content: center; align-items: center; height:35px; border-radius: 35px; font-size:14px; border:1px solid var(--gray-color); padding:0 20px; font-weight:500; margin-right:10px;}
+.orderWrap .orderList .totalInfo a:last-child{margin-right:0;}
+.orderWrap .orderList .totalInfo a.noneBtn{border-color:var(--red-color); color:var(--red-color);}
 
 
 
@@ -234,6 +237,7 @@
 
     .payWrap .prodList .list{margin-top:10px; padding-top:10px;}
     .payWrap .prodList .list .prodImg{width:95px; height:95px;}
+    .payWrap .prodList .list .prodImg img{border-radius: 5px;}
     .payWrap .prodList .list .txtBox{width: calc(100% - 105px);}
     .payWrap .prodList .list .txtBox .tit{font-size:15px;}
     .payWrap .prodList .list .txtBox p{font-size:13px;}
@@ -251,7 +255,37 @@
     .payWrap .totalProd li.total .txt{font-size:15px;}
 
 
+    /*주문내역*/
+    .orderWrap .orderList .titleBox .tit{font-size:14px;}
+    .orderWrap .orderList .titleBox .info{font-size:13px; height:24px; border-radius: 24px; width:70px;}
+    .orderWrap .orderList .prodInfo{ padding:3vw;}
+    .orderWrap .orderList .prodInfo:nth-child(2){border-radius: 5px 5px 0 0;}
+    .orderWrap .orderList .totalInfo{border-radius: 0 0 5px 5px;}
+    .orderWrap .orderList .prodInfo .prodImg {width:80px; height:80px;}
+    .orderWrap .orderList .prodInfo .prodImg img{ border-radius: 5px;}
+    .orderWrap .orderList .prodInfo .txtBox{width:calc(100% - 90px); margin-top:5px;}
+    .orderWrap .orderList .prodInfo .txtBox .tit{font-size:14px;}
+    .orderWrap .orderList .prodInfo .txtBox p span{font-size:13px;}
+    .orderWrap .orderList .prodInfo .txtBox .price{margin-top:10px; font-size:15px;}
+
+    .orderWrap .orderList .totalInfo a{height:28px; font-size:13px;}
+
+
+
 
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

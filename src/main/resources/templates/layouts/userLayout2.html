@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CoBuy</title>
+
+    <!-- 공통 css 영역 -->
+    <th:block th:replace="fragments/css :: css"></th:block>
+</head>
+<body>
+<!-- 헤더 영역 -->
+<th:block th:replace="fragments/header :: header"></th:block>
+
+<!-- 본문 영역 -->
+<div layout:fragment="content">
+</div>
+
+<!-- 푸터 영역 -->
+<!--<th:block th:replace="fragments/footer :: footer"></th:block>-->
+<!--스크립트-->
+<th:block th:replace="fragments/script :: script"></th:block>
+</body>
+</html>

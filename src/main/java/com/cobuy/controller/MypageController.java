@@ -25,7 +25,7 @@ public class MypageController {
     /*구매내역*/
     @GetMapping(value = "/order")
     public String order(Model model) {
-        model.addAttribute("pageTitle", "구매내역");
+        model.addAttribute("pageTitle", "주문내역");
         return "mypage/order";
     }
 
