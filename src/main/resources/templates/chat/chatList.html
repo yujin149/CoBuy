@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html
+    layout:decorate="~{layouts/userLayout2}"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title>채팅 문의</title>
+</head>
+<body class="chatCont">
+<div layout:fragment="content">
+    <div class="chatWrap">
+        <ul class="chatList">
+            <li>
+                <a href="/chat">
+                    <div class="titleWrap">
+                        <p class="tit">
+                            <span class="name">인플루언서 닉네임</span>
+                            <span class="date">2025-02-17 11:24</span>
+                        </p>
+                        <span class="noti" th:text="${noti}">0</span>
+                    </div>
+                    <p class="txt">안녕하세요. 여기는 마지막으로 보낸 채팅 메세지 내용이 보여집니다. 안녕하세요. 여기는 마지막으로 보낸 채팅 메세지 내용이 보여집니다.</p>
+                </a>
+            </li>
+            <li>
+                <a href="/chat">
+                    <div class="titleWrap">
+                        <p class="tit">
+                            <span class="name">인플루언서 닉네임</span>
+                            <span class="date">2025-02-17 11:24</span>
+                        </p>
+                        <span class="noti">82</span>
+                    </div>
+                    <p class="txt">안녕하세요. 여기는 마지막으로 보낸 채팅 메세지 내용이 보여집니다.</p>
+                </a>
+            </li>
+            <li>
+                <a href="/chat">
+                    <div class="titleWrap">
+                        <p class="tit">
+                            <span class="name">인플루언서 닉네임</span>
+                            <span class="date">2025-02-17 11:24</span>
+                        </p>
+                        <span class="noti" >1</span>
+                    </div>
+                    <p class="txt">안녕하세요. 여기는 마지막으로 보낸 채팅 메세지 내용이 보여집니다.</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>

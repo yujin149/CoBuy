@@ -1,14 +1,49 @@
 <!DOCTYPE html>
 <html
-    layout:decorate="~{layouts/userLoginLayout}"
+    layout:decorate="~{layouts/userLayout2}"
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-    <title>채팅 메세지</title>
+    <title>채팅 문의</title>
 </head>
 <body class="chatCont">
 <div layout:fragment="content">
-    <div class="chatWrap">
+    <div class="chatWrap chatMessage">
+        <div class="contents">
+            <div class="yourChat chat">
+                <p class="name">인플루언서 닉네임</p>
+                <p class="txt">안녕하세요. 채팅 메세지입니다.</p>
+                <span class="date">오전 11:24</span>
+            </div>
+            <div class="myChat chat">
+                <p class="txt">안녕하세요. 채팅 메세지입니다.안녕하세요. 채팅 메세지입니다.안녕하세요. 채팅 메세지입니다.안녕하세요. 채팅 메세지입니다.안녕하세요. 채팅 메세지입니다.안녕하세요. 채팅 메세지입니다.안녕하세요. 채팅 메세지입니다.안녕하세요. 채팅 메세지입니다.안녕하세요. 채팅 메세지입니다.안녕하세요. 채팅 메세지입니다.</p>
+                <span class="date">오전 11:24</span>
+            </div>
+            <div class="yourChat chat">
+                <p class="name">인플루언서 닉네임</p>
+                <p class="txt">안녕하세요. 채팅 메세지입니다.
+                안녕하세요.
+                안녕하세요.</p>
+                <span class="date">오전 11:24</span>
+            </div>
+            <div class="myChat chat">
+                <p class="txt">안녕하세요. 채팅 메세지입니다.</p>
+                <span class="date">오전 11:24</span>
+            </div>
+            <div class="yourChat chat">
+                <p class="name">인플루언서 닉네임</p>
+                <p class="txt">안녕하세요. 채팅 메세지입니다.</p>
+                <span class="date">오전 11:24</span>
+            </div>
+            <div class="myChat chat">
+                <p class="txt">안녕하세요. 채팅 메세지입니다.</p>
+                <span class="date">오전 11:24</span>
+            </div>
+        </div>
+        <div class="sendChat">
+            <textarea placeholder="메세지를 입력하세요."></textarea>
+            <a href="#" class="sendBtn">전송</a>
 
+        </div>
     </div>
 </div>
 </body>
