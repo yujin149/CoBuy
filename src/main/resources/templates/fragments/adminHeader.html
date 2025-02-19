@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="adminHeader">
+    <div class="adminHeaderWrap">
+        <h1 class="logo"><a href="/admin/order"><!--<img src="https://picsum.photos/200/60"/>-->LOGO CoBuy</a></h1>
+        <div class="loginInfo">
+            <div class="infoBox">
+                <p class="adminId">admin01</p>
+                <p class="role">ADMIN</p>
+            </div>
+            <a href="javascript:void(0);" class="loginBtn"></a>
+            <ul class="loginMenu">
+                <li><a href="/admin/profile">회원정보수정</a></li>
+                <li><a href="/">로그아웃</a></li>
+            </ul>
+        </div>
+
+    </div>
+
+</div>
+</body>
+</html>

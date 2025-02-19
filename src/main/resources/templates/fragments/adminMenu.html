@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="adminMenu">
+    <div class="adminMenuWrap">
+        <ul class="menuWrap">
+            <li>
+                <a href="#">회원정보 관리</a>
+                <ul class="depth2">
+                    <li><a href="#">업체 관리</a></li>
+                    <li><a href="#">인플루언서 관리</a></li>
+                    <li><a href="#">회원 관리</a></li>
+                    <li><a href="#">메세지 관리</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">주문 내역 관리</a>
+                <ul class="depth2">
+                    <li><a href="#">판매현황</a></li> <!--업체-->
+                    <li><a href="#">판매현황</a></li> <!--인플루언서-->
+                    <li><a href="#">주문내역확인</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">상품관리</a>
+                <ul class="depth2">
+                    <li><a href="#">상품리스트</a></li>
+                    <li><a href="#">상품등록</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">환경설정</a>
+            </li>
+        </ul>
+    </div>
+
+</div>
+</body>
+</html>
