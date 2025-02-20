@@ -1,0 +1,36 @@
+/*회원정보수정 profile.html*/
+.adminProfileWrap table td input{width:100%;}
+.adminProfileWrap table td .txtBox{display: flex; justify-content: flex-start; align-items: flex-start; flex-wrap: wrap; flex-direction: column;}
+.adminProfileWrap table td .txtBox .error{font-size:14px; color:var(--red-color); margin:5px 0;}
+.adminProfileWrap table td .txtBox .phoneBox{width:100%; display: flex; justify-content: flex-start; align-items: center;}
+.adminProfileWrap table td .txtBox select{height:45px; border-radius: 5px; border:1px solid var(--gray-color); outline: none; padding: 0 10px; width: 30%; font-size:15px; max-width: 200px; cursor: pointer;}
+
+.adminProfileWrap table td .txtBox .phoneBox input{width:30%;  max-width: 180px;}
+.adminProfileWrap table td .txtBox .phoneBox span{padding:0 5px; font-size:15px;}
+.adminProfileWrap table td input[type = "date"]{width:100%; max-width: 400px; border:1px solid var(--gray-color);border-radius: 5px; height:45px; padding: 0 10px; color:var(--text-color); font-size:15px;}
+.adminProfileWrap table td .txtBox .addressBox{width:100%;}
+.adminProfileWrap table td .txtBox .addressBox .txt{display: flex; justify-content: space-between; align-items: center;}
+.adminProfileWrap table td .txtBox .addressBox .txt input{width:200px;}
+.adminProfileWrap table td .txtBox .addressBox .txt a{width:200px; display: flex; justify-content: center; align-items: center; background:var(--bk-color); color:var(--white-color); font-size:15px; font-weight:700; height:45px; border-radius: 5px;}
+.adminProfileWrap table td .txtBox .addressBox input:first-child{width:calc(100% - 210px);}
+
+.adminProfileWrap table td .txtBox .addressBox > input{margin:5px 0;}
+
+.adminProfileWrap .btnWrap{display: flex; justify-content: flex-end; align-items: center;}
+.adminProfileWrap .btnWrap button{width:200px; height:50px; border-radius: 5px; background:var(--bk-color); color:var(--white-color); font-weight:700; font-size:15px; outline: none; border:none; margin-top:40px; cursor: pointer;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

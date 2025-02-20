@@ -1,13 +1,128 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/adminLayout}">
+<html
+    layout:decorate="~{layouts/adminLayout}"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <title>회원정보수정</title>
 </head>
 <body class="bodyCont">
 <div layout:fragment="content">
-    dd
+    <div class="adminWrap adminProfileWrap">
+        <div class="titleWrap">
+            <h3 class="title">회원정보수정</h3>
+        </div>
+        <form action="admin/profile">
+            <div class="tableWrap tableWrap02">
+                <table>
+                    <colgroup>
+                        <col style="width:200px">
+                        <col style="width:*">
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <th>아이디</th>
+                        <td>
+                            <div class="txtBox">
+                                <input readonly type="text" value="admin01">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>비밀번호</th>
+                        <td>
+                            <div class="txtBox">
+                                <input placeholder="비밀번호 입력(8 ~ 16자)" type="password">
+                                <span class="error">8 ~ 16자의 비밀번호를 입력해주세요. </span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>비밀번호 확인</th>
+                        <td>
+                            <div class="txtBox">
+                                <input placeholder="비밀번호 확인" type="password">
+                                <span class="error">비밀번호가 일치하지 않습니다.</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>이름</th>
+                        <td>
+                            <div class="txtBox">
+                                <input placeholder="이름을 입력해주세요." type="text">
+                                <span class="error">이름을 입력해주세요.</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>휴대폰 번호</th>
+                        <td>
+                            <div class="txtBox">
+                                <div class="phoneBox">
+                                    <select id="phone01" name="phone01">
+                                        <option value="010">010</option>
+                                        <option value="011">011</option>
+                                        <option value="016">016</option>
+                                        <option value="017">017</option>
+                                        <option value="018">018</option>
+                                        <option value="019">019</option>
+                                    </select>
+                                    <span class="hyphen">-</span>
+                                    <input type="text">
+                                    <span class="hyphen">-</span>
+                                    <input type="text">
+                                </div>
+
+                                <span class="error">이미 가입된 번호입니다.</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>이메일</th>
+                        <td>
+                            <div class="txtBox">
+                                <input placeholder="이메일을 입력해주세요." type="text">
+                                <span class="error">이미 가입된 이메일입니다.</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>생년월일</th>
+                        <td>
+                            <div class="txtBox">
+                                <input type="date">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>주소</th>
+                        <td>
+                            <div class="txtBox">
+                                <div class="addressBox">
+                                    <div class="txt">
+                                        <input class="postcode" placeholder="우편번호" readonly type="text">
+                                        <a class="btn" href="#">우편번호 검색</a>
+                                    </div>
+                                    <input placeholder="주소" readonly type="text">
+                                    <div class="txt">
+                                        <input placeholder="상세주소 입력" type="text">
+                                        <input readonly type="text">
+                                    </div>
+                                </div>
+                                <span class="error">주소를 입력해주세요.</span>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="btnWrap">
+                <button type="submit">회원정보 수정</button>
+            </div>
+        </form>
+
+    </div>
 </div>
 </body>
 </html>

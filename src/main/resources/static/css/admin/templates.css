@@ -1,15 +1,15 @@
 
 /*top header adminHeader.html*/
-.adminHeaderWrap{display: flex; justify-content: space-between; align-items: center; padding:0 3%; border-bottom:1px solid var(--gray-color); background:var(--white-color); height:66px; box-shadow: var(--box-shadow); position: fixed; top:0; left:0; width:100%; z-index:99999999;}
-.adminHeaderWrap .logo a{display:flex; justify-content:flex-start; align-items:center;width:160px; max-height:56px; padding:5px 0; color:var(--bk-color); font-size:20px; font-weight:700;}
+.adminHeaderWrap{display: flex; justify-content: space-between; align-items: center; padding:0 20px; background:var(--bk-color); height:66px; box-shadow: var(--box-shadow); position: fixed; top:0; left:0; width:100%; z-index:99999999;}
+.adminHeaderWrap .logo a{display:flex; justify-content:flex-start; align-items:center;width:160px; max-height:56px; padding:5px 0; color:var(--white-color); font-size:20px; font-weight:700;}
 .adminHeaderWrap .logo a img{width:100%; height:100%; object-fit: contain; object-position: left;}
 
 .adminHeaderWrap .loginInfo {display: flex; justify-content: flex-end; align-items: center; position:relative; cursor:pointer; height:66px;}
 .adminHeaderWrap .loginInfo .infoBox{text-align: right; margin-right:10px;}
-.adminHeaderWrap .loginInfo .infoBox .adminId{font-size:16px; font-weight:700; color:var(--bk-color);}
-.adminHeaderWrap .loginInfo .infoBox .role{font-size:14px; color:var(--small-color);}
+.adminHeaderWrap .loginInfo .infoBox .adminId{font-size:16px; font-weight:700; color:var(--white-color);}
+.adminHeaderWrap .loginInfo .infoBox .role{font-size:14px; color:var(--white-opacity);}
 .adminHeaderWrap .loginInfo .loginBtn{display: block; width:20px; height:20px; border-radius: 50%; border:1px solid var(--gray-color); position:relative;}
-.adminHeaderWrap .loginInfo .loginBtn:after{content:''; display: block; width:100%; height:100%; background:url("/images/sortIcon.png")no-repeat; background-size:14px; position:absolute; top:50%; left:50%; transform: translate(-50%, -50%); background-position:center;}
+.adminHeaderWrap .loginInfo .loginBtn:after{content:''; display: block; width:100%; height:100%; background:url("/images/sortIcon.png")no-repeat; background-size:13px; position:absolute; top:50%; left:50%; transform: translate(-50%, -50%); background-position:center;}
 
 .adminHeaderWrap .loginMenu{display: none; position:absolute; top:55px; right:0; border:1px solid var(--gray-color); border-radius: 5px; overflow: hidden; box-shadow: var(--box-shadow);}
 .adminHeaderWrap .loginMenu li:nth-child(1){border-bottom:1px solid var(--gray-color);}
@@ -30,9 +30,6 @@
 
 
 
-
-/*content 공통*/
-.bodyCont{background:var(--gray-bg2); padding-top:66px; padding-left:260px;}
 
 
 

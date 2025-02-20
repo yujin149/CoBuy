@@ -1,0 +1,23 @@
+
+/*content 공통*/
+.bodyCont{padding-top:66px; padding-left:260px;}
+.adminWrap{padding:40px; min-width: 747px;}
+.adminWrap .titleWrap{display: flex; justify-content: space-between; align-items: center; margin-bottom:10px;}
+.adminWrap .titleWrap .title{color:var(--bk-color); font-weight:700; font-size:30px;}
+
+
+/*table 공통*/
+.tableWrap{width:100%; border-top:2px solid var(--main-color); border-bottom:1px solid var(--gray-color);}
+.tableWrap table{width:100%; table-layout:fixed; border-collapse: collapse;}
+.tableWrap table tr th{display:table-cell; vertical-align:middle; padding:5px 15px; background: var(--gray-bg1); min-height:45px; font-size: 15px; color:var(--bk-color); font-weight:600;}
+.tableWrap table tr td{display:table-cell; vertical-align:middle; padding:5px 15px; font-size: 15px; border-top: 1px solid var(--gray-color); min-height: 45px; text-align: center; background:var(--white-color);}
+
+.tableWrap02 table tr th{border-top:1px solid var(--gray-color);}
+.tableWrap02 table tr td{text-align: left;}
+.tableWrap02 table tr:first-child th{border-top:none; }
+.tableWrap02 table tr:first-child td{border-top:none; }
+.tableWrap02 table input{border-radius: 5px;}
+
+input:read-only{background: var(--gray-bg1);}
+
+
