@@ -7,7 +7,301 @@
 </head>
 <body class="bodyCont">
 <div layout:fragment="content">
-    <div class="adminWrap">
+    <div class="adminWrap productWrap prodWriteWrap">
+        <div class="titleWrap">
+            <h3 class="title">상품 등록</h3>
+        </div>
+        <form action="/admin/product/list">
+            <div class="tableWrap tableWrap02">
+                <table>
+                    <colgroup>
+                        <col style="width:200px">
+                        <col style="width:calc(100% - 200px)">
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <th>판매 상태</th>
+                        <td>
+                            <ul class="saleStatus radioBox">
+                                <li><input checked id="saleOn" name="sale" type="radio"><label for="saleOn">판매</label>
+                                </li>
+                                <li><input id="saleOff" name="sale" type="radio"><label for="saleOff">판매안함</label></li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            <p class="tit">카테고리 선택
+                                <a class="infoBtn" href="javascript:void(0)">도움말
+                                    <span class="infoBox">
+                                    취급 상품과 관련된 카테고리를 선택해야 하며, 판매하고자 하는 상품군의 카테고리를 선택해 주시면 됩니다.<br>
+                                        카테고리는 셀러와 매칭 서비스에 이용됩니다.
+                                </span>
+                                </a>
+                            </p>
+                        </th>
+                        <td>
+                            <ul class="category">
+                                <li>
+                                    <input id="category01" name="category" type="checkbox" value="가구/인테리어">
+                                    <label for="category01">가구/인테리어</label>
+                                </li>
+                                <li>
+                                    <input id="category02" name="category" type="checkbox" value="도서">
+                                    <label for="category02">도서</label>
+                                </li>
+                                <li>
+                                    <input id="category03" name="category" type="checkbox" value="디지털/가전">
+                                    <label for="category03">디지털/가전</label>
+                                </li>
+                                <li>
+                                    <input id="category04" name="category" type="checkbox" value="생활/건강">
+                                    <label for="category04">생활/건강</label>
+                                </li>
+                                <li>
+                                    <input id="category05" name="category" type="checkbox" value="스포츠/레저">
+                                    <label for="category05">스포츠/레저</label>
+                                </li>
+                                <li>
+                                    <input id="category06" name="category" type="checkbox" value="식품">
+                                    <label for="category06">식품</label>
+                                </li>
+                                <li>
+                                    <input id="category07" name="category" type="checkbox" value="여가/생활편의">
+                                    <label for="category07">여가/생활편의</label>
+                                </li>
+                                <li>
+                                    <input id="category08" name="category" type="checkbox" value="출산/육아">
+                                    <label for="category08">출산/육아</label>
+                                </li>
+                                <li>
+                                    <input id="category09" name="category" type="checkbox" value="패션의류">
+                                    <label for="category09">패션의류</label>
+                                </li>
+                                <li>
+                                    <input id="category10" name="category" type="checkbox" value="패션잡화">
+                                    <label for="category10">패션잡화</label>
+                                </li>
+                                <li>
+                                    <input id="category11" name="category" type="checkbox" value="화장품/미용">
+                                    <label for="category11">화장품/미용</label>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><p class="tit">상품명<span class="star">*</span></p></th>
+                        <td>
+                            <div class="txtBox">
+                                <input type="text">
+                                <span class="error">상품명을 입력해주세요.</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><p class="tit">상품코드<span class="star">*</span></p></th>
+                        <td>
+                            <div class="codeBox">
+                                <div class="inputBox">
+                                    <input class="active" name="ranCode" readonly type="text" value="P000001">
+                                    <input name="inputCode" type="text">
+                                    <a class="codeBtn" href="javascript:void(0)">직접입력</a>
+                                    <a class="codeChk" href="javascript:void(0)">중복확인</a>
+                                </div>
+                                <span class="error">상품코드를 입력해주세요.</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><p class="tit">상품 요약 설명</p></th>
+                        <td>
+                            <div class="txtBox">
+                                <input type="text">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><p class="tit">상품 상세 설명</p></th>
+                        <td>
+                            <div class="txtBox">
+                                <textarea id="editorTxt" name="editorTxt" ></textarea>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="imgBox">
+                        <th><p class="tit">상품 이미지 <span class="star"></span></p></th>
+                        <td>
+                            <ul class="txtBox">
+                               <li><input type="file"></li>
+                               <li><input type="file"></li>
+                               <li><input type="file"></li>
+                               <li><input type="file"></li>
+                               <li><input type="file"></li>
+                                <span class="info">권장 사이즈 640px * 640px </span>
+                                <span class="error">최소 1개의 이미지를 등록해주세요.</span>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><p class="tit">소비자가</p></th>
+                        <td>
+                            <div class="price">
+                                <input type="number" value="10000"><span>원</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><p class="tit">판매가 <span class="star">*</span></p></th>
+                        <td>
+                            <div class="price">
+                                <input type="number" value="0"><span>원</span>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th><p class="tit">재고 <span class="star">*</span></p></th>
+                        <td>
+                            <div class="price">
+                                <input type="number" value="0"><span>개</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><p class="tit">옵션</p></th>
+                        <td>
+                            <ul class="option radioBox">
+                                <li><input id="optON" name="opt" type="radio"><label for="optON">사용</label>
+                                </li>
+                                <li><input id="optOff" name="opt" type="radio" checked><label for="optOff">사용안함</label></li>
+                            </ul>
+                        </td>
+                    </tr>
+
+                    <tr class="setOpt">
+                        <th><p class="tit">옵션 설정</p></th>
+                        <td>
+                            <div class="txtBox">
+                            <ul class="optionList">
+                               <li class="title">
+                                   <p>옵션명</p>
+                                   <p>옵션값</p>
+                               </li>
+                                <li class="text">
+                                    <div class="optTit">
+                                        <input type="text" placeholder="예시) 사이즈">
+                                        <a href="javascript:void(0)" class="plusBtn optBtn">추가</a>
+                                        <a href="javascript:void(0)" class="minusBtn optBtn">제거</a>
+                                    </div>
+                                    <div class="optTxt">
+                                        <textarea placeholder="옵션값을 입력해주세요."></textarea>
+                                    </div>
+                                </li>
+                                <li class="text">
+                                    <div class="optTit">
+                                        <input type="text" placeholder="예시) 사이즈">
+                                        <a href="javascript:void(0)" class="plusBtn optBtn">추가</a>
+                                        <a href="javascript:void(0)" class="minusBtn optBtn">제거</a>
+                                    </div>
+                                    <div class="optTxt">
+                                        <textarea placeholder="옵션값을 입력해주세요."></textarea>
+                                    </div>
+                                </li>
+                            </ul>
+                            <span class="info">세미콜론(;)을 통해 옵션값을 연속으로 입력해주세요. </span>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th><p class="tit">인플루언서 선택</p></th>
+                        <td>
+                            <div class="sellerSelect">
+                                <select>
+                                    <option value="선택안함">선택안함</option>
+                                    <option value="셀러명02">셀러명01</option>
+                                    <option value="셀러명02">셀러명02셀러명02셀러명02셀러명02셀러명02</option>
+                                </select>
+                                <a href="javascript:void(0)" class="ranSeller btn">랜덤매칭</a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><p class="tit">인플루언서 설정</p></th>
+                        <td>
+                            <ul class="sellerSet">
+                                <li>
+                                    <div class="nameBox">
+                                        <input type="text" value="셀러명02" readonly>
+                                        <a href="javascript:void(0)" class="infoSeller btn">인플루언서정보</a>
+                                        <a href="javascript:void(0)" class="deleteBtn btn">삭제</a>
+                                    </div>
+                                    <div class="priceBox textBox">
+                                        <p class="title">판매가</p>
+                                        <p class="text"><input type="number" value="0"><span>원</span></p>
+                                        <p class="title">수량</p>
+                                        <p class="text"><input type="number" value="0"><span>개</span></p>
+                                    </div>
+                                    <div class="dateBox textBox textBox02">
+                                        <p class="title">판매기간</p>
+                                        <p class="text date">
+                                            <input type="date" name="date01" class="startDate">
+                                            <span>~</span>
+                                            <input type="date" name="date02">
+                                        </p>
+                                    </div>
+                                    <div class="urlBox textBox textBox02">
+                                        <p class="title">url주소</p>
+                                        <p class="text ">
+                                            <input type="text" class="urlInput" value="http://cobuy/product/detail/seller01P0000001" readonly>
+                                            <a href="javascript:void(0)" class="copyBtn btn">URL 복사</a>
+                                        </p>
+                                    </div>
+
+                                </li>
+                                <li>
+                                    <div class="nameBox">
+                                        <input type="text" value="셀러명01" readonly>
+                                        <a href="javascript:void(0)" class="infoSeller btn">인플루언서정보</a>
+                                        <a href="javascript:void(0)" class="deleteBtn btn">삭제</a>
+                                    </div>
+                                    <div class="priceBox textBox">
+                                        <p class="title">판매가</p>
+                                        <p class="text"><input type="number" value="0"><span>원</span></p>
+                                        <p class="title">수량</p>
+                                        <p class="text"><input type="number" value="0"><span>개</span></p>
+                                    </div>
+                                    <div class="dateBox textBox textBox02">
+                                        <p class="title">판매기간</p>
+                                        <p class="text date">
+                                            <input type="date" name="date01" class="startDate">
+                                            <span>~</span>
+                                            <input type="date" name="date02">
+                                        </p>
+                                    </div>
+                                    <div class="urlBox textBox textBox02">
+                                        <p class="title">url주소</p>
+                                        <p class="text ">
+                                            <input type="text" class="urlInput" value="http://cobuy/product/detail/seller01P0000001" readonly>
+                                            <a href="javascript:void(0)" class="copyBtn btn">URL 복사</a>
+                                        </p>
+                                    </div>
+
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="btnWrap">
+                <button type="submit" class="writeBtn">등록</button>
+            </div>
+        </form>
+
+
+
     </div>
 </div>
 </body>

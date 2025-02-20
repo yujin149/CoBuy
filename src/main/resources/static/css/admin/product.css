@@ -1,0 +1,93 @@
+/*상품등록 write.html*/
+.prodWriteWrap .radioBox{display: flex; justify-content: flex-start; align-items: center; flex-wrap: wrap;}
+.prodWriteWrap .radioBox li{ display: flex; justify-content: flex-start; align-items: center; margin-right:60px;}
+.prodWriteWrap .radioBox li input[type="radio"]{width:16px; height:16px; border-radius: 50%; margin-right:5px;}
+.adminWrap table .tit .star{display: inline-block; color:var(--red-color); font-size:15px; margin-left:2px; }
+
+.prodWriteWrap table .codeBox .inputBox{display: flex; justify-content: flex-start; align-items: center;}
+.prodWriteWrap table .codeBox .inputBox input{width:calc(100% - 314px); max-width: 220px; margin-right:10px; display: none;}
+.prodWriteWrap table .codeBox .inputBox input.active  {width:calc(100% - 314px); max-width: 220px; margin-right:5px; display: block;}
+.prodWriteWrap table .codeBox .inputBox a{display: flex; justify-content: center;align-items: center; font-size:15px; color:var(--bk-color); background:var(--gray-bg1); border:1px solid var(--gray-color); border-radius: 5px; height:35px; width:80px;}
+.prodWriteWrap table .codeBox .inputBox .codeBtn{margin-right:5px;}
+.prodWriteWrap table .codeBox .inputBox a:hover{background:var(--bk-color);color:var(--white-color); border-color:var(--bk-color);}
+.adminWrap table .tox-tinymce{width:100%;}
+.prodWriteWrap table .price input[type="number"]{max-width:calc(100% - 90px); width:220px; border:1px solid var(--gray-color); padding:0 10px; height:45px; border-radius: 5px; font-size:15px; text-align: right; outline: none;}
+.prodWriteWrap table .price span{margin-left:5px; }
+
+/*이미지 설정*/
+.prodWriteWrap table .imgBox td{padding:0;}
+.prodWriteWrap table .imgBox .txtBox li{padding:10px 15px; border-bottom:1px solid var(--gray-color); width:100%;}
+.prodWriteWrap table .imgBox input {background:var(--white-color);}
+.prodWriteWrap table .imgBox .info {margin-bottom:0 !important; padding:0 15px;}
+.prodWriteWrap table .imgBox .error{padding:0 15px;}
+
+
+/*옵션설정*/
+.prodWriteWrap table .setOpt{display: none;}
+.prodWriteWrap table .setOpt.active{display: table-row;}
+
+
+.prodWriteWrap table .optionList{width:100%; margin-top:5px;}
+.prodWriteWrap table .optionList li{display: flex; justify-content: flex-start; align-items: center; border:1px solid var(--gray-color); border-top:none;}
+.prodWriteWrap table .optionList li:first-child{border-top:1px solid var(--gray-color); background:var(--gray-bg1);}
+.prodWriteWrap table .optionList li p{display: flex; justify-content: center;align-items: center; padding:10px; color:var(--bk-color); font-size:15px; font-weight:600; text-align: center; height:45px;}
+.prodWriteWrap table .optionList li p:first-child{width:240px; }
+.prodWriteWrap table .optionList li p:nth-child(2){width:calc(100% - 240px); border-left:1px solid var(--gray-color);}
+.prodWriteWrap table .optionList li div{padding:10px;}
+.prodWriteWrap table .optionList li .optTit{ width:240px; display: flex; justify-content: flex-start; align-items: flex-start; height:104px; flex-wrap: wrap;}
+.prodWriteWrap table .optionList li .optTit input{width:100%;}
+.prodWriteWrap table .optionList li .optTit .optBtn{justify-content: center; align-items: center; position:relative; font-size:0; background:var(--gray-bg1); border:1px solid var(--gray-color); border-radius: 5px; width:30px; height:30px; margin:5px 0;}
+.prodWriteWrap table .optionList li .optTit .optBtn:hover{background:var(--bk-color); border-color:var(--bk-color);}
+.prodWriteWrap table .optionList li .optTit .plusBtn{margin-right:5px; display: none}
+.prodWriteWrap table .optionList li .optTit .optBtn:before{content:'';display: block; width:12px; height:2px; background:var(--gray-color); position:absolute; top:50%; left:50%; transform: translate(-50%, -50%);}
+.prodWriteWrap table .optionList li .optTit .plusBtn:after{content:'';display: block; width:2px; height:12px; background:var(--gray-color); position:absolute; top:50%; left:50%; transform: translate(-50%, -50%);}
+.prodWriteWrap table .optionList li .optTit .optBtn:hover:before{background:var(--white-color);}
+.prodWriteWrap table .optionList li .optTit .optBtn:hover:after{background:var(--white-color);}
+.prodWriteWrap table .optionList li .optTxt {width:calc(100% - 240px);border-left:1px solid var(--gray-color); }
+.prodWriteWrap table .optionList li .optTxt textarea{border:1px solid var(--gray-color); width:100%; border-radius: 5px; height:80px; padding:10px; font-size:15px; resize:none; outline: none; box-sizing: border-box;}
+
+.prodWriteWrap table .optionList li:last-child .plusBtn{display: flex;}
+
+.prodWriteWrap table .txtBox .info{font-size:14px; color:var(--small-color); margin:10px 0;}
+
+.prodWriteWrap .btnWrap {display: flex; justify-content: flex-end; align-items: center;}
+.prodWriteWrap .btnWrap .writeBtn{display: flex; justify-content: center; align-items: center; width:220px; height:50px; border-radius: 5px; background:var(--bk-color); color:var(--white-color); font-weight:700; font-size:15px; outline: none; border:none; margin-top:40px; cursor: pointer;}
+
+.prodWriteWrap table .sellerSelect{display: flex; justify-content: flex-start; align-items: center;}
+.prodWriteWrap table .sellerSelect select{max-width:220px; height:45px; border:1px solid var(--gray-color); padding:0 5px; border-radius: 5px; outline: none; font-size:15px;}
+.prodWriteWrap table .sellerSelect .btn{display: flex; justify-content: center; align-items: center; font-size:15px; background: var(--gray-bg1); border:1px solid var(--gray-color); border-radius: 5px; height:35px; width:80px; color:var(--bk-color); margin-left:5px;}
+.prodWriteWrap table .sellerSelect .infoSeller{width:120px;}
+.prodWriteWrap table .sellerSelect .btn:hover{border-color:var(--bk-color); background:var(--bk-color); color:var(--white-color);}
+.prodWriteWrap table .sellerSelect .btn:hover{border-color:var(--bk-color); background:var(--bk-color); color:var(--white-color);}
+
+
+.prodWriteWrap table .sellerSet{margin:10px 0;}
+.prodWriteWrap table .sellerSet li{padding-bottom:20px; margin-bottom:20px; border-bottom:1px solid var(--gray-color);}
+.prodWriteWrap table .sellerSet li:last-child{padding-bottom:0px; margin-bottom:0px; border-bottom:none;}
+.prodWriteWrap table .sellerSet li div{display: flex; justify-content: flex-start; align-items: center; width:100%;}
+.prodWriteWrap table .sellerSet li .nameBox input{max-width:220px;}
+.prodWriteWrap table .sellerSet li .btn{display: flex; justify-content: center; align-items: center; background:var(--gray-bg1); border:1px solid var(--gray-color); width:120px; height:35px; color:var(--bk-color); margin-left:5px; border-radius: 5px; }
+.prodWriteWrap table .sellerSet li .btn:hover{background:var(--bk-color); color:var(--white-color); border-color:var(--bk-color); }
+.prodWriteWrap table .sellerSet li .nameBox .deleteBtn{width:35px; font-size:0; position:relative;}
+.prodWriteWrap table .sellerSet li .nameBox .deleteBtn:before{content:''; display: block; width:12px; height:2px; position:absolute;  background:var(--gray-color);}
+.prodWriteWrap table .sellerSet li .nameBox .deleteBtn:hover:before{background:var(--white-color);}
+
+.prodWriteWrap table .sellerSet li .priceBox{display: flex; justify-content: flex-start; align-items: center; width:100%; margin-top:5px; border-top:1px solid var(--gray-color);}
+.prodWriteWrap table .sellerSet li .textBox p{border:1px solid var(--gray-color); display: flex; justify-content: center; align-items: center; border-right:none; height:46px; padding:5px 10px; border-top:none;}
+.prodWriteWrap table .sellerSet li .textBox p:last-child{border-right:1px solid var(--gray-color);}
+.prodWriteWrap table .sellerSet li .textBox p.title{width: 220px; color:var(--bk-color); background:var(--gray-bg1); font-weight:600;}
+.prodWriteWrap table .sellerSet li .textBox p.text{width: calc(50% - 220px);}
+.prodWriteWrap table .sellerSet li .textBox02 p.text{width: calc(100% - 220px);}
+.prodWriteWrap table .sellerSet li .textBox02 p.date span{margin:0 5px;}
+.prodWriteWrap table .sellerSet li .textBox p.text input{border:1px solid var(--gray-color); border-radius: 5px; width:100%; padding:10px; outline: none; height:35px;}
+.prodWriteWrap table .sellerSet li .priceBox p.text input{text-align: right;}
+.prodWriteWrap table .sellerSet li .priceBox p.text span{margin-left:5px;}
+
+
+
+
+
+
+
+
+

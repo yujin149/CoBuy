@@ -13,9 +13,10 @@
 <body>
 <!-- 헤더 영역 -->
 <th:block th:replace="fragments/adminMenu :: adminMenu"></th:block>
-<th:block th:replace="fragments/adminHeader :: adminHeader"></th:block>
+<th:block th:replace="templates/admin/sellerInfoPopup :: sellerInfoPopup"></th:block>
 
 <!-- 본문 영역 -->
+<div layout:fragment="content"></div>
 <div layout:fragment="content"></div>
 
 <!--스크립트-->
