@@ -6,44 +6,44 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 @RequiredArgsConstructor
-public class UserController {
+public class MemberController {
 
     /*개인 아이디 찾기*/
     @GetMapping(value = "/find")
     public String findUser() {
-        return "user/findMember";
+        return "member/findMember";
     }
 
     /*아이디 찾기 완료*/
     @GetMapping(value = "/findId")
     public String findId() {
-        return "user/findId";
+        return "member/findId";
     }
 
     /*비밀번호 재설정*/
     @GetMapping(value = "/findPw")
     public String findPw() {
-        return "user/findPw";
+        return "member/findPw";
     }
 
     /*비밀번호 변경 완료*/
     @GetMapping(value = "/updatePw")
-    public String updatePw() {return "user/updatePw";}
+    public String updatePw() {return "member/updatePw";}
 
     /*회원가입 step01*/
     @GetMapping(value = "/join")
     public String join() {
-        return "user/join";
+        return "member/join";
     }
 
     /*개인 회원가입*/
     @GetMapping(value = "/member/join")
     public String joinUser() {
-        return "user/joinMember";
+        return "member/joinMember";
     }
 
     /*회원가입완료*/
     @GetMapping(value = "/join02")
-    public String join02() {return "user/join02";}
+    public String join02() {return "member/join02";}
 
 }

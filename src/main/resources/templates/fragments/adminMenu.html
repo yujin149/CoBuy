@@ -4,7 +4,7 @@
 <div th:fragment="adminMenu">
     <div class="adminMenuWrap">
         <ul class="menuWrap">
-            <li>
+            <li th:class="${currentPage == '회원정보관리' ? 'active' : ''}">
                 <a href="#">회원정보 관리</a>
                 <ul class="depth2">
                     <li><a href="#">업체 관리</a></li>
@@ -13,7 +13,7 @@
                     <li><a href="#">메세지 관리</a></li>
                 </ul>
             </li>
-            <li>
+            <li th:class="${currentPage == '주문내역관리' ? 'active' : ''}">
                 <a href="#">주문 내역 관리</a>
                 <ul class="depth2">
                     <li><a href="#">판매현황</a></li> <!--업체-->
@@ -21,14 +21,14 @@
                     <li><a href="#">주문내역확인</a></li>
                 </ul>
             </li>
-            <li>
+            <li th:class="${currentPage == '상품관리' ? 'active' : ''}">
                 <a href="#">상품관리</a>
                 <ul class="depth2">
-                    <li><a href="#">상품리스트</a></li>
-                    <li><a href="#">상품등록</a></li>
+                    <li><a href="/admin/product/list">상품리스트</a></li>
+                    <li><a href="/admin/product/write">상품등록</a></li>
                 </ul>
             </li>
-            <li>
+            <li th:class="${currentPage == '환경설정' ? 'active' : ''}">
                 <a href="#">환경설정</a>
             </li>
         </ul>
