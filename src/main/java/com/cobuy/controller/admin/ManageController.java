@@ -13,6 +13,12 @@ public class ManageController {
         return "admin/manage/profile";
     }
 
+    /*셀러 회원정보수정*/
+    @GetMapping(value = "/seller/profile")
+    public String sellerProfile() {
+        return "admin/manage/sellerProfile";
+    }
+
     /*업체 관리*/
     @GetMapping(value = "/admin/manage")
     public String shopManage(Model model) {
