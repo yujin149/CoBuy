@@ -19,4 +19,11 @@ public class ProductController {
         model.addAttribute("currentPage", "상품관리");
         return "admin/product/write";
     }
+
+    /*상품수정*/
+    @GetMapping(value = "/admin/product/modify")
+    public String productModify(Model model) {
+        model.addAttribute("currentPage", "상품관리");
+        return "admin/product/write";
+    }
 }

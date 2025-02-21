@@ -8,7 +8,193 @@
 <body class="bodyCont">
 <div layout:fragment="content">
     <div class="adminWrap productWrap prodListWrap">
+        <div class="titleWrap">
+            <h3 class="title">상품 리스트</h3>
+        </div>
+        <div class="searchWrap">
+            <form>
+                <select>
+                    <option value="전체">전체</option>
+                    <option value="상품코드">상품코드</option>
+                    <option value="제목">제목</option>
+                </select>
+                <div class="searchBox">
+                    <input type="text" placeholder="검색어를 입력해주세요.">
+                    <button type="submit">검색</button>
+                </div>
+            </form>
+        </div>
+        <div class="tableWrap">
+            <table>
+                <colgroup>
+                    <col style="width:80px;">
+                    <col style="width:120px;">
+                    <col style="width:100%; min-width:360px;">
+                    <col style="width:150px;">
+                    <col style="width:150px;">
+                    <col style="width:150px;">
+                    <col style="width:360px;">
+                    <col style="width:80px;">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>상품코드</th>
+                        <th>상품명</th>
+                        <th>재고</th>
+                        <th>소비자가</th>
+                        <th>판매가</th>
+                        <th>URL 주소</th>
+                        <th>관리</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>P0000001</td>
+                        <td>
+                            <div class="prodInfo">
+                                <div class="imgBox">
+                                    <img src="https://picsum.photos/600/600">
+                                </div>
+                                <div class="info">
+                                    <p class="tit">플로리드 레이어 블러셔</p>
+                                    <ul class="option">
+                                        <li>
+                                            <p class="optTit">사이즈</p>
+                                            <div class="optList">
+                                                <span>옵션01옵션01옵션01</span>
+                                                <span>옵션02옵션02옵션02옵션02</span>
+                                                <span>옵션03옵션03</span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <p class="optTit">컬러</p>
+                                            <div class="optList">
+                                                <span>옵션01</span>
+                                                <span>옵션02</span>
+                                                <span>옵션03</span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
 
+                            </div>
+                        </td>
+                        <td><span class="num">99999</span>개</td>
+                        <td><p class="oriPirce"><span class="oriPirce">10,000</span>원</p></td>
+                        <td><p class="price"><span>10,000</span>원</p></td>
+                        <td>
+                            <div class="urlBox">
+                                <div class="shopLink">
+                                    <p class="name">쇼핑몰명</p>
+                                    <div class="link">
+                                        <input type="text" value="http://cobuy/product/detail/seller01P0000001" class="urlInput" readonly>
+                                        <a href="#" class="copyBtn">URL 복사</a>
+                                        <a href="http://localhost:8080/product/detail" target="_blank" class="moveBtn">바로가기</a>
+                                    </div>
+                                </div>
+                                <ul class="sellerLinkBox">
+                                    <li>
+                                        <p class="name">인플루언서명</p>
+                                        <div class="link">
+                                            <input type="text" value="http://cobuy/product/detail/seller01P0000001" class="urlInput" readonly>
+                                            <a href="#" class="copyBtn">URL 복사</a>
+                                            <a href="http://localhost:8080/product/detail" target="_blank" class="moveBtn">바로가기</a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <p class="name">인플루언서명</p>
+                                        <div class="link">
+                                            <input type="text" value="http://cobuy/product/detail/seller01P0000001" class="urlInput" readonly>
+                                            <a href="#" class="copyBtn">URL 복사</a>
+                                            <a href="http://localhost:8080/product/detail" target="_blank" class="moveBtn">바로가기</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="btnBox">
+                                <a href="/admin/product/modify" class="modifyBtn">수정</a>
+                                <a href="javascript:void(0)" class="deleteBtn">삭제</a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>P0000002</td>
+                        <td>
+                            <div class="prodInfo">
+                                <div class="imgBox">
+                                    <img src="https://picsum.photos/500/600">
+                                </div>
+                                <div class="info">
+                                    <p class="tit">플로리드 레이어 블러셔</p>
+                                    <ul class="option">
+                                        <li>
+                                            <p class="optTit">사이즈</p>
+                                            <div class="optList">
+                                                <span>옵션01옵션01옵션01</span>
+                                                <span>옵션02옵션02옵션02옵션02</span>
+                                                <span>옵션03옵션03</span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </td>
+                        <td><span class="num">99999</span>개</td>
+                        <td><p class="oriPirce"><span class="oriPirce">10,000</span>원</p></td>
+                        <td><p class="price"><span>10,000</span>원</p></td>
+                        <td>
+                            <div class="urlBox">
+                                <div class="shopLink">
+                                    <p class="name">쇼핑몰명</p>
+                                    <div class="link">
+                                        <input type="text" value="http://cobuy/product/detail/seller01P0000001" class="urlInput" readonly>
+                                        <a href="#" class="copyBtn">URL 복사</a>
+                                        <a href="http://localhost:8080/product/detail" target="_blank" class="moveBtn">바로가기</a>
+                                    </div>
+                                </div>
+                                <ul class="sellerLinkBox">
+                                    <li>
+                                        <p class="name">인플루언서명</p>
+                                        <div class="link">
+                                            <input type="text" value="http://cobuy/product/detail/seller01P0000001" class="urlInput" readonly>
+                                            <a href="#" class="copyBtn">URL 복사</a>
+                                            <a href="http://localhost:8080/product/detail" target="_blank" class="moveBtn">바로가기</a>
+                                        </div>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="btnBox">
+                                <a href="/admin/product/modify" class="modifyBtn">수정</a>
+                                <a href="javascript:void(0)" class="deleteBtn">삭제</a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <ul class="pagination">
+            <li class="page-item page-arrow page-prev" >
+                <a class="page-link" href="javascript:void(0)">이전 페이지</a>
+            </li>
+            <li class="page-item page-num" >
+                <a class="page-link active" href="javascript:void(0)">1</a>
+                <a class="page-link" href="javascript:void(0)">2</a>
+                <a class="page-link" href="javascript:void(0)">3</a>
+            </li>
+            <li class="page-item page-arrow page-next" >
+                <a class="page-link" href="javascript:void(0)">다음 페이지</a>
+            </li>
+        </ul>
     </div>
 </div>
 </body>

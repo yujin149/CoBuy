@@ -45,7 +45,7 @@ $(function() {
     /*url 복사 */
     $(".copyBtn").click(function() {
         // input 요소 선택
-        let copyText = $(".urlInput");
+        let copyText = $(this).siblings(".urlInput");
 
         // 텍스트 선택
         copyText.select();

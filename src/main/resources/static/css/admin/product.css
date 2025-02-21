@@ -84,6 +84,74 @@
 .prodWriteWrap table .sellerSet li .priceBox p.text span{margin-left:5px;}
 
 
+/*상품 리스트 list.html*/
+.prodListWrap .tableWrap{overflow-x: auto;}
+.prodListWrap .tableWrap table tr td{padding:15px 8px;}
+.prodListWrap .tableWrap table tr td .prodInfo{display: flex; justify-content: flex-start; align-items: flex-start; }
+.prodListWrap .tableWrap table tr td .prodInfo .imgBox{width:100px; height:100px; margin-right:10px;}
+.prodListWrap .tableWrap table tr td .prodInfo .imgBox img{width:100%; height:100%; object-fit: cover; border:1px solid var(--gray-color); border-radius: 5px;}
+.prodListWrap .tableWrap table tr td .prodInfo .info{display: flex; flex-direction: column; justify-content: center; align-items: flex-start; width:calc(100% - 110px); margin-top:5px;}
+.prodListWrap .tableWrap table tr td .prodInfo .info .tit{color:var(--bk-color); font-size:16px; font-weight:600;}
+.prodListWrap .tableWrap table tr td .prodInfo .info .option{display: flex; flex-direction: column; justify-content: center; align-items: flex-start;}
+.prodListWrap .tableWrap table tr td .prodInfo .info .option li{display: flex; justify-content: flex-start; align-items: flex-start; flex-direction: column; margin-top:8px;}
+.prodListWrap .tableWrap table tr td .prodInfo .info .option li .optTit{font-size:14px;  font-weight:700; color:var(--small-color)}
+.prodListWrap .tableWrap table tr td .prodInfo .info .option li .optList{display: flex; justify-content: flex-start; align-items: center; flex-wrap:wrap; margin-top:1px;}
+.prodListWrap .tableWrap table tr td .prodInfo .info .option li .optList span{color:var(--small-color); font-size:14px;}
+.prodListWrap .tableWrap table tr td .prodInfo .info .option li .optList span:after{content:''; display: inline-block; margin:0 5px; width:1px; height:10px; background:var(--gray-color);}
+.prodListWrap .tableWrap table tr td .prodInfo .info .option li .optList span:last-child:after{display: none;}
+
+.prodListWrap .tableWrap table tr td .price{color:var(--bk-color); font-weight:700;}
+.prodListWrap .tableWrap table tr td .price span{color:var(--bk-color); font-weight:700;}
+
+.prodListWrap .tableWrap table tr td .urlBox{text-align: left; }
+.prodListWrap .tableWrap table tr td .urlBox .name{color:var(--bk-color); font-weight:600;margin-bottom:2px; font-size:15px;}
+.prodListWrap .tableWrap table tr td .urlBox .link{display: flex; justify-content: space-between; align-items: center;}
+.prodListWrap .tableWrap table tr td .urlBox .link a{display: flex; justify-content: center; align-items: center; border:1px solid var(--gray-color); background:var(--gray-bg1); color:var(--bk-color); font-size:13px; height:35px; width:72px;  border-radius: 5px; font-weight:500;}
+.prodListWrap .tableWrap table tr td .urlBox .link a:hover{background:var(--bk-color); color:var(--white-color); border-color:var(--bk-color);}
+.prodListWrap .tableWrap table tr td .urlBox .link input{width:calc(100% - 154px); height:35px; border-radius: 5px; font-size:13px;}
+
+
+.prodListWrap .tableWrap table tr td .urlBox .sellerLinkBox li{padding:0 15px 15px; background:var(--gray-bg1);}
+.prodListWrap .tableWrap table tr td .urlBox .sellerLinkBox li:first-child{padding-top:15px; margin-top:5px; }
+
+.prodListWrap .tableWrap table tr td .urlBox .sellerLinkBox li .name{font-size:14px;}
+.prodListWrap .tableWrap table tr td .urlBox .sellerLinkBox li input{background:var(--gray-bg2);}
+
+.prodListWrap .tableWrap table tr td .btnBox{display: flex; flex-direction: column;}
+.prodListWrap .tableWrap table tr td .btnBox a{display: flex; justify-content: center; align-items: center; border:1px solid var(--gray-color); border-radius: 5px; background:var(--gray-bg1); height:35px; font-size:14px; color:var(--bk-color); width:100%; font-weight: 500;}
+.prodListWrap .tableWrap table tr td .btnBox a:hover{color:var(--white-color); background:var(--bk-color); border-color:var(--bk-color);}
+.prodListWrap .tableWrap table tr td .btnBox a:first-child{margin-bottom:10px;}
+
+.adminWrap .searchWrap {background:var(--gray-bg1); padding:20px; border-radius: 5px; margin-bottom:10px; }
+.adminWrap .searchWrap form{display: flex; justify-content: center; align-items: center;}
+.adminWrap .searchWrap select{width:160px; height:50px; border:1px solid var(--gray-color); border-radius: 5px; outline: none; cursor: pointer; padding:0 10px; margin-right:10px;}
+.adminWrap .searchWrap .searchBox{display: flex; justify-content: space-between; align-items: center; width:calc(100% - 170px); position:relative; max-width:680px;}
+.adminWrap .searchWrap .searchBox input{width:100%; background:var(--white-color); height:50px; border-radius: 5px; padding-right:50px;}
+.adminWrap .searchWrap .searchBox button{position:absolute;top:50%;right:0; transform: translateY(-50%); height:100%; border:0; outline: none; width:50px; font-size:0; background:url("/images/searchIcon.png")no-repeat center; background-size:25px; cursor: pointer;}
+
+/*페이징*/
+.pagination{display: flex; justify-content: center; align-items: center; margin-top:40px;}
+.pagination .page-num{display: flex; justify-content: center; align-items: center;}
+.pagination li a{display: flex; justify-content: center; align-items: center; width:32px; height:32px; border-radius: 50%;}
+.pagination .page-arrow a{font-size:0; }
+.pagination .page-prev a{background:url("/images/arrowPrev.png")no-repeat center; background-size:20px; margin-right:5px;}
+.pagination .page-next a{background:url("/images/arrowNext.png")no-repeat center; background-size:20px; margin-left:5px;}
+.pagination .page-num a.active{background:var(--bk-color); color:var(--white-color); font-weight:600;}
+.pagination .page-num a:hover{background:var(--bk-color); color:var(--white-color); font-weight:600;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
