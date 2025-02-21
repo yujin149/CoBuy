@@ -7,7 +7,96 @@
 </head>
 <body class="bodyCont">
 <div layout:fragment="content">
-    <div class="adminWrap">
+    <div class="adminWrap manageWrap userMangeWrap">
+        <div class="titleWrap">
+            <h3 class="title">회원 관리</h3>
+        </div>
+
+        <div class="searchWrap">
+            <form>
+                <select>
+                    <option value="전체">전체</option>
+                    <option value="아이디">아이디</option>
+                    <option value="이름">이름</option>
+                </select>
+                <div class="searchBox">
+                    <input type="text" placeholder="검색어를 입력해주세요.">
+                    <button type="submit">검색</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="tableWrap">
+            <table>
+                <colgroup>
+                    <col style="width:80px;">
+                    <col style="width:130px;">
+                    <col style="width:130px;">
+                    <col style="width:180px;">
+                    <col style="width:180px;">
+                    <col style="width:100%; min-width: 260px">
+                    <col style="width:130px;">
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>No</th>
+                    <th>이름</th>
+                    <th>아이디</th>
+                    <th>연락처</th>
+                    <th>생년월일</th>
+                    <th>주소</th>
+                    <th>주문내역</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2</td>
+                        <td>사용자</td>
+                        <td>user01</td>
+                        <td>010-1234-1234</td>
+                        <td>2025.02.21</td>
+                        <td>11111 경기도 부천시</td>
+                        <td>
+                            <div class="btnBox">
+                                <a href="javascript:void(0)" class="orderDetailBtn">주문내역확인</a>
+                            </div>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>사용자</td>
+                        <td>user01</td>
+                        <td>010-1234-1234</td>
+                        <td>2025.02.21</td>
+                        <td>11111 경기도 부천시</td>
+                        <td>
+                            <div class="btnBox">
+                                <a href="javascript:void(0)" class="orderDetailBtn">주문내역확인</a>
+                            </div>
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+
+
+        <ul class="pagination">
+            <li class="page-item page-arrow page-prev" >
+                <a class="page-link" href="javascript:void(0)">이전 페이지</a>
+            </li>
+            <li class="page-item page-num" >
+                <a class="page-link active" href="javascript:void(0)">1</a>
+                <a class="page-link" href="javascript:void(0)">2</a>
+                <a class="page-link" href="javascript:void(0)">3</a>
+            </li>
+            <li class="page-item page-arrow page-next" >
+                <a class="page-link" href="javascript:void(0)">다음 페이지</a>
+            </li>
+        </ul>
     </div>
 </div>
 </body>

@@ -7,7 +7,117 @@
 </head>
 <body class="bodyCont">
 <div layout:fragment="content">
-    <div class="adminWrap">
+    <div class="adminWrap manageWrap shopMangeWrap">
+        <div class="titleWrap">
+            <h3 class="title">업체 관리</h3>
+        </div>
+        <div class="searchWrap">
+            <form>
+                <select>
+                    <option value="전체">전체</option>
+                    <option value="쇼핑몰명">쇼핑몰명</option>
+                    <option value="카테고리">카테고리</option>
+                </select>
+                <div class="searchBox">
+                    <input type="text" placeholder="검색어를 입력해주세요.">
+                    <button type="submit">검색</button>
+                </div>
+            </form>
+        </div>
+
+
+        <div class="subTitleWrap">
+            <p class="tit">쇼핑몰 리스트</p>
+            <div class="btnWrap">
+                <a href="javascript:void(0)" class="matchAdmin btn">자동매칭</a>
+                <a href="javascript:void(0)" class="addAdminBtn btn">쇼핑몰 추가</a>
+            </div>
+        </div>
+        <div class="tableWrap">
+            <table>
+                <colgroup>
+                    <col style="width:80px;">
+                    <col style="width:300px;">
+                    <col style="width:300px;">
+                    <col style="width:100%; min-width:360px;">
+                    <col style="width:220px;">
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>No</th>
+                    <th>쇼핑몰명</th>
+                    <th>카테고리</th>
+                    <th>홈페이지 주소</th>
+                    <th>관리</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>2</td>
+                    <td><p class="name">CoBuy</p></td>
+                    <td>
+                        <ul class="category">
+                            <li>패션잡화</li>
+                            <li>화장품/미용</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <div class="link">
+                            <input type="text" value="http://cobuy/product/detail/seller01P0000001" class="urlInput" readonly>
+                            <a href="javascript:void(0)" class="copyBtn">URL 복사</a>
+                            <a href="http://localhost:8080/product/detail" target="_blank" class="moveBtn">바로가기</a>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div class="btnBox">
+                            <a href="javascript:void(0)" class="infoAdmin">상세보기</a>
+                            <a href="javascript:void(0)" class="deleteBtn">삭제</a>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td><p class="name">pickselly</p></td>
+                    <td>
+                        <ul class="category">
+                            <li>패션잡화</li>
+                            <li>화장품/미용</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <div class="link">
+                            <input type="text" value="http://cobuy/product/detail/seller01P0000001" class="urlInput" readonly>
+                            <a href="javascript:void(0)" class="copyBtn">URL 복사</a>
+                            <a href="http://localhost:8080/product/detail" target="_blank" class="moveBtn">바로가기</a>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div class="btnBox">
+                            <a href="javascript:void(0)" class="infoAdmin">상세보기</a>
+                            <a href="javascript:void(0)" class="deleteBtn">삭제</a>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <ul class="pagination">
+            <li class="page-item page-arrow page-prev" >
+                <a class="page-link" href="javascript:void(0)">이전 페이지</a>
+            </li>
+            <li class="page-item page-num" >
+                <a class="page-link active" href="javascript:void(0)">1</a>
+                <a class="page-link" href="javascript:void(0)">2</a>
+                <a class="page-link" href="javascript:void(0)">3</a>
+            </li>
+            <li class="page-item page-arrow page-next" >
+                <a class="page-link" href="javascript:void(0)">다음 페이지</a>
+            </li>
+        </ul>
+
     </div>
 </div>
 </body>

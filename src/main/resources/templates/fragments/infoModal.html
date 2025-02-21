@@ -1,7 +1,38 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
-<div th:fragment="sellerInfoModal">
+<div th:fragment="infoModal">
+    <!--쇼핑몰 모달-->
+    <div class="modal infoAdminModal infoModal">
+        <div class="modalInner">
+            <div class="modalTitle">
+                <p class="tit">쇼핑몰 정보</p>
+                <a href="javascript:void(0)" class="closeBtn">닫기</a>
+            </div>
+            <div class="modalCont">
+                <div class="titWrap">
+                    <p class="tit">쇼핑몰명</p>
+                    <ul class="category">
+                        <li>패션의류</li>
+                        <li>화장품/미용</li>
+                    </ul>
+                </div>
+                <p class="infoBox">안녕하세요.
+                    여기에 소개글이 들어갑니다.
+                    여기에 소개글이 들어갑니다.
+                    여기에 소개글이 들어갑니다.여기에 소개글이 들어갑니다.여기에 소개글이 들어갑니다.여기에 소개글이 들어갑니다.
+                </p>
+                <a href="http://localhost:8080/admin/profile" target="_blank" class="snsLink">http://localhost:8080/admin/profile</a>
+            </div>
+            <div class="modalBtn">
+                <a href="javascript:void(0)" class="sendMsg lineBtn">메세지 보내기</a>
+                <a href="javascript:void(0)" class="closeBtn btn">닫기</a>
+            </div>
+        </div>
+        <div class="bgB"></div>
+    </div>
+
+    <!--인플루언서 모달-->
     <div class="modal infoSellerModal infoModal">
         <div class="modalInner">
             <div class="modalTitle">

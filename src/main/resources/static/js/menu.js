@@ -3,7 +3,7 @@ $(function(){
        $('.menuWrap').css("display","block");
     });
 
-    $(".closeBtn").click(function(){
+    $(".menuWrap .closeBtn").click(function(){
         $('.menuWrap').css("display","none");
     });
 });

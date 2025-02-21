@@ -114,7 +114,9 @@
 .prodListWrap .tableWrap table tr td .urlBox .sellerLinkBox li{padding:0 15px 15px; background:var(--gray-bg1);}
 .prodListWrap .tableWrap table tr td .urlBox .sellerLinkBox li:first-child{padding-top:15px; margin-top:5px; }
 
-.prodListWrap .tableWrap table tr td .urlBox .sellerLinkBox li .name{font-size:14px;}
+.prodListWrap .tableWrap table tr td .urlBox .sellerLinkBox li .name{font-size:14px; display:inline-block; line-height: 1.3}
+.prodListWrap .tableWrap table tr td .urlBox .sellerLinkBox li .name .event{display:inline-block; padding:3px 5px 2px; border-radius: 5px; background:var(--green-color); color:var(--white-color); font-weight:600; font-size:11px; margin-left:2px;}
+.prodListWrap .tableWrap table tr td .urlBox .sellerLinkBox li .name .eventOff{background:var(--bk-color);}
 .prodListWrap .tableWrap table tr td .urlBox .sellerLinkBox li input{background:var(--gray-bg2);}
 
 .prodListWrap .tableWrap table tr td .btnBox{display: flex; flex-direction: column;}

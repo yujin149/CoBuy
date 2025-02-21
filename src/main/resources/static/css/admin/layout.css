@@ -7,7 +7,7 @@
 
 
 /*table 공통*/
-.tableWrap{width:100%; border-top:2px solid var(--main-color); border-bottom:1px solid var(--gray-color);}
+.tableWrap{width:100%; border-top:2px solid var(--main-color); border-bottom:1px solid var(--gray-color); overflow-y: auto;}
 .tableWrap table{width:100%; table-layout:fixed; border-collapse: collapse;}
 .tableWrap table tr th{display:table-cell; vertical-align:middle; padding:5px 15px; background: var(--gray-bg1); height:45px; font-size: 15px; color:var(--bk-color); font-weight:600;}
 .tableWrap table tr td{display:table-cell; vertical-align:middle; padding:5px 15px; font-size: 15px; border-top: 1px solid var(--gray-color); min-height: 45px; text-align: center; background:var(--white-color);}
