@@ -18,6 +18,12 @@
 <!-- 본문 영역 -->
 <div layout:fragment="content"></div>
 
+<!--자동매칭 모달-->
+<th:block th:replace="fragments/matchModal :: matchModal"></th:block>
+
+<!--인플루언서 정보 모달-->
+<th:block th:replace="fragments/sellerInfoModal :: sellerInfoModal"></th:block>
+
 <!--스크립트-->
 <th:block th:replace="fragments/script :: script"></th:block>
 </body>

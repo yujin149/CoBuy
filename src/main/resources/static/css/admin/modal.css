@@ -1,0 +1,70 @@
+.modal{position: fixed; top:0; left:0; right:0; bottom:0; z-index: 999999999;}
+.modal{display: none;}
+.modal .bgB{background:var(--bg-opacity); width:100%; height:100%;}
+.modal .modalInner{position:absolute; top:50%; left:50%; transform: translate(-50%, -50%); background:var(--white-color); border-radius: 20px; overflow: hidden; width:480px;}
+.modal .modalInner .modalTitle{display: flex; justify-content: space-between; align-items: center; padding:0 20px; height:55px; border-bottom:1px solid var(--gray-color);}
+.modal .modalInner .modalTitle .tit{color:var(--bk-color); font-size:18px; font-weight:700;}
+.modal .modalInner .modalTitle .closeBtn{display: block; font-size:0; width:40px; height:100%; position:relative; background:url("/images/closeBtn.png")no-repeat right center; background-size:24px;}
+
+.infoModal .modalInner .modalCont{padding:20px; max-height:300px; overflow-y: auto;}
+.infoModal .modalInner .modalCont .titWrap{display: flex; flex-direction: column;}
+.infoModal .modalInner .modalCont .titWrap .tit{color:var(--bk-color); font-size:17px; font-weight:700;}
+.infoModal .modalInner .modalCont .category{display: flex; justify-content: flex-start; align-items: center; flex-wrap: wrap;}
+.infoModal .modalInner .modalCont .category li{color:var(--small-color); font-size:14px; margin-top:2px; }
+.infoModal .modalInner .modalCont .category li:after{content:''; display: inline-block; width:1px; height:10px; background:var(--gray-color); margin:0 8px;}
+.infoModal .modalInner .modalCont .category li:last-child:after{display: none;}
+
+.infoModal .modalInner .modalCont .snsLink{display: inline-block; margin-top:10px; font-size:14px; color:var(--small-color);}
+.infoModal .modalInner .modalCont .snsLink:hover{color:var(--bk-color);}
+.infoModal .modalInner .modalCont .infoBox{padding:20px; background:var(--gray-bg1); border-radius: 10px; white-space: pre-line; font-size:14px; margin-top:10px; line-height: 1.2;}
+
+.modal .modalInner .modalBtn{border-top:1px solid var(--gray-color); padding:10px 20px; display: flex; justify-content:space-between; align-items: center;}
+.modal .modalInner .modalBtn{border-top:1px solid var(--gray-color); padding:10px 20px; display: flex; justify-content:space-between; align-items: center;}
+.modal .modalInner .modalBtn a{display: flex; justify-content: center; align-items: center; border-radius: 5px; height:45px; font-size:15px; font-weight:600;}
+.infoSellerModal .modalInner .modalBtn a{width:calc(50% - 5px);}
+.modal .modalInner .modalBtn .lineBtn{margin-right:10px; background:var(--gray-bg1); border:1px solid var(--gray-color); color:var(--bk-color);}
+.modal .modalInner .modalBtn .lineBtn:hover{background: var(--bk-color); color:var(--white-color); border-color:var(--white-color);}
+.modal .modalInner .modalBtn .closeBtn{background: var(--bk-color); color:var(--white-color);}
+
+/*자동매칭 모달*/
+.matchModal .matchList > li{border-bottom:1px solid var(--gray-color); }
+.matchModal .matchList > li:last-child{border-bottom:none;}
+.matchModal .matchList > li .list{display: flex; justify-content: space-between; align-items: center; padding:10px 20px; cursor: pointer}
+.matchModal .matchList > li .list .titBox{display: flex; flex-direction: column; width:calc(100% - 30px);}
+.matchModal .matchList > li .list .titBox .tit{color:var(--bk-color); font-size:16px; font-weight:700;}
+.matchModal .matchList > li .list .titBox .category{display: flex; justify-content: flex-start; align-items: center; flex-wrap: wrap;}
+.matchModal .matchList > li .list .titBox .category li{color:var(--small-color); font-size:14px; margin-top:2px; }
+.matchModal .matchList > li .list .titBox .category li:after{content:''; display: inline-block; width:1px; height:10px; background:var(--gray-color); margin:0 8px;}
+.matchModal .matchList > li .list .titBox .category li:last-child:after{display: none;}
+.matchModal .matchList > li .list .toggleBtn{display: flex;justify-content: center; align-items: center; width:20px; height:20px; border-radius: 50%; border:1px solid var(--gray-color); font-size:0; background:url("/images/sortIcon.png")no-repeat center; background-size:12px;}
+.matchModal .matchList > li.active .list .toggleBtn{transform: rotate(180deg);}
+.matchModal .matchList > li .infoBox{background:var(--gray-bg1); border-top:1px solid var(--gray-color); font-size:14px; padding:15px 20px;}
+
+.matchModal .matchList > li .infoBox .info{white-space: pre-line;}
+.matchModal .matchList > li .infoBox .snsLink{display: block; margin-top:10px;}
+.matchModal .matchList > li .infoBox .snsLink:hover{color:var(--bk-color);}
+
+.matchModal .modalBtn a {width:calc(33.33% - 6.666px);}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

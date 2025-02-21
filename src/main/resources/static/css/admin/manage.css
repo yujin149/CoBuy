@@ -27,7 +27,7 @@
 .adminWrap table td .category li{display: flex; justify-content: flex-start; align-items: center; width:220px; margin-bottom:10px;}
 .adminWrap table td .category li input{width:15px; height:15px; border:1px solid var(--gray-color);}
 .adminWrap table td .category li label{margin-left:5px; margin-top:1px; font-size:15px;}
-
+.adminWrap table td textarea{width:100%; height:80px; border:1px solid var(--gray-color); border-radius: 5px; outline: none; resize: none; padding:10px; font-size:15px;}
 
 
 
