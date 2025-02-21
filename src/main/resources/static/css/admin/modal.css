@@ -54,12 +54,12 @@
 .modal.addModal .modalInner{width:620px;}
 .addModal .modalBtn a{width:calc(50% - 5px);}
 .addModal .modalCont{padding:20px;}
-.addModal .modalCont .searchWrap{width:100%;padding:15px; background:var(--gray-bg1);}
-.addModal .modalCont .searchWrap form{display: flex; justify-content: space-between; align-items: center;}
-.addModal .modalCont .searchWrap select{width:120px; height:45px; border:1px solid var(--gray-color); border-radius: 5px; outline: none; cursor: pointer; padding:0 10px; margin-right:10px;}
-.addModal .modalCont .searchWrap .searchBox{position:relative; width:calc(100% - 130px)}
-.addModal .modalCont .searchWrap .searchBox input{width:100%; background:var(--white-color); height:45px; border-radius: 5px; padding-right:45px;}
-.addModal .modalCont .searchWrap .searchBox button{position:absolute; top:50%; right:0; transform: translateY(-50%); height:100%; border:0; outline: none; width:45px; font-size:0; background:url("/images/searchIcon.png")no-repeat center; background-size:25px; cursor: pointer;}
+.modal .modalCont .searchWrap{width:100%;padding:15px; background:var(--gray-bg1);}
+.modal .modalCont .searchWrap form{display: flex; justify-content: space-between; align-items: center;}
+.modal .modalCont .searchWrap select{width:120px; height:45px; border:1px solid var(--gray-color); border-radius: 5px; outline: none; cursor: pointer; padding:0 10px; margin-right:10px;}
+.modal .modalCont .searchWrap .searchBox{position:relative; width:calc(100% - 130px)}
+.modal .modalCont .searchWrap .searchBox input{width:100%; background:var(--white-color); height:45px; border-radius: 5px; padding-right:45px;}
+.modal .modalCont .searchWrap .searchBox button{position:absolute; top:50%; right:0; transform: translateY(-50%); height:100%; border:0; outline: none; width:45px; font-size:0; background:url("/images/searchIcon.png")no-repeat center; background-size:25px; cursor: pointer;}
 
 
 .addModal .tableWrap{position:relative; max-height:260px; overflow-y: auto; margin-top:10px;}
@@ -86,15 +86,32 @@
 .orderDetailModal .modalCont{padding:20px;}
 .orderDetailModal .modalBtn a{width:calc(50% - 5px);}
 
+.orderDetailModal .tableWrap table tr td{padding:10px 8px;}
+
+.orderDetailModal .modalTitle .tit{display: flex; justify-content: flex-start; align-items: flex-end;}
+.orderDetailModal  .modalTitle .tit span{display: inline-block; color:var(--bk-color); margin-right:5px;}
 
 
+.orderDetailModal .tableWrap{max-height:220px; overflow-y: auto; margin-top:10px; position:relative;}
+.orderDetailModal .tableWrap table thead{position:sticky; top:0;left:0;}
+.orderDetailModal .tableWrap .prodInfo{display: flex; justify-content: flex-start; align-items: flex-start}
+.orderDetailModal .tableWrap .prodInfo .imgBox{width:60px; height:60px;}
+.orderDetailModal .tableWrap .prodInfo .imgBox img{width:100%; height:100%; border:1px solid var(--gray-color); border-radius: 5px; object-fit: cover;}
 
+.orderDetailModal .tableWrap .prodInfo .info{display: flex; flex-direction: column; align-items: flex-start; width:calc(100% - 65px); margin-left:5px;}
+.orderDetailModal .tableWrap .prodInfo .info .tit{color:var(--bk-color); font-weight:600; text-align: left;}
+.orderDetailModal  .tableWrap .prodInfo .info .option{display:flex; justify-content: flex-start; align-items: center; flex-wrap: wrap; margin-top:2px;}
+.orderDetailModal .tableWrap .prodInfo .info .option li{font-size:13px; color:var(--small-color);}
+.orderDetailModal .tableWrap .prodInfo .info .option li:after{content:''; display: inline-block; width:1px; height:9px; background:var(--gray-color); margin:0 5px;}
+.orderDetailModal .tableWrap .prodInfo .info .option li:last-child:after{display: none;}
 
+.orderDetailModal .tableWrap .prodInfo .info .price{color:var(--bk-color); font-size:14px; font-weight:600; margin-top:8px;}
 
+.orderDetailModal .tableWrap .status{display: inline-block; padding:4px 8px;border-radius: 5px; color:var(--white-color);font-weight:500; background:var(--bk-color); font-size:14px;}
+.orderDetailModal .tableWrap .status01{background:var(--green-color);}
+.orderDetailModal .tableWrap .status02{background:var(--red-color);}
 
-
-
-
+.orderDetailModal .pagination{margin-top:20px;}
 
 
 

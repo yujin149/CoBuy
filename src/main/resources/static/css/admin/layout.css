@@ -4,6 +4,7 @@
 .adminWrap{padding:40px; min-width: 747px;}
 .adminWrap .titleWrap{display: flex; justify-content: space-between; align-items: center; margin-bottom:10px;}
 .adminWrap .titleWrap .title{color:var(--bk-color); font-weight:700; font-size:30px;}
+textarea{box-sizing: border-box;}
 
 
 /*table 공통*/

@@ -2,25 +2,183 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
 <div th:fragment="orderDetailModal">
-  <!--주문 내역 확인-->
-  <div class="modal orderDetailModal">
-    <div class="modalInner">
-      <div class="modalTitle">
-        <p class="tit">주문내역확인</p>
-        <a href="javascript:void(0)" class="closeBtn">닫기</a>
-      </div>
-      <div class="modalCont">
+    <!--주문 내역 확인-->
+    <div class="modal orderDetailModal">
+        <div class="modalInner">
+            <div class="modalTitle">
+                <p class="tit">
+                    <span class="name">송유진님</span>
+                    주문내역확인
+                </p>
+                <a class="closeBtn" href="javascript:void(0)">닫기</a>
+            </div>
+            <div class="modalCont">
+                <div class="searchWrap">
+                    <form>
+                        <select>
+                            <option value="전체">전체</option>
+                            <option value="상품명">상품명</option>
+                            <option value="상품코드">상품코드</option>
+                        </select>
+                        <div class="searchBox">
+                            <input placeholder="검색어를 입력해주세요." type="text">
+                            <button type="submit">검색</button>
+                        </div>
+                    </form>
+                </div>
 
+                <div class="tableWrap">
+                    <table>
+                        <colgroup>
+                            <col style="width:60px">
+                            <col style="width:100%">
+                            <col style="width:90px">
+                            <col style="width:90px">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>상품명</th>
+                            <th>결제상태</th>
+                            <th>결제일</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>4</td>
+                            <td>
+                                <div class="prodInfo">
+                                    <div class="imgBox">
+                                        <img src="https://picsum.photos/800/800">
+                                    </div>
+                                    <div class="info">
+                                        <p class="tit">상품명</p>
+                                        <ul class="option">
+                                            <li>옵션선택내용</li>
+                                            <li>옵션선택내용</li>
+                                        </ul>
+                                        <p class="price">10,000원</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="status">반품</span>
+                            </td>
+                            <td>2025.02.21</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>
+                                <div class="prodInfo">
+                                    <div class="imgBox">
+                                        <img src="https://picsum.photos/800/800">
+                                    </div>
+                                    <div class="info">
+                                        <p class="tit">상품명</p>
+                                        <ul class="option">
+                                            <li>옵션선택내용</li>
+                                            <li>옵션선택내용</li>
+                                        </ul>
+                                        <p class="price">10,000원</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="status">교환</span>
+                            </td>
+                            <td>2025.02.21</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>
+                                <div class="prodInfo">
+                                    <div class="imgBox">
+                                        <img src="https://picsum.photos/800/800">
+                                    </div>
+                                    <div class="info">
+                                        <p class="tit">상품명</p>
+                                        <ul class="option">
+                                            <li>옵션선택내용</li>
+                                            <li>옵션선택내용</li>
+                                        </ul>
+                                        <p class="price">10,000원</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="status02 status">환불</span>
+                            </td>
+                            <td>2025.02.21</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>
+                                <div class="prodInfo">
+                                    <div class="imgBox">
+                                        <img src="https://picsum.photos/800/800">
+                                    </div>
+                                    <div class="info">
+                                        <p class="tit">상품명</p>
+                                        <ul class="option">
+                                            <li>옵션선택내용</li>
+                                            <li>옵션선택내용</li>
+                                        </ul>
+                                        <p class="price">10,000원</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="status status01">결제완료</span>
+                            </td>
+                            <td>2025.02.21</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>
+                                <div class="prodInfo">
+                                    <div class="imgBox">
+                                        <img src="https://picsum.photos/800/800">
+                                    </div>
+                                    <div class="info">
+                                        <p class="tit">상품명</p>
+                                        <ul class="option">
+                                            <li>옵션선택내용</li>
+                                            <li>옵션선택내용</li>
+                                        </ul>
+                                        <p class="price">10,000원</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="status">취소</span>
+                            </td>
+                            <td>2025.02.21</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <ul class="pagination">
+                    <li class="page-item page-arrow page-prev" >
+                        <a class="page-link" href="javascript:void(0)">이전 페이지</a>
+                    </li>
+                    <li class="page-item page-num" >
+                        <a class="page-link active" href="javascript:void(0)">1</a>
+                        <a class="page-link" href="javascript:void(0)">2</a>
+                        <a class="page-link" href="javascript:void(0)">3</a>
+                    </li>
+                    <li class="page-item page-arrow page-next" >
+                        <a class="page-link" href="javascript:void(0)">다음 페이지</a>
+                    </li>
+                </ul>
 
-
-      </div>
-      <div class="modalBtn">
-        <a href="javascript:void(0)" class="sendMsg lineBtn">메세지 보내기</a>
-        <a href="javascript:void(0)" class="closeBtn btn">닫기</a>
-      </div>
+            </div>
+            <div class="modalBtn">
+                <a class="sendMsg lineBtn" href="javascript:void(0)">메세지 보내기</a>
+                <a class="closeBtn btn" href="javascript:void(0)">닫기</a>
+            </div>
+        </div>
+        <div class="bgB"></div>
     </div>
-    <div class="bgB"></div>
-  </div>
 
 </div>
 </body>
