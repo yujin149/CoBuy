@@ -51,7 +51,26 @@
 .orderWrap .categoryRank > .title .rankBtn{font-size:15px; color:var(--bk-color);font-weight:500; display: flex; justify-content: center; align-items: center; border-radius: 5px; background:var(--gray-bg1); border:1px solid var(--gray-color); height:35px; width:120px;}
 .orderWrap .categoryRank > .title .rankBtn:hover{background:var(--bk-color); border-color:var(--bk-color); color:var(--white-color);}
 
-/**/
+/*주문내역확인*/
+.orderListWrap .tableWrap table tr td{padding:10px;}
+.orderListWrap .tableWrap .prodLink{cursor: pointer;}
+.orderListWrap .tableWrap .prodInfo{display: flex; justify-content: flex-start; align-items: flex-start;}
+.orderListWrap .tableWrap .prodInfo .imgBox{width:60px; height:60px;}
+.orderListWrap .tableWrap .prodInfo .imgBox img{width:100%; height:100%; border:1px solid var(--gray-color); border-radius: 5px; object-fit: cover;}
+.orderListWrap .tableWrap .prodInfo .info{display: flex; flex-direction: column; align-items: flex-start; width:calc(100% - 70px); margin-left:10px; margin-top:5px;}
+.orderListWrap .tableWrap .prodInfo .info .tit{color:var(--bk-color); font-weight:600; text-align: left; font-size:15px;}
+.orderListWrap .tableWrap .prodInfo .info .option{display: flex; justify-content: flex-start; align-items: center; flex-wrap: wrap; margin-top:2px;}
+.orderListWrap .tableWrap .prodInfo .info .option li{font-size:14px; color:var(--small-color);}
+.orderListWrap .tableWrap .oriPrice{color:var(--bk-color); font-weight:600;}
+.orderListWrap .tableWrap .oriPrice span{color:var(--bk-color); font-weight:600;}
+.orderListWrap .tableWrap .status{display: inline-block; padding:4px 8px; border-radius: 5px; font-size:14px; background:var(--bk-color); color:var(--white-color); font-weight:500; }
+.orderListWrap .tableWrap .status01{background:var(--green-color);}
+.orderListWrap .tableWrap .status02{background:var(--red-color);}
+
+.orderListWrap .tableWrap .btnBox a{width:100%; display: flex; justify-content: center; align-items: center; background:var(--gray-bg1); color:var(--bk-color); border-radius: 5px; border:1px solid var(--gray-color); height:35px; font-size:14px; font-weight:500;}
+.orderListWrap .tableWrap .btnBox a:hover{background:var(--bk-color); color:var(--white-color); border-color:var(--bk-color);}
+
+.orderListWrap .tableWrap.sellerOrder colgroup col:last-child{display: none;}
 
 
 
