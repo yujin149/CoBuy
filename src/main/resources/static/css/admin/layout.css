@@ -1,7 +1,7 @@
 
 /*content 공통*/
-.bodyCont{padding-top:66px; padding-left:260px;}
-.adminWrap{padding:40px; min-width: 747px;}
+.bodyCont{padding-top:66px; padding-left:240px;}
+.adminWrap{padding:40px; min-width: 764px;}
 .adminWrap .titleWrap{display: flex; justify-content: space-between; align-items: center; margin-bottom:10px;}
 .adminWrap .titleWrap .title{color:var(--bk-color); font-weight:700; font-size:30px;}
 textarea{box-sizing: border-box;}

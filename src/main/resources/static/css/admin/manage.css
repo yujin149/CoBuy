@@ -58,12 +58,44 @@
 /*회원관리*/
 .userMangeWrap .tableWrap table tr td .btnBox a{width:100%}
 
+/*메세지 리스트*/
+.messageWrap .messageBox{display: flex; justify-content: space-between; align-items: flex-start; border:1px solid var(--gray-color); border-top:none;}
 
+.messageWrap .messageBox .listWrap{width:100%; height: calc(100vh - 194px); overflow-y: auto; border-top:1px solid var(--gray-color);}
+.messageWrap .messageBox .massageRoom{width:0; height: calc(100vh - 194px);overflow-y: auto; position: relative;}
 
+.messageWrap .messageBox .listWrap.active{width:38%; transition: all 0s;}
+.messageWrap .messageBox .massageRoom.active{width:62%; border-left:1px solid var(--gray-color); transition: all 0s;}
 
+.messageWrap .messageBox .listWrap li{padding:15px; border-bottom:1px solid var(--gray-color); position:relative; cursor: pointer;}
+.messageWrap .messageBox .listWrap li:hover{background:var(--gray-bg1);}
+.messageWrap .messageBox .listWrap li.on{background:var(--gray-bg1);}
 
+.messageWrap .messageBox .listWrap li .titBox{display:flex; justify-content: flex-start; align-items: center; padding-right:30px; flex-wrap:wrap;}
+.messageWrap .messageBox .listWrap li .titBox .name{color:var(--bk-color); font-weight:700; margin-right:5px; font-size:14px;}
+.messageWrap .messageBox .listWrap li .titBox .info{display: flex; justify-content: flex-start; align-items: center;}
 
+.messageWrap .messageBox .listWrap li .titBox .userId{display: inline-block; color:var(--small-color); font-size:13px;}
+.messageWrap .messageBox .listWrap li .titBox .userId:after{content:'';display: inline-block; margin:0 5px; width:1px; height:10px; background:var(--gray-color);}
+.messageWrap .messageBox .listWrap li .titBox .date{display: inline-block; color:var(--small-color); font-size:13px;}
+.messageWrap .messageBox .listWrap li .txt{width:100%; display: block; text-overflow: ellipsis; overflow: hidden; text-wrap: nowrap; font-size:14px; margin-top:5px; font-weight: 500;}
 
+.messageWrap .messageBox .listWrap li .noRead{position:absolute; top:15px; right:20px; display: flex; justify-content: center; align-items: center; width:20px; height:20px; border-radius: 50%; background: var(--bk-color); color:var(--white-color); font-weight:600; font-size:11px;}
 
+.messageWrap .messageBox .massageRoom .msgTitle {position:relative; width:100%; text-align: center; background:var(--bk-color); height:60px; display: flex; justify-content: center; align-items: center;}
+.messageWrap .messageBox .massageRoom .msgTitle .title{color:var(--white-color); font-size:17px; font-weight:700;}
+.messageWrap .messageBox .massageRoom .msgTitle .closeBtn{position:absolute;top:50%; right:20px; transform: translateY(-50%); font-size:0; display: flex; width:40px; height:100%; background:url("/images/closeBtnW.png")no-repeat right center; background-size:24px;}
+
+.messageWrap .messageBox .massageRoom .sendChat{display: flex; justify-content: space-between; align-items: flex-start; background:var(--gray-bg1); border-top:1px solid var(--gray-color); padding:15px 20px;}
+.messageWrap .messageBox .massageRoom .sendChat textarea{width:calc(100% - 81px); height:50px; border:1px solid var(--gray-color); border-radius: 5px; outline: none; resize: none; padding:10px;}
+.messageWrap .messageBox .massageRoom .sendChat .sendBtn{display: flex; justify-content: center; align-items: center; background:var(--bk-color); color:var(--white-color); font-weight:500; width:80px; height:50px; border-radius: 5px;}
+
+.messageWrap .messageBox .massageRoom .contents{height:calc(100% - 150px); overflow-y: auto; padding:20px;}
+.messageWrap .messageBox .massageRoom .contents .chat{width:100%; margin-bottom:20px; display: flex; flex-direction: column; align-items: flex-start;}
+.messageWrap .messageBox .massageRoom .contents .chat .name{font-size:15px; font-weight:700; color:var(--bk-color); margin-bottom:5px;}
+.messageWrap .messageBox .massageRoom .contents .chat .txt{max-width:60%; border-radius: 10px 10px 10px 0; background:var(--gray-bg1); padding:10px; font-size:14px; display: inline-block; line-height: 1.3; white-space: pre-line; color:var(--text-color);}
+.messageWrap .messageBox .massageRoom .contents .chat .date{display: block; font-size:13px; color:var(--small-color); margin-top:5px;}
+.messageWrap .messageBox .massageRoom .contents .myChat {align-items: flex-end;}
+.messageWrap .messageBox .massageRoom .contents .myChat .txt {background:var(--chat-color); border-radius: 10px 10px 0 10px;}
 
 
