@@ -1,0 +1,18 @@
+.settingWrap table td .txtBox input[type="file"]{background:var(--white-color);}
+.settingWrap table td .txtBox .info{color:var(--small-color); font-size:14px; margin-top:5px;}
+
+.settingWrap .btnWrap{display: flex; justify-content: flex-end; align-items: center; margin-top:40px;}
+.settingWrap .btnWrap button{display: flex; justify-content: center; align-items: center; color:var(--white-color); background:var(--bk-color); font-weight:700; border-radius: 5px; width:220px; height:50px; cursor:pointer; font-size:15px; border:none; outline: none; }
+
+
+
+
+
+
+
+
+
+
+
+
+

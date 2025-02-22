@@ -7,7 +7,85 @@
 </head>
 <body class="bodyCont">
 <div layout:fragment="content">
-    <div class="adminWrap">
+    <div class="adminWrap settingWrap">
+        <div class="titleWrap">
+            <h3 class="title">환경설정</h3>
+        </div>
+        <div class="setWrap">
+            <form>
+                <div class="tableWrap tableWrap02">
+                    <table>
+                        <colgroup>
+                            <col style="width:220px;">
+                            <col style="width:calc(100% - 220px);">
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                            <th>쇼핑몰명</th>
+                            <td>
+                                <div class="txtBox">
+                                    <input type="text" value="쇼핑몰명" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>로고</th>
+                            <td>
+                                <div class="txtBox">
+                                    <input type="file" >
+                                    <span class="info">권장 사이즈 200px * 60px </span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>배송안내</th>
+                            <td>
+                                <div class="txtBox">
+                                    <textarea placeholder="배송안내 문구를 입력해주세요.">- 20,000원 이상 구매 시 무료배송이며, 기본배송료는 2,500원 입니다. (도서, 산간, 오지 일부지역은 배송비가 추가될 수 있습니다)
+- 본 상품의 평균 배송일은 결제완료 후 2일입니다. 배송예정일은 주문시점(주문순서)에 따른 유동성이 발생하므로 평균 배송일과는 차이가 발생할 수 있습니다.
+                                    </textarea>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>교환 및 반품 안내</th>
+                            <td>
+                                <div class="txtBox">
+                                    <textarea placeholder="교환 및 반품 안내 문구를 입력해주세요.">- 상품 개봉으로 상품 가치 훼손 시에는 상품수령후 7일 이내라도 교환 및 반품이 불가능합니다.
+- 저단가 상품, 일부 특가 상품은 고객 변심에 의한 교환, 반품은 고객께서 배송비를 부담하셔야 합니다(제품의 하자,배송오류는 제외)
+- 일부 특가 상품의 경우, 인수 후에는 제품 하자나 오배송의 경우를 제외한 고객님의 단순변심에 의한 교환, 반품이 불가능할 수 있사오니, 각 상품의 상품상세정보를 꼭 참조하십시오.
+                                    </textarea>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>환불안내</th>
+                            <td>
+                                <div class="txtBox">
+                                    <textarea placeholder="환불안내 문구를 입력해주세요.">- 상품 청약철회 가능기간은 상품 수령일로 부터 7일 이내 입니다.
+                                    </textarea>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>AS안내</th>
+                            <td>
+                                <div class="txtBox">
+                                    <textarea placeholder="AS안내 문구를 입력해주세요.">- 소비자분쟁해결 기준(공정거래위원회 고시)에 따라 피해를 보상받을 수 있습니다.
+- A/S는 판매자에게 문의하시기 바랍니다.
+                                    </textarea>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="btnWrap">
+                    <button type="submit">저장</button>
+                </div>
+            </form>
+        </div>
+
     </div>
 </div>
 </body>
