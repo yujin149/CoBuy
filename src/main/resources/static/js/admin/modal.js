@@ -40,6 +40,11 @@ $(function(){
     $(".orderDetailBtn").click(function(){
         $(".orderDetailModal").css("display","block");
     });
+
+    /*순위 모달*/
+    $(".rankBtn").click(function(){
+        $(".rankModal").css("display","block");
+    });
     
     
     /*닫기*/

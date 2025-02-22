@@ -113,8 +113,11 @@
 
 .orderDetailModal .pagination{margin-top:20px;}
 
-
-
+/*순위 모달*/
+.rankModal .modalCont{padding:20px;}
+.rankModal .modalCont .rankList li{display: flex; justify-content: space-between; align-items: center; margin-bottom:15px; padding-bottom:15px; border-bottom:1px dashed var(--gray-color);}
+.rankModal .modalCont .rankList li:last-child{margin-bottom:0; padding-bottom:0 ;border-bottom:none;}
+.rankModal .modalCont .rankList li p{color:var(--bk-color); font-size:15px; font-weight:700;}
 
 
 

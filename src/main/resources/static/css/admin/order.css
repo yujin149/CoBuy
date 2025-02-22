@@ -1,0 +1,60 @@
+/*판매현황*/
+.orderWrap .orderAdmin{display: flex; justify-content: space-between; align-items: flex-start;}
+.orderWrap .orderAdmin .list{width:calc(70% - 20px); border:1px solid var(--gray-color); padding:20px; border-radius: 10px;}
+.orderWrap .orderAdmin .orderStatusBox{height:353px;}
+.orderWrap .orderAdmin .list .title{font-size:18px; font-weight:700; color:var(--bk-color); margin-bottom:20px; display: flex; justify-content: flex-start; align-items: center; }
+.orderWrap .orderAdmin .list .title .day{color:var(--small-color); font-size:14px; font-weight:500; display: flex;justify-content: flex-start; align-items: center; margin-left:5px;}
+.orderWrap .orderAdmin .list .title .day:before{content:"("; display:block; font-size:12px; color:var(--small-color);  margin-right:2px;}
+.orderWrap .orderAdmin .list .title .day:after{content:")"; display:block; font-size:12px; color:var(--small-color);  margin-left:2px;}
+.orderWrap .orderAdmin .list .orderStatus{margin-bottom:30px; padding-bottom:30px; border-bottom:1px solid var(--gray-color);}
+.orderWrap .orderAdmin .list .orderStatus2{margin-bottom:0px; padding-bottom:0px; border-bottom:none;}
+.orderWrap .orderAdmin .list .orderStatus li {display: flex; justify-content: space-between; align-items: center; margin:20px 0;}
+.orderWrap .orderAdmin .list .orderStatus li:last-child {margin-bottom:0;}
+.orderWrap .orderAdmin .list .orderStatus li .tit{color:var(--bk-color); font-weight:500; width:70px;}
+.orderWrap .orderAdmin .list .orderStatus li .txt{color:var(--bk-color); font-weight:700; width:calc(100% - 70px); text-align: right; font-size:17px;}
+.orderWrap .orderAdmin .list .orderStatus li.red .txt{color:var(--red-color);}
+
+.orderWrap .orderAdmin .rankList{width:30%;}
+.orderWrap .orderAdmin .rankList .rank li{margin:10px 0; }
+.orderWrap .orderAdmin .rankList .rank li:last-child{margin-bottom:0;}
+.orderWrap .orderAdmin .rankList .rank li .infoSeller{display: flex; justify-content:flex-start; align-items: center; }
+
+.orderWrap .orderAdmin .rankList .rank li p{color:var(--small-color); font-weight:500;  font-size:15px;}
+.orderWrap .orderAdmin .rankList .rank li .infoSeller:hover p{color:var(--bk-color); font-weight:600; }
+.orderWrap .orderAdmin .rankList .rank li.on p{color:var(--bk-color); font-weight:600;}
+.orderWrap .orderAdmin .rankList .rank li .num{width:25px;}
+.orderWrap .orderAdmin .rankList .rank li .name{width:calc(100% - 25px); text-wrap: nowrap; text-overflow: ellipsis; overflow: hidden;}
+
+
+.orderWrap .categoryRank{margin-top:40px;}
+.orderWrap .categoryRank > .title{font-size:20px; font-weight:700; color:var(--bk-color);}
+
+
+.orderWrap .categoryRank .categoryListBox{display: flex; justify-content: flex-start; align-items: flex-start; flex-wrap: wrap; }
+.orderWrap .categoryRank .categoryListBox .listBox{width:calc(25% - 15px); border:1px solid var(--gray-color); margin-right:20px; margin-top:20px; border-radius: 10px;}
+.orderWrap .categoryRank .categoryListBox .listBox:nth-child(-n + 4){margin-top:10px;}
+.orderWrap .categoryRank .categoryListBox .listBox:nth-child(4n){margin-right:0;}
+.orderWrap .categoryRank .categoryListBox .listBox .title{font-size:16px; font-weight:700; color:var(--bk-color); border-bottom:1px solid var(--gray-color); padding:15px 20px 15px;}
+.orderWrap .categoryRank .categoryListBox .listBox ul{padding:10px 20px;}
+.orderWrap .categoryRank .categoryListBox .listBox li a{display: flex; justify-content: flex-start; align-items: center;}
+.orderWrap .categoryRank .categoryListBox .listBox li p{color:var(--small-color); font-size:15px; font-weight:500; margin:5px 0;}
+.orderWrap .categoryRank .categoryListBox .listBox li .infoSeller:hover p{color:var(--bk-color); font-weight:600;}
+.orderWrap .categoryRank .categoryListBox .listBox li .num{width:20px;}
+.orderWrap .categoryRank .categoryListBox .listBox li .name{width:calc(100% - 20px); text-overflow: ellipsis;overflow:hidden; text-wrap: nowrap;}
+
+
+/*셀러 주문현황*/
+.orderWrap .orderSeller .orderStatusBox{height:auto; width:100%;}
+
+
+.orderWrap .categoryRank > .title{display: flex; justify-content: space-between; align-items: center;}
+.orderWrap .categoryRank > .title .rankBtn{font-size:15px; color:var(--bk-color);font-weight:500; display: flex; justify-content: center; align-items: center; border-radius: 5px; background:var(--gray-bg1); border:1px solid var(--gray-color); height:35px; width:120px;}
+.orderWrap .categoryRank > .title .rankBtn:hover{background:var(--bk-color); border-color:var(--bk-color); color:var(--white-color);}
+
+/**/
+
+
+
+
+
+
