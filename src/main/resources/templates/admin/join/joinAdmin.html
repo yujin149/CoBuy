@@ -96,7 +96,15 @@
                         <div class="titleBox">
                             <p class="tit">대표 휴대전화</p>
                             <span class="star">*</span>
-                            <span class="error" th:if="${#fields.hasErrors('adminPhone')}" th:errors="*{adminPhone}">이미 가입된 전화번호입니다.</span>
+                            <!-- 에러 메시지 우선순위: 입력값 없음 -> 형식 오류 -> 중복 전화번호 -->
+                            <!-- 전화번호가 비어있으면 입력 요청 메시지, 값이 있으면 중복 체크 메시지 표시 -->
+                            <span class="error" 
+                                  th:if="${#fields.hasErrors('adminPhone2') || #fields.hasErrors('adminPhone3')}" 
+                                  th:text="${#fields.hasErrors('adminPhone2')} ? ${#fields.errors('adminPhone2')[0]} : ${#fields.errors('adminPhone3')[0]}">
+                            </span>
+                            <span class="error" th:if="${!#fields.hasErrors('adminPhone2') && !#fields.hasErrors('adminPhone3') && #fields.hasErrors('adminPhone')}" 
+                                  th:errors="*{adminPhone}">
+                            </span>
                         </div>
                         <div class="txtBox">
                             <select th:field="*{adminPhone01}">

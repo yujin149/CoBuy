@@ -67,6 +67,18 @@ public class JoinController {
                     error.getDefaultMessage());
             });
         }*/
+        // 전화번호 입력 검증
+        if (adminDto.getAdminPhone2() == null || adminDto.getAdminPhone2().trim().isEmpty() ||
+            adminDto.getAdminPhone3() == null || adminDto.getAdminPhone3().trim().isEmpty()) {
+            if (adminDto.getAdminPhone2() == null || adminDto.getAdminPhone2().trim().isEmpty()) {
+                bindingResult.rejectValue("adminPhone2", "required", "전화번호를 입력해주세요.");
+            }
+            if (adminDto.getAdminPhone3() == null || adminDto.getAdminPhone3().trim().isEmpty()) {
+                bindingResult.rejectValue("adminPhone3", "required", "전화번호를 입력해주세요.");
+            }
+            return "admin/join/joinAdmin";
+        }
+
 
         // 전화번호 조합 및 검증
         String phone = adminDto.getAdminPhone01() + "-" + 
