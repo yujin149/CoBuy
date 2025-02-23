@@ -38,7 +38,7 @@ public class Setting {
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "admin_no") // admin_no와 조인
+    @JoinColumn(name = "admin_id") // admin_no와 조인
     private Admin admin; // 설정과 관리자를 연결
 
 

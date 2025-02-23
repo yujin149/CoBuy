@@ -8,5 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface SettingRepository extends JpaRepository<Setting, Long> {
-    Optional<Setting> findByAdminAdminNo(Long adminNo);
+    Optional<Setting> findByAdminAdminId(String adminId);
 }

@@ -3,7 +3,17 @@
 <body>
 <div th:fragment="adminHeader">
     <div class="adminHeaderWrap">
-        <h1 class="logo"><a href="/admin/order"><!--<img src="https://picsum.photos/200/60"/>-->LOGO CoBuy</a></h1>
+        <h1 class="logo">
+            <a href="/admin/order">
+                <th:block th:if="${setting != null && setting.settingLogoUrl != null}">
+                    <img th:src="${setting.settingLogoUrl}" alt="logo"/>
+                </th:block>
+                <th:block th:unless="${setting.settingLogoUrl != null}"
+                          th:text="${setting != null ? setting.adminShopName : 'LOGO CoBuy'}">
+                </th:block>
+
+            </a>
+        </h1>
         <div class="loginInfo">
             <div class="infoBox">
                 <p class="adminId">admin01</p>
