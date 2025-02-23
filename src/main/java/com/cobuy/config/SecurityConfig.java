@@ -46,6 +46,9 @@ public class SecurityConfig {
                 .requestMatchers(new AntPathRequestMatcher("/admin/seller/join")).permitAll()  // 셀러 회원가입
                 .requestMatchers(new AntPathRequestMatcher("/admin/seller/find")).permitAll()  // 셀러 아이디 찾기
                 
+                // 아이디 중복체크 API 접근 허용
+                .requestMatchers(new AntPathRequestMatcher("/admin/checkId")).permitAll()
+                
                 // 관리자 페이지 접근 제한 (로그인 필요)
                 .requestMatchers(new AntPathRequestMatcher("/admin/**")).hasRole("ADMIN")
                 
@@ -66,9 +69,12 @@ public class SecurityConfig {
             )
             // H2 콘솔 사용을 위한 설정
             .headers(headers -> headers.frameOptions().disable())
-            // CSRF 보호 기능 비활성화 (개발 단계에서만 사용)
+            // CSRF 보호 기능 설정
             .csrf(csrf -> csrf
-                .disable()
+                .ignoringRequestMatchers(
+                    new AntPathRequestMatcher("/admin/checkId"),    // 아이디 중복체크 API
+                    new AntPathRequestMatcher("/h2-console/**")     // H2 콘솔
+                )
             );
 
         return http.build();

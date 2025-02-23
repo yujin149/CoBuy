@@ -11,16 +11,18 @@
         <div class="memberInner">
             <p class="title">회원가입</p>
 
-            <form action="/join02">
+            <form th:action="@{/admin/join}" method="post" th:object="${adminDto}">
+                <!--중복 체크 성공 시 hidden 필드에 true 값 저장-->
+                <input type="hidden" th:field="*{idChecked}" />
                 <ul class="joinForm">
                     <li class="list list01">
                         <div class="titleBox">
                             <p class="tit">아이디</p>
                             <span class="star">*</span>
-                            <span class="error">사용할 수 없는 아이디입니다.</span>
+                            <span class="error" th:if="${#fields.hasErrors('adminId')}" th:errors="*{adminId}">사용할 수 없는 아이디입니다.</span>
                         </div>
                         <div class="txtBox">
-                            <input type="text" placeholder="아이디 입력(6~20자)">
+                            <input type="text" th:field="*{adminId}" placeholder="아이디 입력(6~20자)">
                             <a href="#" class="checkId btn">중복 확인</a>
                         </div>
                     </li>
@@ -28,30 +30,30 @@
                         <div class="titleBox">
                             <p class="tit">비밀번호</p>
                             <span class="star">*</span>
-                            <span class="error">8 ~ 16자의 비밀번호를 입력해주세요. </span>
+                            <span class="error" th:if="${#fields.hasErrors('adminPW')}" th:errors="*{adminPW}">8 ~ 16자의 비밀번호를 입력해주세요.</span>
                         </div>
                         <div class="txtBox">
-                            <input type="password" placeholder="비밀번호 입력(8 ~ 16자)">
+                            <input type="password" th:field="*{adminPW}" placeholder="비밀번호 입력(8 ~ 16자)">
                         </div>
                     </li>
                     <li class="list">
                         <div class="titleBox">
                             <p class="tit">비밀번호 확인</p>
                             <span class="star">*</span>
-                            <span class="error">비밀번호가 일치하지 않습니다.</span>
+                            <span class="error" th:if="${#fields.hasErrors('adminPWChk')}" th:errors="*{adminPWChk}">비밀번호가 일치하지 않습니다.</span>
                         </div>
                         <div class="txtBox">
-                            <input type="password" placeholder="비밀번호 확인">
+                            <input type="password" th:field="*{adminPWChk}" placeholder="비밀번호 확인">
                         </div>
                     </li>
                     <li class="list">
                         <div class="titleBox">
                             <p class="tit">쇼핑몰명</p>
                             <span class="star">*</span>
-                            <span class="error">쇼핑몰명을 입력해주세요.</span>
+                            <span class="error" th:if="${#fields.hasErrors('adminShopName')}" th:errors="*{adminShopName}">쇼핑몰명을 입력해주세요.</span>
                         </div>
                         <div class="txtBox">
-                            <input type="text" placeholder="쇼핑몰명을 입력해주세요.">
+                            <input type="text" th:field="*{adminShopName}" placeholder="쇼핑몰명을 입력해주세요.">
                         </div>
                     </li>
 
@@ -60,58 +62,22 @@
                             <p class="tit">카테고리 정보
                                 <a href="javascript:void(0)" class="infoBtn">도움말
                                     <span class="infoBox">
-                                    취급 상품과 관련된 카테고리를 선택해야 하며, 판매하고자 하는 상품군의 카테고리를 선택해 주시면 됩니다.<br>
+                                        취급 상품과 관련된 카테고리를 선택해야 하며, 판매하고자 하는 상품군의 카테고리를 선택해 주시면 됩니다.<br>
                                         카테고리는 셀러와 매칭 서비스에 이용됩니다.
-                                </span>
+                                    </span>
                                 </a>
-
                             </p>
                             <span class="star">*</span>
+                            <span class="error" th:if="${#fields.hasErrors('productCategories')}" th:errors="*{productCategories}">카테고리를 선택해주세요.</span>
                         </div>
                         <ul class="txtBox">
-                           <li>
-                               <input type="checkbox" id="category01" name="category" value="가구/인테리어">
-                                <label for="category01">가구/인테리어</label>
-                           </li>
-                            <li>
-                                <input type="checkbox" id="category02" name="category" value="도서">
-                                <label for="category02">도서</label>
-                            </li>
-                            <li>
-                                <input type="checkbox" id="category03" name="category" value="디지털/가전">
-                                <label for="category03">디지털/가전</label>
-                            </li>
-                            <li>
-                                <input type="checkbox" id="category04" name="category" value="생활/건강">
-                                <label for="category04">생활/건강</label>
-                            </li>
-                            <li>
-                                <input type="checkbox" id="category05" name="category" value="스포츠/레저">
-                                <label for="category05">스포츠/레저</label>
-                            </li>
-                            <li>
-                                <input type="checkbox" id="category06" name="category" value="식품">
-                                <label for="category06">식품</label>
-                            </li>
-                            <li>
-                                <input type="checkbox" id="category07" name="category" value="여가/생활편의">
-                                <label for="category07">여가/생활편의</label>
-                            </li>
-                            <li>
-                                <input type="checkbox" id="category08" name="category" value="출산/육아">
-                                <label for="category08">출산/육아</label>
-                            </li>
-                            <li>
-                                <input type="checkbox" id="category09" name="category" value="패션의류">
-                                <label for="category09">패션의류</label>
-                            </li>
-                            <li>
-                                <input type="checkbox" id="category10" name="category" value="패션잡화">
-                                <label for="category10">패션잡화</label>
-                            </li>
-                            <li>
-                                <input type="checkbox" id="category11" name="category" value="화장품/미용">
-                                <label for="category11">화장품/미용</label>
+                            <li th:each="category : ${T(com.cobuy.constant.ProductCategory).values()}">
+                                <input type="checkbox" 
+                                       th:id="${'category' + categoryStat.count}"
+                                       th:field="*{productCategories}"
+                                       th:value="${category.name()}">
+                                <label th:for="${'category' + categoryStat.count}" 
+                                       th:text="${category.displayName}">카테고리명</label>
                             </li>
                         </ul>
                     </li>
@@ -119,10 +85,10 @@
                         <div class="titleBox">
                             <p class="tit">대표자명</p>
                             <span class="star">*</span>
-                            <span class="error">대표자명을 입력해주세요.</span>
+                            <span class="error" th:if="${#fields.hasErrors('adminName')}" th:errors="*{adminName}">대표자명을 입력해주세요.</span>
                         </div>
                         <div class="txtBox">
-                            <input type="text" placeholder="대표자명을 입력해주세요.">
+                            <input type="text" th:field="*{adminName}" placeholder="대표자명을 입력해주세요.">
                         </div>
                     </li>
 
@@ -130,10 +96,10 @@
                         <div class="titleBox">
                             <p class="tit">대표 휴대전화</p>
                             <span class="star">*</span>
-                            <span class="error">이미 가입된 번호입니다.</span>
+                            <span class="error" th:if="${#fields.hasErrors('adminPhone')}" th:errors="*{adminPhone}">이미 가입된 전화번호입니다.</span>
                         </div>
                         <div class="txtBox">
-                            <select name="phone01" id="phone01">
+                            <select th:field="*{adminPhone01}">
                                 <option value="010">010</option>
                                 <option value="011">011</option>
                                 <option value="016">016</option>
@@ -142,9 +108,9 @@
                                 <option value="019">019</option>
                             </select>
                             <span class="hyphen">-</span>
-                            <input type="text">
+                            <input type="text" th:field="*{adminPhone2}" maxlength="4">
                             <span class="hyphen">-</span>
-                            <input type="text">
+                            <input type="text" th:field="*{adminPhone3}" maxlength="4">
                         </div>
                     </li>
 
@@ -152,10 +118,10 @@
                         <div class="titleBox">
                             <p class="tit">대표 이메일</p>
                             <span class="star">*</span>
-                            <span class="error">이미 가입된 이메일입니다.</span>
+                            <span class="error" th:if="${#fields.hasErrors('adminEmail')}" th:errors="*{adminEmail}">이미 가입된 이메일입니다.</span>
                         </div>
                         <div class="txtBox">
-                            <input type="text" placeholder="이메일을 입력해주세요.">
+                            <input type="text" th:field="*{adminEmail}" placeholder="이메일을 입력해주세요.">
                         </div>
                     </li>
 
@@ -163,17 +129,18 @@
                         <div class="titleBox">
                             <p class="tit">사업장 주소</p>
                             <span class="star">*</span>
-                            <span class="error">주소를 입력해주세요.</span>
+                            <span class="error" th:if="${#fields.hasErrors('adminAddress')}" th:errors="*{adminAddress}">주소를 입력해주세요.</span>
                         </div>
                         <div class="txtBox">
                             <div class="txt01 txt">
-                                <input type="text" class="postcode" placeholder="우편번호" readonly>
-                                <a href="#" class="btn">우편번호 검색</a>
+                                <input type="text" id="sample6_postcode" th:field="*{postcode}" readonly>
+                                <a href="javascript:void(0)" onclick="sample6_execDaumPostcode()" class="btn">우편번호 검색</a>
                             </div>
-                            <input type="text" placeholder="주소" readonly>
+                            <input type="text" id="sample6_address" th:field="*{baseAddress}" readonly>
                             <div class="txt02 txt">
-                                <input type="text" placeholder="상세주소 입력">
-                                <input type="text" readonly>
+                                <input type="text" id="sample6_detailAddress" th:field="*{detailAddress}" placeholder="상세주소 입력">
+                                <input type="text" id="sample6_extraAddress" th:field="*{extraAddress}" readonly>
+                                <input type="hidden" th:field="*{adminAddress}">
                             </div>
                         </div>
                     </li>
@@ -183,7 +150,7 @@
                             <p class="tit">홈페이지 주소</p>
                         </div>
                         <div class="txtBox">
-                            <input type="text" placeholder="홈페이지 주소를 입력해주세요.">
+                            <input type="text" th:field="*{adminUrl}" placeholder="홈페이지 주소를 입력해주세요.">
                         </div>
                     </li>
                     <li class="list">
@@ -191,7 +158,9 @@
                             <p class="tit">소개글</p>
                         </div>
                         <div class="txtBox">
-                            <textarea name="companyInfo" id="companyInfo" placeholder="소개 문구를 입력해주세요."></textarea>
+                            <textarea name="companyInfo" id="companyInfo" 
+                                      th:field="*{adminContents}" 
+                                      placeholder="소개 문구를 입력해주세요."></textarea>
                         </div>
                     </li>
 
@@ -203,5 +172,8 @@
         </div>
     </div>
 </div>
+<th:block layout:fragment="script">
+    <script th:src="@{/js/admin/join.js}"></script>
+</th:block>
 </body>
 </html>
