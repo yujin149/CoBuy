@@ -16,7 +16,7 @@ public interface SellerRepository extends JpaRepository<Seller, String> {
     Optional<Seller> findBySellerId(String sellerId);
 
     // 이메일로 관리자 정보 조회 (아이디 찾기에 사용)
-    Optional<Seller> findBySellerEmail(String adminEmail);
+    Optional<Seller> findBySellerEmail(String sellerEmail);
 
     // 아이디와 이메일로 관리자 정보 조회 (비밀번호 찾기에 사용)
     Optional<Seller> findBySellerIdAndSellerEmail(String sellerId, String sellerEmail);
