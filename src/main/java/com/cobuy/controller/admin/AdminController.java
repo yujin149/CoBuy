@@ -1,41 +1,32 @@
 package com.cobuy.controller.admin;
 
+import com.cobuy.dto.AdminDto;
+import com.cobuy.service.AdminService;
+import com.cobuy.validator.ValidationGroups;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import jakarta.validation.Valid;
-import com.cobuy.service.AdminService;
-import com.cobuy.dto.AdminDto;
-import com.cobuy.validator.ValidationGroups.SignUpValidation;
 import org.springframework.validation.annotation.Validated;
-import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import org.springframework.http.HttpStatus;
-import java.util.Collections;
 
 @Slf4j
 @Controller
 @RequiredArgsConstructor
-public class JoinController {
+public class AdminController {
+
     private final AdminService adminService;
 
     /*업체 아이디 찾기*/
     @GetMapping(value = "/admin/find")
     public String findAdmin() {
-        return "admin/join/findAdmin";
-    }
-    /*셀러 아이디 찾기*/
-    @GetMapping(value = "/admin/seller/find")
-    public String findSeller() {
         return "admin/join/findAdmin";
     }
 
@@ -45,24 +36,19 @@ public class JoinController {
         model.addAttribute("adminDto", new AdminDto());
         return "admin/join/joinAdmin";
     }
-    /*셀러 회원가입*/
-    @GetMapping(value = "/admin/seller/join")
-    public String joinSeller() {
-        return "admin/join/joinSeller";
-    }
 
     /*업체 회원가입 처리*/
     @PostMapping(value = "/admin/join")
     public String joinAdminProcess(
-            @Validated(SignUpValidation.class) @ModelAttribute("adminDto") AdminDto adminDto,
-            BindingResult bindingResult,
-            Model model) {
+        @Validated(ValidationGroups.SignUpValidation.class) @ModelAttribute("adminDto") AdminDto adminDto,
+        BindingResult bindingResult,
+        Model model) {
 
         // 바인딩 에러 로깅 에러 확인을 위한 코드
         /*if (bindingResult.hasErrors()) {
             log.error("Validation errors:");
             bindingResult.getAllErrors().forEach(error -> {
-                log.error("Field: {}, Error: {}", 
+                log.error("Field: {}, Error: {}",
                     ((FieldError) error).getField(),
                     error.getDefaultMessage());
             });
@@ -81,9 +67,9 @@ public class JoinController {
 
 
         // 전화번호 조합 및 검증
-        String phone = adminDto.getAdminPhone01() + "-" + 
-                      adminDto.getAdminPhone2() + "-" + 
-                      adminDto.getAdminPhone3();
+        String phone = adminDto.getAdminPhone01() + "-" +
+            adminDto.getAdminPhone2() + "-" +
+            adminDto.getAdminPhone3();
         adminDto.setAdminPhone(phone);
         log.info("Combined phone number: {}", phone);
 
@@ -94,8 +80,8 @@ public class JoinController {
 
         // 비밀번호 일치 여부 검사
         if (!adminDto.getAdminPW().equals(adminDto.getAdminPWChk())) {
-            bindingResult.rejectValue("adminPWChk", "passwordInCorrect", 
-                                    "비밀번호가 일치하지 않습니다.");
+            bindingResult.rejectValue("adminPWChk", "passwordInCorrect",
+                "비밀번호가 일치하지 않습니다.");
             return "admin/join/joinAdmin";
         }
 
@@ -103,17 +89,17 @@ public class JoinController {
             //중복체크
             // 이메일과 전화번호 중복 체크를 한번에 수행
             boolean hasError = false;
-            
+
             if (adminService.existsByEmail(adminDto.getAdminEmail())) {
                 bindingResult.rejectValue("adminEmail", "duplicate", "이미 가입된 이메일입니다.");
                 hasError = true;
             }
-            
+
             if (adminService.existsByPhone(adminDto.getAdminPhone())) {
                 bindingResult.rejectValue("adminPhone", "duplicate", "이미 가입된 전화번호입니다.");
                 hasError = true;
             }
-            
+
             if (hasError) {
                 return "admin/join/joinAdmin";
             }
@@ -130,7 +116,7 @@ public class JoinController {
     /**
      * 관리자 아이디 중복 체크
      * 클라이언트에서 AJAX 요청으로 호출됨
-     * 
+     *
      * @param adminId 중복 체크할 관리자 아이디
      * @return ResponseEntity<Map<String, Boolean>> 중복 여부를 담은 응답
      */
@@ -145,7 +131,7 @@ public class JoinController {
             //isDuplicate 변수에 중복 여부를 담음
             boolean isDuplicate = adminService.checkDuplicateId(adminId);
             //log.info("Is duplicate: {}", isDuplicate);
-            
+
             // 응답 데이터 구성
             //Map<String, Boolean>은 문자열 타입의 키와 불리언 타입을 값을 저장할 수 있음.
             Map<String, Boolean> response = new HashMap<>();
@@ -157,10 +143,10 @@ public class JoinController {
         } catch (Exception e) {
             // 예외 발생 시 로깅 및 에러 응답 반환
             log.error("Error checking duplicate ID: ", e);
-            
+
             // HTTP 500 에러와 함께 에러 상태 반환
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                               .body(Collections.singletonMap("error", true));
+                .body(Collections.singletonMap("error", true));
         }
     }
 }

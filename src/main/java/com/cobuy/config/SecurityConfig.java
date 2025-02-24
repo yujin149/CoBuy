@@ -43,8 +43,9 @@ public class SecurityConfig {
                 .requestMatchers(new AntPathRequestMatcher("/admin/find")).permitAll()  // 업체 아이디 찾기
                 
                 // 셀러 회원 관련 페이지
-                .requestMatchers(new AntPathRequestMatcher("/admin/seller/join")).permitAll()  // 셀러 회원가입
-                .requestMatchers(new AntPathRequestMatcher("/admin/seller/find")).permitAll()  // 셀러 아이디 찾기
+                .requestMatchers(new AntPathRequestMatcher("/seller/join")).permitAll()  // 셀러 회원가입
+                .requestMatchers(new AntPathRequestMatcher("/seller/find")).permitAll()  // 셀러 아이디 찾기
+                .requestMatchers(new AntPathRequestMatcher("/seller/checkId")).permitAll() // 셀러 아이디 중복체크
                 
                 // 아이디 중복체크 API 접근 허용
                 .requestMatchers(new AntPathRequestMatcher("/admin/checkId")).permitAll()
@@ -72,8 +73,9 @@ public class SecurityConfig {
             // CSRF 보호 기능 설정
             .csrf(csrf -> csrf
                 .ignoringRequestMatchers(
-                    new AntPathRequestMatcher("/admin/checkId"),    // 아이디 중복체크 API
-                    new AntPathRequestMatcher("/h2-console/**")     // H2 콘솔
+                    new AntPathRequestMatcher("/admin/checkId"),
+                    new AntPathRequestMatcher("/seller/checkId"),
+                    new AntPathRequestMatcher("/h2-console/**")
                 )
             );
 
