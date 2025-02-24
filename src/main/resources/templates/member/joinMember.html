@@ -11,16 +11,18 @@
         <div class="memberInner">
             <p class="title">회원가입</p>
 
-            <form action="/join02">
+            <form th:action="@{/member/join}" method="post" th:object="${userDto}">
+                <!--중복 체크 성공 시 hidden 필드에 true 값 저장-->
+                <input type="hidden" th:field="*{idChecked}" />
                 <ul class="joinForm">
                     <li class="list list01">
                         <div class="titleBox">
                             <p class="tit">아이디</p>
                             <span class="star">*</span>
-                            <span class="error">사용할 수 없는 아이디입니다.</span>
+                            <span class="error" th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}">사용할 수 없는 아이디입니다.</span>
                         </div>
                         <div class="txtBox">
-                            <input type="text" placeholder="아이디 입력(6~20자)">
+                            <input type="text" th:field="*{userId}" placeholder="아이디 입력(6~20자)">
                             <a href="#" class="checkId btn">중복 확인</a>
                         </div>
                     </li>
@@ -28,40 +30,50 @@
                         <div class="titleBox">
                             <p class="tit">비밀번호</p>
                             <span class="star">*</span>
-                            <span class="error">8 ~ 16자의 비밀번호를 입력해주세요. </span>
+                            <span class="error" th:if="${#fields.hasErrors('userPW')}" th:errors="*{userPW}">8 ~ 16자의 비밀번호를 입력해주세요.</span>
                         </div>
                         <div class="txtBox">
-                            <input type="password" placeholder="비밀번호 입력(8 ~ 16자)">
+                            <input type="password" th:field="*{userPW}" placeholder="비밀번호 입력(8 ~ 16자)">
                         </div>
                     </li>
                     <li class="list">
                         <div class="titleBox">
                             <p class="tit">비밀번호 확인</p>
                             <span class="star">*</span>
-                            <span class="error">비밀번호가 일치하지 않습니다.</span>
+                            <span class="error" th:if="${#fields.hasErrors('userPWChk')}" th:errors="*{userPWChk}">비밀번호가 일치하지 않습니다.</span>
                         </div>
                         <div class="txtBox">
-                            <input type="password" placeholder="비밀번호 확인">
+                            <input type="password" th:field="*{userPWChk}" placeholder="비밀번호 확인">
                         </div>
                     </li>
                     <li class="list">
                         <div class="titleBox">
                             <p class="tit">이름</p>
                             <span class="star">*</span>
-                            <span class="error">이름을 입력해주세요.</span>
+                            <span class="error" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">이름을 입력해주세요.</span>
                         </div>
                         <div class="txtBox">
-                            <input type="text" placeholder="이름을 입력해주세요.">
+                            <input type="text" th:field="*{userName}" placeholder="이름을 입력해주세요.">
                         </div>
                     </li>
+
                     <li class="list list02">
                         <div class="titleBox">
                             <p class="tit">휴대폰 번호</p>
                             <span class="star">*</span>
-                            <span class="error">이미 가입된 번호입니다.</span>
+                            <!-- 전화번호 각 부분별 에러 메시지 표시 -->
+                            <span class="error"
+                                  th:if="${#fields.hasErrors('userPhone2') || #fields.hasErrors('userPhone3')}"
+                                  th:text="${#fields.hasErrors('userPhone2')} ? ${#fields.errors('userPhone2')[0]} : ${#fields.errors('userPhone3')[0]}">
+                            </span>
+                            <!-- 전체 전화번호 중복 에러 메시지 -->
+                            <span class="error"
+                                  th:if="${!#fields.hasErrors('userPhone2') && !#fields.hasErrors('userPhone3') && #fields.hasErrors('userPhone')}"
+                                  th:errors="*{userPhone}">
+                            </span>
                         </div>
                         <div class="txtBox">
-                            <select name="phone01" id="phone01">
+                            <select th:field="*{userPhone01}">
                                 <option value="010">010</option>
                                 <option value="011">011</option>
                                 <option value="016">016</option>
@@ -70,73 +82,61 @@
                                 <option value="019">019</option>
                             </select>
                             <span class="hyphen">-</span>
-                            <input type="text">
+                            <input type="text" th:field="*{userPhone2}" maxlength="4">
                             <span class="hyphen">-</span>
-                            <input type="text">
+                            <input type="text" th:field="*{userPhone3}" maxlength="4">
                         </div>
                     </li>
-                    <!--<li class="list list03">
-                        <div class="titleBox">
-                            <p class="tit">이메일</p>
-                            <span class="star">*</span>
-                            <span class="error">이미 가입된 이메일입니다.</span>
-                        </div>
-                        <div class="txtBox">
-                            <input type="text">
-                            <span class="hyphen">@</span>
-                            <input type="text" class="email02">
-                            <select name="email" id="email">
-                                <option value="naver.com">naver.com</option>
-                                <option value="gmail.com">gmail.com</option>
-                                <option value="hanmail.net">hanmail.net</option>
-                                <option value="직접입력">직접입력</option>
-                            </select>
-                        </div>
-                    </li>-->
 
                     <li class="list">
                         <div class="titleBox">
                             <p class="tit">이메일</p>
                             <span class="star">*</span>
-                            <span class="error">이미 가입된 이메일입니다.</span>
+                            <span class="error" th:if="${#fields.hasErrors('userEmail')}" th:errors="*{userEmail}">이미 가입된 이메일입니다.</span>
                         </div>
                         <div class="txtBox">
-                            <input type="text" placeholder="이메일을 입력해주세요.">
+                            <input type="text" th:field="*{userEmail}" placeholder="이메일을 입력해주세요.">
                         </div>
                     </li>
+
                     <li class="list">
                         <div class="titleBox">
                             <p class="tit">생년월일</p>
                         </div>
                         <div class="txtBox">
-                            <input type="date">
+                            <input type="date" th:field="*{userBirth}">
                         </div>
                     </li>
+
                     <li class="list list04">
                         <div class="titleBox">
                             <p class="tit">주소</p>
                             <span class="star">*</span>
-                            <span class="error">주소를 입력해주세요.</span>
+                            <span class="error" th:if="${#fields.hasErrors('userAddress')}" th:errors="*{userAddress}">주소를 입력해주세요.</span>
                         </div>
                         <div class="txtBox">
                             <div class="txt01 txt">
-                                <input type="text" class="postcode" placeholder="우편번호" readonly>
-                                <a href="#" class="btn">우편번호 검색</a>
+                                <input type="text" id="sample6_postcode" th:field="*{postcode}" readonly placeholder="우편번호">
+                                <a href="javascript:void(0)" onclick="sample6_execDaumPostcode()" class="btn">우편번호 검색</a>
                             </div>
-                            <input type="text" placeholder="주소" readonly>
+                            <input type="text" id="sample6_address" th:field="*{baseAddress}" readonly placeholder="주소">
                             <div class="txt02 txt">
-                                <input type="text" placeholder="상세주소 입력">
-                                <input type="text" readonly>
+                                <input type="text" id="sample6_detailAddress" th:field="*{detailAddress}" placeholder="상세주소 입력">
+                                <input type="text" id="sample6_extraAddress" th:field="*{extraAddress}" readonly>
+                                <input type="hidden" id="adminAddress" th:field="*{userAddress}">
                             </div>
                         </div>
                     </li>
                 </ul>
                 <div class="btnWrap">
-                   <button type="submit">회원가입</button>
+                    <button type="submit">회원가입</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+<th:block layout:fragment="script">
+    <script th:src="@{/js/member/join.js}"></script>
+</th:block>
 </body>
 </html>

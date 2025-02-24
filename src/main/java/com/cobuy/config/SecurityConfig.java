@@ -21,38 +21,39 @@ public class SecurityConfig {
                 .requestMatchers(new AntPathRequestMatcher("/css/**")).permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/js/**")).permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/images/**")).permitAll()
-                
+
                 // H2 콘솔 접근 허용
                 .requestMatchers(new AntPathRequestMatcher("/h2-console/**")).permitAll()
-                
+
                 // 로그인, 회원가입 등 인증이 필요없는 페이지 설정
                 .requestMatchers(new AntPathRequestMatcher("/")).permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/login")).permitAll()
-                
+
                 // 일반 회원 관련 페이지
                 .requestMatchers(new AntPathRequestMatcher("/join")).permitAll()  // 회원가입 step01
                 .requestMatchers(new AntPathRequestMatcher("/join02")).permitAll()  // 회원가입 완료
                 .requestMatchers(new AntPathRequestMatcher("/member/join")).permitAll()  // 개인 회원가입
+                .requestMatchers(new AntPathRequestMatcher("/member/checkId")).permitAll()  // 개인 아이디 중복체크
                 .requestMatchers(new AntPathRequestMatcher("/find")).permitAll()  // 개인 아이디 찾기
                 .requestMatchers(new AntPathRequestMatcher("/findId")).permitAll()  // 아이디 찾기 완료
                 .requestMatchers(new AntPathRequestMatcher("/findPw")).permitAll()  // 비밀번호 재설정
                 .requestMatchers(new AntPathRequestMatcher("/updatePw")).permitAll()  // 비밀번호 변경 완료
-                
+
                 // 업체 회원 관련 페이지
                 .requestMatchers(new AntPathRequestMatcher("/admin/join")).permitAll()  // 업체 회원가입
                 .requestMatchers(new AntPathRequestMatcher("/admin/find")).permitAll()  // 업체 아이디 찾기
-                
+
                 // 셀러 회원 관련 페이지
                 .requestMatchers(new AntPathRequestMatcher("/seller/join")).permitAll()  // 셀러 회원가입
                 .requestMatchers(new AntPathRequestMatcher("/seller/find")).permitAll()  // 셀러 아이디 찾기
                 .requestMatchers(new AntPathRequestMatcher("/seller/checkId")).permitAll() // 셀러 아이디 중복체크
-                
+
                 // 아이디 중복체크 API 접근 허용
                 .requestMatchers(new AntPathRequestMatcher("/admin/checkId")).permitAll()
-                
+
                 // 관리자 페이지 접근 제한 (로그인 필요)
                 .requestMatchers(new AntPathRequestMatcher("/admin/**")).hasRole("ADMIN")
-                
+
                 // 위에서 설정한 경로 외의 모든 요청은 인증 필요
                 .anyRequest().authenticated()
             )
@@ -75,6 +76,7 @@ public class SecurityConfig {
                 .ignoringRequestMatchers(
                     new AntPathRequestMatcher("/admin/checkId"),
                     new AntPathRequestMatcher("/seller/checkId"),
+                    new AntPathRequestMatcher("/member/checkId"),
                     new AntPathRequestMatcher("/h2-console/**")
                 )
             );
