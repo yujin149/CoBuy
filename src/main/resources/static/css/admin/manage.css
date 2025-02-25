@@ -36,7 +36,7 @@
 .manageWrap .subTitleWrap .btnWrap{display: flex; justify-content: flex-end; align-items: center;}
 .manageWrap .subTitleWrap .btnWrap a{display: flex; justify-content: center; align-items: center; width:100px; height:35px; border:1px solid var(--gray-color); background:var(--gray-bg1); color:var(--bk-color); border-radius: 5px; font-size:15px; margin-left:10px; font-weight: 500;}
 .manageWrap .subTitleWrap .btnWrap a:hover{background:var(--bk-color); border-color:var(--bk-color); color:var(--white-color);}
-.sellerMangeWrap .subTitleWrap .btnWrap a:last-child{width:120px;}
+.sellerMangeWrap .subTitleWrap .btnWrap a:nth-child(2){width:120px;}
 
 .manageWrap .tableWrap table tr td{padding:10px;}
 .manageWrap .tableWrap table tr td .name{color:var(--bk-color); font-weight:600;}

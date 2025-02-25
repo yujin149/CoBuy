@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="requestModal">
+    <div class="modal requestModal">
+        <div class="modalInner">
+            <div class="modalTitle">
+                <p class="tit">요청 상태 확인</p>
+                <a href="javascript:void(0)" class="closeBtn">닫기</a>
+            </div>
+            <div class="modalCont">
+                <div class="tableWrap">
+                    <table>
+                        <colgroup>
+                            <col style = "width:45px">
+                            <col style = "width:220px">
+                            <col style = "width:100%">
+                            <col style = "width:100px">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th><div class="chkBox"><input type="checkbox" class="allChk"></div></th>
+                            <th>쇼핑몰명 / 인플루언서명</th>
+                            <th>홈페이지 주소 / SNS 주소</th>
+                            <th>요청 확인</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><div class="chkBox"><input type="checkbox" class="chk"></div></td>
+                            <td>
+                                <div class="info">
+                                    <p class="name">CoBuy</p>
+                                    <ul class="category">
+                                        <li>패션잡화</li>
+                                        <li>화장품/미용</li>
+                                    </ul>
+                                </div>
+                            </td>
+                            <td>
+                                <a href="http://localhost:8080/product" target="_blank" class="url">http://localhost:8080/product</a>
+                            </td>
+                            <td>
+                                <a href="javascript:void(0)" class="acceptBtn">요청 수락</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><div class="chkBox"><input type="checkbox" class="chk"></div></td>
+                            <td>
+                                <div class="info">
+                                    <p class="name">CoBuy</p>
+                                    <ul class="category">
+                                        <li>패션잡화</li>
+                                        <li>화장품/미용</li>
+                                    </ul>
+                                </div>
+                            </td>
+                            <td>
+                                <a href="http://localhost:8080/product" target="_blank" class="url">http://localhost:8080/product</a>
+                            </td>
+                            <td>
+                                <a href="javascript:void(0)" class="acceptBtn">요청 수락</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><div class="chkBox"><input type="checkbox" class="chk"></div></td>
+                            <td>
+                                <div class="info">
+                                    <p class="name">CoBuy</p>
+                                    <ul class="category">
+                                        <li>패션잡화</li>
+                                        <li>화장품/미용</li>
+                                    </ul>
+                                </div>
+                            </td>
+                            <td>
+                                <a href="http://localhost:8080/product" target="_blank" class="url">http://localhost:8080/product</a>
+                            </td>
+                            <td>
+                                <a href="javascript:void(0)" class="acceptBtn">요청 수락</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><div class="chkBox"><input type="checkbox" class="chk"></div></td>
+                            <td>
+                                <div class="info">
+                                    <p class="name">CoBuy</p>
+                                    <ul class="category">
+                                        <li>패션잡화</li>
+                                        <li>화장품/미용</li>
+                                    </ul>
+                                </div>
+                            </td>
+                            <td>
+                                <a href="http://localhost:8080/product" target="_blank" class="url">http://localhost:8080/product</a>
+                            </td>
+                            <td>
+                                <a href="javascript:void(0)" class="acceptBtn">요청 수락</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><div class="chkBox"><input type="checkbox" class="chk"></div></td>
+                            <td>
+                                <div class="info">
+                                    <p class="name">CoBuy</p>
+                                    <ul class="category">
+                                        <li>패션잡화</li>
+                                        <li>화장품/미용</li>
+                                    </ul>
+                                </div>
+                            </td>
+                            <td>
+                                <a href="http://localhost:8080/product" target="_blank" class="url">http://localhost:8080/product</a>
+                            </td>
+                            <td>
+                                <a href="javascript:void(0)" class="acceptBtn">요청 수락</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><div class="chkBox"><input type="checkbox" class="chk"></div></td>
+                            <td>
+                                <div class="info">
+                                    <p class="name">CoBuy</p>
+                                    <ul class="category">
+                                        <li>패션잡화</li>
+                                        <li>화장품/미용</li>
+                                    </ul>
+                                </div>
+                            </td>
+                            <td>
+                                <a href="http://localhost:8080/product" target="_blank" class="url">http://localhost:8080/product</a>
+                            </td>
+                            <td>
+                                <a href="javascript:void(0)" class="acceptBtn">요청 수락</a>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <!--결과 없음-->
+                <div class="tableWrap noneTableWrap">
+                    <table>
+                        <colgroup>
+                            <col style = "width:45px">
+                            <col style = "width:220px">
+                            <col style = "width:100%">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th>
+                                <div class="chkBox"><input type="checkbox" class="allChk"></div></th>
+                            <th>쇼핑몰명 / 인플루언서명</th>
+                            <th>홈페이지 주소 / SNS 주소</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td colspan="3"><p class="none">받은 요청이 없습니다.</p></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!--페이징-->
+                <ul class="pagination">
+                    <li class="page-item page-arrow page-prev">
+                        <a class="page-link" href="javascript:void(0)">이전 페이지</a>
+                    </li>
+                    <li class="page-item page-num">
+                        <a class="page-link active" href="javascript:void(0)">1</a>
+                        <a class="page-link" href="javascript:void(0)">2</a>
+                        <a class="page-link" href="javascript:void(0)">3</a>
+                    </li>
+                    <li class="page-item page-arrow page-next">
+                        <a class="page-link" href="javascript:void(0)">다음 페이지</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="modalBtn">
+                <a href="javascript:void(0)" class="closeBtn btn">닫기</a>
+            </div>
+        </div>
+        <div class="bgB"></div>
+    </div>
+
+
+
+</div>
+</body>
+</html>

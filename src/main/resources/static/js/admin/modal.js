@@ -45,7 +45,11 @@ $(function(){
     $(".rankBtn").click(function(){
         $(".rankModal").css("display","block");
     });
-    
+
+    /*협업 요청 모달*/
+    $(".requestBtn").click(function(){
+        $(".requestModal").css("display","block");
+    });
     
     /*닫기*/
     $(".closeBtn").click(function(){
