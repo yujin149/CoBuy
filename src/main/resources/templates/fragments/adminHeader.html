@@ -1,16 +1,18 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <body>
 <div th:fragment="adminHeader">
     <div class="adminHeaderWrap">
         <h1 class="logo">
             <a href="/admin/order">
-                <th:block th:if="${setting != null && setting.settingLogoUrl != null}">
+                <!--<th:block th:if="${setting != null && setting.settingLogoUrl != null}">
                     <img th:src="${setting.settingLogoUrl}" alt="logo"/>
                 </th:block>
                 <th:block th:unless="${setting.settingLogoUrl != null}"
                           th:text="${setting != null ? setting.adminShopName : 'LOGO CoBuy'}">
-                </th:block>
+                </th:block>-->
+
+                <!--<img src="https://picsum.photos/200/60"/>-->LOGO CoBuy
 
             </a>
         </h1>
@@ -21,7 +23,8 @@
             </div>
             <a href="javascript:void(0);" class="loginBtn"></a>
             <ul class="loginMenu">
-                <li><a href="/admin/profile">회원정보수정</a></li>
+                <li sec:authorize="hasAnyAuthority('ROLE_ADMIN')"><a href="/admin/profile">회원정보수정</a></li>
+                <li sec:authorize="hasAnyAuthority('ROLE_SELLER')"><a href="/seller/profile">회원정보수정</a></li>
                 <li><a href="/">로그아웃</a></li>
             </ul>
         </div>

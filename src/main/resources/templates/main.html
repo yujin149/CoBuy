@@ -6,85 +6,102 @@
     <title>로그인</title>
 </head>
 <body class="memberBody">
-    <div layout:fragment="content">
-        <div class="loginWrap memberWrap">
-            <div class="loginInner memberInner">
-                <p class="title">로그인</p>
+<div layout:fragment="content">
+    <div class="loginWrap memberWrap">
+        <div class="loginInner memberInner">
+            <p class="title">로그인</p>
 
-                <ul class="tabWrap">
-                    <li><a href="#tab01">쇼핑몰 회원</a></li>
-                    <li><a href="#tab02">셀러 회원</a></li>
-                    <li><a href="#tab03" class="active">개인 회원</a></li>
-                </ul>
+            <ul class="tabWrap">
+                <li><a href="#tab01">쇼핑몰 회원</a></li>
+                <li><a href="#tab02">셀러 회원</a></li>
+                <li><a href="#tab03" class="active">개인 회원</a></li>
+            </ul>
 
-                <!--기업회원-->
-                <div id="tab01" class="tabCont">
-                    <form action="/product" class="loginBox">
-                        <ul>
-                            <li>
-                                <input type="text" placeholder="아이디를 입력해주세요.">
-                            </li>
-                            <li>
-                                <input type="password" placeholder="비밀번호를 입력해주세요.">
-                            </li>
-                        </ul>
-                        <ul class="findWrap">
-                            <li><a href="/admin/find">아이디 · 비밀번호 찾기</a></li>
-                            <li><a href="/join">회원가입</a></li>
-                        </ul>
-                        <div class="btnWrap">
-                            <button type="submit">로그인</button>
-                        </div>
-                    </form>
-                </div>
-                <!--셀러회원-->
-                <div id="tab02" class="tabCont">
-                    <form action="/product" class="loginBox">
-                        <ul>
-                            <li>
-                                <input type="text" placeholder="아이디를 입력해주세요.">
-                            </li>
-                            <li>
-                                <input type="password" placeholder="비밀번호를 입력해주세요.">
-                            </li>
-                        </ul>
-                        <ul class="findWrap">
-                            <li><a href="/admin/seller/find">아이디 · 비밀번호 찾기</a></li>
-                            <li><a href="/join">회원가입</a></li>
-                        </ul>
-                        <div class="btnWrap">
-                            <button type="submit">로그인</button>
-                        </div>
-                    </form>
-                </div>
-                <!--개인회원-->
-                <div id="tab03" class="userLogin tabCont active">
-                    <form action="/product" class="loginBox">
-                        <ul>
-                            <li>
-                                <input type="text" placeholder="아이디를 입력해주세요.">
-                            </li>
-                            <li>
-                                <input type="password" placeholder="비밀번호를 입력해주세요.">
-                            </li>
-                        </ul>
-                        <ul class="findWrap">
-                            <li><a href="/find">아이디 · 비밀번호 찾기</a></li>
-                            <li><a href="/join">회원가입</a></li>
-                        </ul>
-                        <div class="btnWrap">
-                            <button type="submit">로그인</button>
-                        </div>
-                    </form>
-
-                    <ul class="btnWrap snsLoginWrap">
-                        <li><a href="#">구글 로그인</a></li>
-                        <li><a href="#">카카오톡 로그인</a></li>
-                        <li><a href="#">네이버 로그인</a></li>
+            <!--기업회원-->
+            <div id="tab01" class="tabCont">
+                <form th:action="@{/login-process}" method="post" class="loginBox">
+                    <ul>
+                        <li>
+                            <input type="text" name="username" placeholder="아이디를 입력해주세요.">
+                        </li>
+                        <li>
+                            <input type="password" name="password" placeholder="비밀번호를 입력해주세요.">
+                        </li>
                     </ul>
-                </div>
+                    <input type="hidden" name="role" value="ADMIN">
+                    <ul class="findWrap">
+                        <li><a href="/admin/find">아이디 · 비밀번호 찾기</a></li>
+                        <li><a href="/join">회원가입</a></li>
+                    </ul>
+                    <div class="btnWrap">
+                        <button type="submit">로그인</button>
+                    </div>
+                </form>
+            </div>
+            <!--셀러회원-->
+            <div id="tab02" class="tabCont">
+                <form th:action="@{/login-process}" method="post" class="loginBox">
+                    <ul>
+                        <li>
+                            <input type="text" name="username" placeholder="아이디를 입력해주세요.">
+                        </li>
+                        <li>
+                            <input type="password" name="password" placeholder="비밀번호를 입력해주세요.">
+                        </li>
+                    </ul>
+                    <input type="hidden" name="role" value="SELLER">
+                    <ul class="findWrap">
+                        <li><a href="/admin/seller/find">아이디 · 비밀번호 찾기</a></li>
+                        <li><a href="/join">회원가입</a></li>
+                    </ul>
+                    <div class="btnWrap">
+                        <button type="submit">로그인</button>
+                    </div>
+                </form>
+            </div>
+            <!--개인회원-->
+            <div id="tab03" class="userLogin tabCont active">
+                <form th:action="@{/login-process}" method="post" class="loginBox">
+                    <ul>
+                        <li>
+                            <input type="text" name="username" placeholder="아이디를 입력해주세요.">
+                        </li>
+                        <li>
+                            <input type="password" name="password" placeholder="비밀번호를 입력해주세요.">
+                        </li>
+                    </ul>
+                    <input type="hidden" name="role" value="USER">
+                    <ul class="findWrap">
+                        <li><a href="/find">아이디 · 비밀번호 찾기</a></li>
+                        <li><a href="/join">회원가입</a></li>
+                    </ul>
+                    <div class="btnWrap">
+                        <button type="submit">로그인</button>
+                    </div>
+                </form>
+
+                <ul class="btnWrap snsLoginWrap">
+                    <li><a href="#">구글 로그인</a></li>
+                    <li><a href="#">카카오톡 로그인</a></li>
+                    <li><a href="#">네이버 로그인</a></li>
+                </ul>
             </div>
         </div>
     </div>
+</div>
+
+<!-- 에러 메시지 스크립트 추가 -->
+<th:block layout:fragment="script">
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var error = /*[[${error}]]*/ null;
+        var errorMessage = /*[[${errorMessage}]]*/ null;
+
+        if (error) {
+            alert(errorMessage);
+        }
+        /*]]>*/
+    </script>
+</th:block>
 </body>
 </html>

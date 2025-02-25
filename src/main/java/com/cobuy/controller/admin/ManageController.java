@@ -19,15 +19,15 @@ public class ManageController {
         return "admin/manage/sellerProfile";
     }
 
-    /*업체 관리*/
-    @GetMapping(value = "/admin/manage")
+    /*업체 관리 - 인플루언서가 확인할 수 있음*/
+    @GetMapping(value = "/seller/manage")
     public String shopManage(Model model) {
         model.addAttribute("currentPage", "회원정보관리");
         return "admin/manage/shopManage";
     }
 
-    /*인플루언서 관리*/
-    @GetMapping(value = "/seller/manage")
+    /*인플루언서 관리 - 쇼핑몰이 확인할 수 있음*/
+    @GetMapping(value = "/admin/manage")
     public String sellerManage(Model model) {
         model.addAttribute("currentPage", "회원정보관리");
         return "admin/manage/sellerManage";
@@ -40,12 +40,7 @@ public class ManageController {
         return "admin/manage/userManage";
     }
 
-    /*메세지 관리*/
-    @GetMapping(value = "/admin/message")
-    public String message(Model model) {
-        model.addAttribute("currentPage", "회원정보관리");
-        return "admin/manage/messageList";
-    }
+
 
 
 

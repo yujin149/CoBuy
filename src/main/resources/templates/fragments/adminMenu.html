@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <body>
 <div th:fragment="adminMenu">
     <div class="adminMenuWrap">
@@ -7,30 +7,32 @@
             <li th:class="${currentPage == '회원정보관리' ? 'active' : ''}">
                 <a href="javascript:void(0)">회원정보 관리</a>
                 <ul class="depth2">
-                    <li><a href="/admin/manage">업체 관리</a></li>
-                    <li><a href="/seller/manage">인플루언서 관리</a></li>
+                    <li sec:authorize="hasAnyAuthority('ROLE_ADMIN')"><a href="/admin/manage">인플루언서 관리</a></li> <!--업체-->
+                    <li sec:authorize="hasAnyAuthority('ROLE_SELLER')"><a href="/seller/manage">업체 관리</a></li> <!--인플루언서-->
                     <li><a href="/user/manage">회원 관리</a></li>
-                    <li><a href="/admin/message">메세지 관리</a></li>
+                    <li sec:authorize="hasAnyAuthority('ROLE_ADMIN')"><a href="/admin/message">메세지 관리</a></li> <!--업체-->
+                    <li sec:authorize="hasAnyAuthority('ROLE_SELLER')"><a href="/seller/message">메세지 관리</a></li> <!--인플루언서-->
                 </ul>
             </li>
             <li th:class="${currentPage == '주문내역관리' ? 'active' : ''}">
                 <a href="javascript:void(0)">주문 내역 관리</a>
                 <ul class="depth2">
-                    <li><a href="/admin/order/status">판매현황</a></li> <!--업체-->
-                    <li><a href="/seller/order/status">판매현황</a></li> <!--인플루언서-->
-                    <li><a href="/admin/order/list">주문내역확인</a></li>
+                    <li sec:authorize="hasAnyAuthority('ROLE_ADMIN')"><a href="/admin/order/status">판매현황</a></li> <!--업체-->
+                    <li sec:authorize="hasAnyAuthority('ROLE_ADMIN')"><a href="/admin/order/list">주문내역확인</a></li>
+                    <li sec:authorize="hasAnyAuthority('ROLE_SELLER')"><a href="/seller/order/status">판매현황</a></li> <!--인플루언서-->
+                    <li sec:authorize="hasAnyAuthority('ROLE_SELLER')"><a href="/seller/order/list">주문내역확인</a></li>
                 </ul>
             </li>
             <li th:class="${currentPage == '상품관리' ? 'active' : ''}">
                 <a href="javascript:void(0)">상품관리</a>
                 <ul class="depth2">
-                    <li><a href="/admin/product/list">상품리스트</a></li>
-                    <li><a href="/admin/product/write">상품등록</a></li>
+                    <li sec:authorize="hasAnyAuthority('ROLE_ADMIN')"><a href="/admin/product/list">상품리스트</a></li>
+                    <li sec:authorize="hasAnyAuthority('ROLE_ADMIN')"><a href="/admin/product/write">상품등록</a></li>
+                    <li sec:authorize="hasAnyAuthority('ROLE_SELLER')"><a href="/seller/product/list">상품리스트</a></li>
                 </ul>
             </li>
-            <li th:class="${currentPage == '환경설정' ? 'active' : ''}">
+            <li th:class="${currentPage == '환경설정' ? 'active' : ''}"  sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
                 <a href="/admin/setting">환경설정</a>
-
             </li>
         </ul>
     </div>

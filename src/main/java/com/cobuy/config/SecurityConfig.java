@@ -2,15 +2,25 @@ package com.cobuy.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import lombok.RequiredArgsConstructor;
+
+// CustomUserDetailsService import 추가
+import com.cobuy.service.CustomUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
 
     @Bean
@@ -51,17 +61,49 @@ public class SecurityConfig {
                 // 아이디 중복체크 API 접근 허용
                 .requestMatchers(new AntPathRequestMatcher("/admin/checkId")).permitAll()
 
+                //상품페이지
+                .requestMatchers(new AntPathRequestMatcher("/product")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/product/**")).permitAll()
+
                 // 관리자 페이지 접근 제한 (로그인 필요)
                 .requestMatchers(new AntPathRequestMatcher("/admin/**")).hasRole("ADMIN")
+
+                //셀러 페이지 접근 제한(로그인 필요)
+                .requestMatchers(new AntPathRequestMatcher("/seller/**")).hasRole("SELLER")
+
+                //사용자 페이지 접근 제한(로그인 필요)
+                .requestMatchers(new AntPathRequestMatcher("/mypage/profile")).hasRole("SELLER")
 
                 // 위에서 설정한 경로 외의 모든 요청은 인증 필요
                 .anyRequest().authenticated()
             )
             // 로그인 설정
             .formLogin(form -> form
-                .loginPage("/login")  // 커스텀 로그인 페이지 경로
-                .defaultSuccessUrl("/")  // 로그인 성공 시 이동할 페이지
-                .permitAll()  // 로그인 페이지는 모든 사용자 접근 가능
+                .loginPage("/login")
+                .loginProcessingUrl("/login-process")
+                .usernameParameter("username")
+                .passwordParameter("password")
+                .successHandler((request, response, authentication) -> {
+                    // 사용자의 권한에 따라 리다이렉트 URL 결정
+                    String redirectUrl = "/product"; // 기본 URL (USER)
+
+                    if (authentication.getAuthorities().stream()
+                        .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+                        redirectUrl = "/admin/order/status";
+                    } else if (authentication.getAuthorities().stream()
+                        .anyMatch(a -> a.getAuthority().equals("ROLE_SELLER"))) {
+                        redirectUrl = "/seller/order/status";
+                    }
+
+                    // 리다이렉트 수행
+                    response.sendRedirect(redirectUrl);
+                })
+                .failureHandler((request, response, exception) -> {
+                    String errorMessage = "아이디 또는 비밀번호가 일치하지 않습니다.";
+                    response.sendRedirect("/login?error=true&exception=" +
+                        URLEncoder.encode(errorMessage, StandardCharsets.UTF_8));
+                })
+                .permitAll()
             )
             // 로그아웃 설정
             .logout(logout -> logout
@@ -85,8 +127,12 @@ public class SecurityConfig {
     }
 
     @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfiguration) throws Exception {
+        return authConfiguration.getAuthenticationManager();
+    }
+
+    @Bean
     public PasswordEncoder passwordEncoder() {
-        // 비밀번호 암호화를 위한 BCrypt 인코더 사용
         return new BCryptPasswordEncoder();
     }
 }
