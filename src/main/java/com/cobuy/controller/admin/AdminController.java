@@ -105,7 +105,7 @@ public class AdminController {
             }
 
             adminService.join(adminDto);
-            return "redirect:/admin/login";
+            return "redirect:/join02";
         } catch (IllegalStateException e) {
             // 다른 예외 처리
             model.addAttribute("errorMessage", e.getMessage());

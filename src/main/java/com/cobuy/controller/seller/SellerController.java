@@ -94,7 +94,7 @@ public class SellerController {
             }
 
             sellerService.join(sellerDto);
-            return "redirect:/seller/login";
+            return "redirect:/join02";
         } catch (IllegalStateException e) {
             model.addAttribute("errorMessage", e.getMessage());
             return "admin/join/joinSeller";
