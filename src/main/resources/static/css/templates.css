@@ -26,8 +26,9 @@ img{width:100%;}
 .menuWrap .menuBox .infoWrap .loginInfo{display: block}
 
 .menuWrap .menuBox .infoWrap .loginInfo .titBox {align-items: flex-end;}
-.menuWrap .menuBox .infoWrap .titBox .tit{color:var(--bk-color); font-size:20px; font-weight:700; width:calc(100% - 60px); display: flex; flex-wrap:wrap;}
+.menuWrap .menuBox .infoWrap .titBox .tit{width:calc(100% - 60px); display: flex; flex-wrap:wrap;}
 .menuWrap .menuBox .infoWrap .titBox .tit span{display: block; width:100%; font-size:15px; color:var(--small-color); font-weight:400; margin-top:2px;}
+.menuWrap .menuBox .infoWrap .titBox .tit .userName{color:var(--bk-color); font-size:20px; font-weight:700;}
 
 .menuWrap .menuBox .infoWrap .titBox .closeBtn{width:28px; height:66px; display: flex; justify-content: center; align-items: center;}
 .menuWrap .menuBox .infoWrap .titBox .closeBtn img{width:28px; height:28px;}

@@ -1,69 +1,72 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.springframework.org/security/tags">
 <body>
-    <div th:fragment="header">
-        <header class="headerWrap pcheaderWrap">
-            <div class="headerInner">
-                <div class="leftIcon">
-                    <a href="#" class="menuBtn"><img th:src="@{/images/menuIcon.png}" alt="메뉴"></a>
-                    <a href="/product" class="homeBtn"><img th:src="@{/images/homeIcon.png}" alt="홈으로 이동"></a>
-                </div>
-                <p class="title" th:text="${pageTitle}">1depth 타이틀</p>
-                <ul class="rightIcon">
-                    <li><a href="/mypage/profile"><img th:src="@{/images/mypageIcon.png}" alt="마이페이지"></a></li>
-                    <li><a href="/cart"><img th:src="@{/images/cartIcon.png}" alt="장바구니"> <span class="count cartCnt">0</span></a></li>
-                    <li><a href="#"><img th:src="@{/images/alarmIcon.png}" alt="알림"><span class="count alarmCnt">2</span></a></li>
-                </ul>
+<div th:fragment="header">
+    <header class="headerWrap pcheaderWrap">
+        <div class="headerInner">
+            <div class="leftIcon">
+                <a href="#" class="menuBtn"><img th:src="@{/images/menuIcon.png}" alt="메뉴"></a>
+                <a href="/product" class="homeBtn"><img th:src="@{/images/homeIcon.png}" alt="홈으로 이동"></a>
             </div>
-        </header>
-
-        <header class="headerWrap mheaderWrap">
-            <div class="headerInner">
-                <div class="leftIcon">
-                    <a href="#" class="menuBtn"><img th:src="@{/images/menuIcon.png}" alt="메뉴"></a>
-                </div>
-                <p class="title" th:text="${pageTitle}">1depth 타이틀</p>
-                <ul class="rightIcon">
-                    <li><a href="/product" class="homeBtn"><img th:src="@{/images/homeIcon.png}" alt="홈으로 이동"></a></li>
-                    <li><a href="#"><img th:src="@{/images/alarmIcon.png}" alt="알림"><span class="count alarmCnt">2</span></a></li>
-                </ul>
-            </div>
-        </header>
-
-
-        <div class="menuWrap">
-            <div class="menuBox">
-                <div class="infoWrap">
-                    <div class="logoutInfo">
-                        <div class="titBox">
-                            <p class="tit">로그인 해주세요.</p>
-                            <a href="#" class="closeBtn"><img th:src="@{/images/closeBtn.png}" alt="닫기"></a>
-                        </div>
-                        <div class="btnWrap">
-                            <a href="/login" class="loginBtn btn">로그인</a>
-                            <a href="/join" class="joinBtn btn">회원가입</a>
-                        </div>
-                    </div>
-                    <div class="loginInfo">
-                        <div class="titBox">
-                            <p class="tit">사용자 님 <span class="userId">user01@naver.com</span></p>
-                            <a href="#" class="closeBtn"><img th:src="@{/images/closeBtn.png}" alt="닫기"></a>
-                        </div>
-                        <div class="btnWrap">
-                            <a href="/" class="logoutBtn btn">로그아웃</a>
-                            <a href="/mypage/profile" class="joinBtn btn">회원정보 수정</a>
-                        </div>
-                    </div>
-                </div>
-                <ul class="menuList">
-                    <li><a href="/product">최근 본 상품</a></li>
-                    <li><a href="/cart">장바구니</a></li>
-                    <li><a href="/order">주문내역</a></li>
-                    <li><a href="/chat/list">채팅문의</a></li>
-                </ul>
-            </div>
-            <div class="bgB"></div>
+            <p class="title" th:text="${pageTitle}">1depth 타이틀</p>
+            <ul class="rightIcon">
+                <li><a href="/mypage/profile"><img th:src="@{/images/mypageIcon.png}" alt="마이페이지"></a></li>
+                <li><a href="/cart"><img th:src="@{/images/cartIcon.png}" alt="장바구니"> <span class="count cartCnt">0</span></a></li>
+                <li><a href="#"><img th:src="@{/images/alarmIcon.png}" alt="알림"><span class="count alarmCnt">2</span></a></li>
+            </ul>
         </div>
+    </header>
+
+    <header class="headerWrap mheaderWrap">
+        <div class="headerInner">
+            <div class="leftIcon">
+                <a href="#" class="menuBtn"><img th:src="@{/images/menuIcon.png}" alt="메뉴"></a>
+            </div>
+            <p class="title" th:text="${pageTitle}">1depth 타이틀</p>
+            <ul class="rightIcon">
+                <li><a href="/product" class="homeBtn"><img th:src="@{/images/homeIcon.png}" alt="홈으로 이동"></a></li>
+                <li><a href="#"><img th:src="@{/images/alarmIcon.png}" alt="알림"><span class="count alarmCnt">2</span></a></li>
+            </ul>
+        </div>
+    </header>
+
+
+    <div class="menuWrap">
+        <div class="menuBox">
+            <div class="infoWrap">
+                <div class="logoutInfo">
+                    <div class="titBox">
+                        <p class="tit">로그인 해주세요.</p>
+                        <a href="#" class="closeBtn"><img th:src="@{/images/closeBtn.png}" alt="닫기"></a>
+                    </div>
+                    <div class="btnWrap">
+                        <a href="/login" class="loginBtn btn">로그인</a>
+                        <a href="/join" class="joinBtn btn">회원가입</a>
+                    </div>
+                </div>
+                <div class="loginInfo">
+                    <div class="titBox">
+                        <p class="tit">
+                            <span class="userName" sec:authentication="principal.name">사용자님</span>
+                            <span class="userId" sec:authentication="principal.email">user01@naver.com</span>
+                        </p>
+                        <a href="#" class="closeBtn"><img th:src="@{/images/closeBtn.png}" alt="닫기"></a>
+                    </div>
+                    <div class="btnWrap">
+                        <a href="/" class="logoutBtn btn">로그아웃</a>
+                        <a href="/mypage/profile" class="joinBtn btn">회원정보 수정</a>
+                    </div>
+                </div>
+            </div>
+            <ul class="menuList">
+                <li><a href="/product">최근 본 상품</a></li>
+                <li><a href="/cart">장바구니</a></li>
+                <li><a href="/order">주문내역</a></li>
+                <li><a href="/chat/list">채팅문의</a></li>
+            </ul>
+        </div>
+        <div class="bgB"></div>
     </div>
+</div>
 </body>
 </html>

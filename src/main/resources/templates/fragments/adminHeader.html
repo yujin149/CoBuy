@@ -18,8 +18,8 @@
         </h1>
         <div class="loginInfo">
             <div class="infoBox">
-                <p class="adminId">admin01</p>
-                <p class="role">ADMIN</p>
+                <p class="adminId" th:text="${#authentication.name}"></p>
+                <p class="role" th:text="${#strings.substringAfter(#authentication.principal.authorities[0], 'ROLE_')}"></p>
             </div>
             <a href="javascript:void(0);" class="loginBtn"></a>
             <ul class="loginMenu">

@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html layout:decorate="~{layouts/userLayout}"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/userLayout}">
+      xmlns:th="http://www.thymeleaf.org">
 
 
 <body class="productCont">
-<div layout:fragment="content" >
+<div layout:fragment="content">
     <div class="prodDetailWrap">
         <div class="swiper prodImgSlide">
-            <ul class="swiper-wrapper" >
+            <ul class="swiper-wrapper">
                 <li class="swiper-slide">
                     <div class="imgBox">
                         <img src="https://picsum.photos/800/800"/>
@@ -63,13 +63,14 @@
                     </li>
                     <li class="delivery">
                         <p class="tit">배송비</p>
-                        <p class="txt"><span class="bold">2,500원</span><span class="detail">(20,000원 이상 구매 시 무료)</span></p>
+                        <p class="txt"><span class="bold">2,500원</span><span class="detail">(20,000원 이상 구매 시 무료)</span>
+                        </p>
                     </li>
                 </ul>
 
                 <div class="optionList">
                     <p class="tit">옵션</p>
-                    <select name="prodOpt" id="prodOpt">
+                    <select id="prodOpt" name="prodOpt">
                         <option value="선택">[필수] 옵션을 선택해주세요.</option>
                         <option value="01">선택 옵션01</option>
                         <option value="02">선택 옵션02</option>
@@ -83,13 +84,13 @@
                             <p class="tit">플로리드 레이어 블러셔</p>
                             <p class="option">선택 옵션01</p>
                             <div class="countBox">
-                                <input type="number" value="1" id="quantity">
+                                <input id="quantity" type="number" value="1">
                                 <span class="plus">+</span>
                                 <span class="minus">-</span>
                             </div>
 
                         </div>
-                        <p class="price">31,900원 <a href="#" class="delectBtn">삭제</a></p>
+                        <p class="price">31,900원 <a class="delectBtn" href="#">삭제</a></p>
                     </li>
                 </ul>
                 <div class="totalPrice">
@@ -98,51 +99,52 @@
                 </div>
 
                 <div class="buyWrap">
-                    <a href="/cart" class="cartBtn">장바구니 담기</a>
-                    <a href="/pay" class="payBtn">결제하기</a>
+                    <a class="cartBtn" href="/cart">장바구니 담기</a>
+                    <a class="payBtn" href="/pay">결제하기</a>
                 </div>
             </div>
         </div>
 
         <div class="prodContWrap">
             <ul class="tabWrap">
-                <li><a href="#tab01" class="active">상품 상세정보</a></li>
+                <li><a class="active" href="#tab01">상품 상세정보</a></li>
                 <li><a href="#tab02">배송안내</a></li>
                 <li><a href="#tab03">교환 및 반품안내</a></li>
             </ul>
 
-            <div id="tab01" class="tabCont active">
+            <div class="tabCont active" id="tab01">
                 <img src="https://picsum.photos/800/300"/>
                 <img src="https://picsum.photos/800/1200"/>
             </div>
 
-            <ul id="tab02" class="tabCont cont01">
+            <ul class="tabCont cont01" id="tab02">
                 <li>
                     <p class="tit">배송안내</p>
-                    <p class="txt" th:text="${setting.settingFee}">
+                    <p class="txt">
                         - 20,000원 이상 구매 시 무료배송이며, 기본배송료는 2,500원 입니다. (도서, 산간, 오지 일부지역은 배송비가 추가될 수 있습니다)<br>
                         - 본 상품의 평균 배송일은 결제완료 후 2일입니다. 배송예정일은 주문시점(주문순서)에 따른 유동성이 발생하므로 평균 배송일과는 차이가 발생할 수 있습니다.
                     </p>
                 </li>
             </ul>
-            <ul id="tab03" class="tabCont cont01">
+            <ul class="tabCont cont01" id="tab03">
                 <li>
                     <p class="tit">교환 및 반품 안내</p>
-                    <p class="txt" th:text="${setting.settingExchange}">
+                    <p class="txt">
                         - 상품 개봉으로 상품 가치 훼손 시에는 상품수령후 7일 이내라도 교환 및 반품이 불가능합니다.<br>
                         - 저단가 상품, 일부 특가 상품은 고객 변심에 의한 교환, 반품은 고객께서 배송비를 부담하셔야 합니다(제품의 하자,배송오류는 제외)<br>
-                        - 일부 특가 상품의 경우, 인수 후에는 제품 하자나 오배송의 경우를 제외한 고객님의 단순변심에 의한 교환, 반품이 불가능할 수 있사오니, 각 상품의 상품상세정보를 꼭 참조하십시오.
+                        - 일부 특가 상품의 경우, 인수 후에는 제품 하자나 오배송의 경우를 제외한 고객님의 단순변심에 의한 교환, 반품이 불가능할 수 있사오니, 각 상품의 상품상세정보를 꼭
+                        참조하십시오.
                     </p>
                 </li>
                 <li>
                     <p class="tit">환불안내</p>
-                    <p class="txt" th:text="${setting.settingRefund}">
+                    <p class="txt">
                         - 상품 청약철회 가능기간은 상품 수령일로 부터 7일 이내 입니다.
                     </p>
                 </li>
                 <li>
                     <p class="tit">AS안내</p>
-                    <p class="txt" th:text="${setting.settingAs}">
+                    <p class="txt">
                         - 소비자분쟁해결 기준(공정거래위원회 고시)에 따라 피해를 보상받을 수 있습니다.<br>
                         - A/S는 판매자에게 문의하시기 바랍니다.
                     </p>
@@ -152,9 +154,11 @@
     </div>
 
     <ul class="quickMenu">
-        <li><a href="#" class="chat">채팅 문의</a></li>
-        <li><a href="#" class="top">TOP</a></li>
+        <li><a class="chat" href="#">채팅 문의</a></li>
+        <li><a class="top" href="#">TOP</a></li>
     </ul>
 </div>
+
+
 </body>
 </html>

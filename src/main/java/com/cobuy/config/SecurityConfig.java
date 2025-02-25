@@ -14,6 +14,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import lombok.RequiredArgsConstructor;
+import org.thymeleaf.extras.springsecurity6.dialect.SpringSecurityDialect;
 
 // CustomUserDetailsService import 추가
 import com.cobuy.service.CustomUserDetailsService;
@@ -72,7 +73,7 @@ public class SecurityConfig {
                 .requestMatchers(new AntPathRequestMatcher("/seller/**")).hasRole("SELLER")
 
                 //사용자 페이지 접근 제한(로그인 필요)
-                .requestMatchers(new AntPathRequestMatcher("/mypage/profile")).hasRole("SELLER")
+                //.requestMatchers(new AntPathRequestMatcher("/mypage/profile")).hasRole("USER")
 
                 // 위에서 설정한 경로 외의 모든 요청은 인증 필요
                 .anyRequest().authenticated()
@@ -134,5 +135,10 @@ public class SecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public SpringSecurityDialect springSecurityDialect() {
+        return new SpringSecurityDialect();
     }
 }
