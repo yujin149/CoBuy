@@ -1,5 +1,6 @@
 package com.cobuy.entity;
 
+import com.cobuy.constant.Role;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -36,4 +37,7 @@ public class User {
 
     @Column(name = "user_address", length = 500)
     private String userAddress; // (우편번호) 주소 상세주소 (참고항목)
+
+    @Enumerated(EnumType.STRING)
+    private Role role;  // 권한 (ADMIN, SELLER, USER)
 }

@@ -32,6 +32,7 @@ public class UserService {
         user.setUserEmail(userDto.getUserEmail());
         user.setUserAddress(userDto.getUserAddress());
         user.setUserBirth(userDto.getUserBirth());
+        user.setRole(Role.USER); // 기본 권한 설정
 
         userRepository.save(user);
     }
