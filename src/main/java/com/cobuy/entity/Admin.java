@@ -57,7 +57,7 @@ public class Admin {
 
     @Enumerated(EnumType.STRING)
     private Role role;  // 권한 (ADMIN, SELLER, USER)
-    
+
     // Spring Security에서 사용할 수 있도록 "ROLE_" prefix 추가
     public List<String> getRoleList() {
         return Arrays.asList("ROLE_" + role.name());

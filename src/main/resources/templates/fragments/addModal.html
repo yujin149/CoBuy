@@ -2,6 +2,18 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
 <div th:fragment="addModal">
+    <!-- CSRF 토큰을 hidden input으로 추가 -->
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" id="csrf-token"/>
+    <input type="hidden" name="_csrf_header" th:value="${_csrf.headerName}" id="csrf-header"/>
+
+    <!-- 현재 로그인한 사용자 정보를 hidden input으로 저장 -->
+    <input type="hidden" id="currentUserId"
+           th:with="principal=${#authentication.principal}"
+           th:value="${principal.username}">
+    <input type="hidden" id="currentUserRole"
+           th:with="principal=${#authentication.principal}"
+           th:value="${principal.role}">
+
     <!--쇼핑몰 모달-->
     <div class="modal addModal addAdminModal">
         <div class="modalInner">
@@ -11,15 +23,15 @@
             </div>
             <div class="modalCont">
                 <div class="searchWrap">
-                    <form>
-                        <select>
+                    <form id="adminSearchForm" onsubmit="return false;">
+                        <select name="searchType" id="adminSearchType">
                             <option value="전체">전체</option>
                             <option value="쇼핑몰명">쇼핑몰명</option>
                             <option value="아이디">아이디</option>
                         </select>
                         <div class="searchBox">
-                            <input type="text" placeholder="검색어를 입력해주세요.">
-                            <button type="submit">검색</button>
+                            <input type="text" id="adminSearchInput" placeholder="검색어를 입력해주세요.">
+                            <button type="button" onclick="searchAdmins()">검색</button>
                         </div>
                     </form>
                 </div>
@@ -32,131 +44,18 @@
                             <col style = "width:100%">
                         </colgroup>
                         <thead>
-                            <tr>
-                                <th><div class="chkBox"><input type="checkbox" class="allChk"></div></th>
-                                <th>쇼핑몰명</th>
-                                <th>홈페이지 주소</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><div class="chkBox"><input type="checkbox" class="chk"></div></td>
-                                <td>
-                                    <div class="info">
-                                        <p class="name">CoBuy</p>
-                                        <ul class="category">
-                                            <li>패션잡화</li>
-                                            <li>화장품/미용</li>
-                                        </ul>
-                                    </div>
-                                </td>
-                                <td>
-                                    <a href="http://localhost:8080/product" target="_blank" class="url">http://localhost:8080/product</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><div class="chkBox"><input type="checkbox" class="chk"></div></td>
-                                <td>
-                                    <div class="info">
-                                        <p class="name">CoBuy</p>
-                                        <ul class="category">
-                                            <li>패션잡화</li>
-                                            <li>화장품/미용</li>
-                                        </ul>
-                                    </div>
-                                </td>
-                                <td>
-                                    <a href="http://localhost:8080/product" target="_blank" class="url">http://localhost:8080/product</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><div class="chkBox"><input type="checkbox" class="chk"></div></td>
-                                <td>
-                                    <div class="info">
-                                        <p class="name">CoBuy</p>
-                                        <ul class="category">
-                                            <li>패션잡화</li>
-                                            <li>화장품/미용</li>
-                                        </ul>
-                                    </div>
-                                </td>
-                                <td>
-                                    <a href="http://localhost:8080/product" target="_blank" class="url">http://localhost:8080/product</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><div class="chkBox"><input type="checkbox" class="chk"></div></td>
-                                <td>
-                                    <div class="info">
-                                        <p class="name">CoBuy</p>
-                                        <ul class="category">
-                                            <li>패션잡화</li>
-                                            <li>화장품/미용</li>
-                                        </ul>
-                                    </div>
-                                </td>
-                                <td>
-                                    <a href="http://localhost:8080/product" target="_blank" class="url">http://localhost:8080/product</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><div class="chkBox"><input type="checkbox" class="chk"></div></td>
-                                <td>
-                                    <div class="info">
-                                        <p class="name">CoBuy</p>
-                                        <ul class="category">
-                                            <li>패션잡화</li>
-                                            <li>화장품/미용</li>
-                                        </ul>
-                                    </div>
-                                </td>
-                                <td>
-                                    <a href="http://localhost:8080/product" target="_blank" class="url">http://localhost:8080/product</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><div class="chkBox"><input type="checkbox" class="chk"></div></td>
-                                <td>
-                                    <div class="info">
-                                        <p class="name">CoBuy</p>
-                                        <ul class="category">
-                                            <li>패션잡화</li>
-                                            <li>화장품/미용</li>
-                                        </ul>
-                                    </div>
-                                </td>
-                                <td>
-                                    <a href="http://localhost:8080/product" target="_blank" class="url">http://localhost:8080/product</a>
-                                </td>
-                            </tr>
-
-                        </tbody>
-                    </table>
-                </div>
-                <!--검색 결과 없음-->
-                <div class="tableWrap noneTableWrap">
-                    <table>
-                        <colgroup>
-                            <col style = "width:45px">
-                            <col style = "width:220px">
-                            <col style = "width:100%">
-                        </colgroup>
-                        <thead>
                         <tr>
-                            <th>
-                                <div class="chkBox"><input type="checkbox" class="allChk"></div></th>
+                            <th><div class="chkBox"><input type="checkbox" class="allChk"></div></th>
                             <th>쇼핑몰명</th>
                             <th>홈페이지 주소</th>
                         </tr>
                         </thead>
-                        <tbody>
-                        <tr>
-                            <td colspan="3"><p class="none">검색 결과가 없습니다.</p></td>
-
-                        </tr>
+                        <tbody id="adminSearchResults">
+                        <!-- 검색 결과가 여기에 동적으로 추가됨 -->
                         </tbody>
                     </table>
                 </div>
+
             </div>
             <div class="modalBtn">
                 <a href="javascript:void(0)" class="addBtn lineBtn">추가</a>
@@ -175,15 +74,15 @@
             </div>
             <div class="modalCont">
                 <div class="searchWrap">
-                    <form>
-                        <select>
+                    <form id="sellerSearchForm" onsubmit="return false;">
+                        <select name="searchType" id="sellerSearchType">
                             <option value="전체">전체</option>
                             <option value="인플루언서명">인플루언서명</option>
                             <option value="아이디">아이디</option>
                         </select>
                         <div class="searchBox">
-                            <input type="text" placeholder="검색어를 입력해주세요.">
-                            <button type="submit">검색</button>
+                            <input type="text" id="sellerSearchInput" placeholder="검색어를 입력해주세요.">
+                            <button type="button" onclick="searchSellers()">검색</button>
                         </div>
                     </form>
                 </div>
@@ -202,76 +101,10 @@
                             <th>홈페이지 주소</th>
                         </tr>
                         </thead>
-                        <tbody>
-                        <tr>
-                            <td><div class="chkBox"><input type="checkbox" class="chk"></div></td>
-                            <td>
-                                <div class="info">
-                                    <p class="name">인플루언서명</p>
-                                    <ul class="category">
-                                        <li>패션잡화</li>
-                                        <li>화장품/미용</li>
-                                    </ul>
-                                </div>
-                            </td>
-                            <td>
-                                <a href="http://localhost:8080/product" target="_blank" class="url">http://localhost:8080/product</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><div class="chkBox"><input type="checkbox" class="chk"></div></td>
-                            <td>
-                                <div class="info">
-                                    <p class="name">인플루언서명</p>
-                                    <ul class="category">
-                                        <li>패션잡화</li>
-                                        <li>화장품/미용</li>
-                                    </ul>
-                                </div>
-                            </td>
-                            <td>
-                                <a href="http://localhost:8080/product" target="_blank" class="url">http://localhost:8080/product</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><div class="chkBox"><input type="checkbox" class="chk"></div></td>
-                            <td>
-                                <div class="info">
-                                    <p class="name">인플루언서명</p>
-                                    <ul class="category">
-                                        <li>패션잡화</li>
-                                        <li>화장품/미용</li>
-                                    </ul>
-                                </div>
-                            </td>
-                            <td>
-                                <a href="http://localhost:8080/product" target="_blank" class="url">http://localhost:8080/product</a>
-                            </td>
-                        </tr>
-
-                        </tbody>
-                    </table>
-                </div>
-                <!--검색 결과 없음-->
-                <div class="tableWrap noneTableWrap">
-                    <table>
-                        <colgroup>
-                            <col style = "width:45px">
-                            <col style = "width:220px">
-                            <col style = "width:100%">
-                        </colgroup>
-                        <thead>
-                        <tr>
-                            <th>
-                                <div class="chkBox"><input type="checkbox" class="allChk"></div></th>
-                            <th>쇼핑몰명</th>
-                            <th>홈페이지 주소</th>
-                        </tr>
-                        </thead>
-                        <tbody>
+                        <tbody id="sellerSearchResults">
+                        <!-- 검색 결과가 여기에 동적으로 추가됨 -->
                         <tr>
                             <td colspan="3"><p class="none">검색 결과가 없습니다.</p></td>
-
                         </tr>
                         </tbody>
                     </table>
@@ -284,7 +117,6 @@
         </div>
         <div class="bgB"></div>
     </div>
-
 
 </div>
 </body>

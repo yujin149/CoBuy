@@ -1,5 +1,6 @@
 package com.cobuy.service;
 
+import com.cobuy.constant.ProductCategory;
 import com.cobuy.dto.AdminDto;
 import com.cobuy.entity.Admin;
 import com.cobuy.repository.AdminRepository;
@@ -9,19 +10,25 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class AdminService {
-    
+
     private final AdminRepository adminRepository;
     private final PasswordEncoder passwordEncoder;
 
     // 전화번호 합치기: 관리자 DTO에서 받은 전화번호를 하나로 합침
     private String combinePhoneNumber(AdminDto adminDto) {
-        return adminDto.getAdminPhone01() + "-" + 
-               adminDto.getAdminPhone2() + "-" + 
-               adminDto.getAdminPhone3();
+        return adminDto.getAdminPhone01() + "-" +
+            adminDto.getAdminPhone2() + "-" +
+            adminDto.getAdminPhone3();
     }
 
     // 회원가입 메서드
@@ -55,7 +62,7 @@ public class AdminService {
     //관리자 정보를 조회하는 메서드
     public AdminDto getAdminInfo(String adminId) {
         Admin admin = adminRepository.findByAdminId(adminId)
-                .orElseThrow(() -> new IllegalStateException("존재하지 않는 회원입니다."));
+            .orElseThrow(() -> new IllegalStateException("존재하지 않는 회원입니다."));
 
         AdminDto adminDto = new AdminDto();
         adminDto.setAdminId(admin.getAdminId());
@@ -73,7 +80,7 @@ public class AdminService {
     // 비밀번호 변경
     public void updatePassword(String adminId, String currentPassword, String newPassword) {
         Admin admin = adminRepository.findByAdminId(adminId)
-                .orElseThrow(() -> new IllegalStateException("존재하지 않는 회원입니다."));
+            .orElseThrow(() -> new IllegalStateException("존재하지 않는 회원입니다."));
 
         // 현재 비밀번호 확인
         if (!passwordEncoder.matches(currentPassword, admin.getAdminPW())) {
@@ -89,8 +96,8 @@ public class AdminService {
     @Transactional(readOnly = true)
     public String findAdminId(String adminEmail) {
         return adminRepository.findByAdminEmail(adminEmail)
-                .map(Admin::getAdminId)
-                .orElseThrow(() -> new IllegalStateException("등록되지 않은 이메일입니다."));
+            .map(Admin::getAdminId)
+            .orElseThrow(() -> new IllegalStateException("등록되지 않은 이메일입니다."));
     }
 
     // 비밀번호 찾기 검증
@@ -108,4 +115,48 @@ public class AdminService {
     public boolean existsByPhone(String phone) {
         return adminRepository.existsByAdminPhone(phone);
     }
-} 
+
+
+    //쇼핑몰 검색 메서드 추가
+    @Transactional(readOnly = true)
+    public List<Map<String, Object>> searchAdmins(String searchType, String adminId, String adminShopName) {
+        List<Admin> admins;
+
+        if ("전체".equals(searchType)) {
+            String searchTerm = "";
+            if (adminId != null && !adminId.isEmpty()) {
+                searchTerm = adminId;
+            } else if (adminShopName != null && !adminShopName.isEmpty()) {
+                searchTerm = adminShopName;
+            }
+
+            if (!searchTerm.isEmpty()) {
+                admins = adminRepository.findByAdminIdContainingOrAdminShopNameContaining(searchTerm, searchTerm);
+            } else {
+                admins = new ArrayList<>();
+            }
+        } else if ("아이디".equals(searchType)) {
+            admins = adminRepository.findByAdminIdContaining(adminId);
+        } else if ("쇼핑몰명".equals(searchType)) {
+            admins = adminRepository.findByAdminShopNameContaining(adminShopName);
+        } else {
+            admins = new ArrayList<>();
+        }
+
+        return admins.stream()
+            .map(admin -> {
+                Map<String, Object> result = new HashMap<>();
+                result.put("adminId", admin.getAdminId());
+                result.put("adminShopName", admin.getAdminShopName());
+                result.put("adminUrl", admin.getAdminUrl());
+                result.put("productCategories", admin.getProductCategories().stream()
+                    .map(ProductCategory::getDisplayName)  // enum의 displayName으로 변환
+                    .collect(Collectors.toList()));
+                return result;
+            })
+            .collect(Collectors.toList());
+    }
+}
+
+
+

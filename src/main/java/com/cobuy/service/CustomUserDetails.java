@@ -10,6 +10,7 @@ import java.util.Collection;
 public class CustomUserDetails extends User {
     private final String name;
     private final String email;
+    private final String role;
 
     public CustomUserDetails(String username, String password,
                              Collection<? extends GrantedAuthority> authorities,
@@ -17,5 +18,10 @@ public class CustomUserDetails extends User {
         super(username, password, authorities);
         this.name = name;
         this.email = email;
+        this.role = authorities.stream()
+            .findFirst()
+            .map(GrantedAuthority::getAuthority)
+            .map(auth -> auth.replace("ROLE_", ""))
+            .orElse(null);
     }
 } 

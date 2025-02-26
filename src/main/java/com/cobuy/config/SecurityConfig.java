@@ -66,6 +66,10 @@ public class SecurityConfig {
                 .requestMatchers(new AntPathRequestMatcher("/product")).permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/product/**")).permitAll()
 
+                // 검색 API 접근 허용
+                .requestMatchers(new AntPathRequestMatcher("/admin/search")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/seller/search")).permitAll()
+
                 // 관리자 페이지 접근 제한 (로그인 필요)
                 .requestMatchers(new AntPathRequestMatcher("/admin/**")).hasRole("ADMIN")
 
@@ -74,6 +78,8 @@ public class SecurityConfig {
 
                 //사용자 페이지 접근 제한(로그인 필요)
                 //.requestMatchers(new AntPathRequestMatcher("/mypage/profile")).hasRole("USER")
+
+
 
                 // 위에서 설정한 경로 외의 모든 요청은 인증 필요
                 .anyRequest().authenticated()
@@ -120,7 +126,9 @@ public class SecurityConfig {
                     new AntPathRequestMatcher("/admin/checkId"),
                     new AntPathRequestMatcher("/seller/checkId"),
                     new AntPathRequestMatcher("/member/checkId"),
-                    new AntPathRequestMatcher("/h2-console/**")
+                    new AntPathRequestMatcher("/h2-console/**"),
+                    new AntPathRequestMatcher("/admin/search"),
+                    new AntPathRequestMatcher("/seller/search")// GET 검색 요청은 CSRF 검사 제외
                 )
             );
 

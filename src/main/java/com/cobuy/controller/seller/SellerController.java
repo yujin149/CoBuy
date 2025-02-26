@@ -40,9 +40,9 @@ public class SellerController {
     /*셀러 회원가입 처리*/
     @PostMapping(value = "/seller/join")
     public String joinSellerProcess(
-            @Validated(ValidationGroups.SignUpValidation.class) @ModelAttribute("sellerDto") SellerDto sellerDto,
-            BindingResult bindingResult,
-            Model model) {
+        @Validated(ValidationGroups.SignUpValidation.class) @ModelAttribute("sellerDto") SellerDto sellerDto,
+        BindingResult bindingResult,
+        Model model) {
 
 
         // 전화번호 입력 검증
@@ -59,8 +59,8 @@ public class SellerController {
 
         // 전화번호 조합
         String phone = sellerDto.getSellerPhone01() + "-" +
-                sellerDto.getSellerPhone2() + "-" +
-                sellerDto.getSellerPhone3();
+            sellerDto.getSellerPhone2() + "-" +
+            sellerDto.getSellerPhone3();
         sellerDto.setSellerPhone(phone);
 
         // validation 체크
@@ -71,7 +71,7 @@ public class SellerController {
         // 비밀번호 일치 여부 검사
         if (!sellerDto.getSellerPW().equals(sellerDto.getSellerPWChk())) {
             bindingResult.rejectValue("sellerPWChk", "passwordInCorrect",
-                    "비밀번호가 일치하지 않습니다.");
+                "비밀번호가 일치하지 않습니다.");
             return "admin/join/joinSeller";
         }
 
@@ -117,7 +117,7 @@ public class SellerController {
         } catch (Exception e) {
             log.error("Error checking duplicate ID: {}", e.getMessage(), e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(Collections.singletonMap("error", true));
+                .body(Collections.singletonMap("error", true));
         }
     }
 }
