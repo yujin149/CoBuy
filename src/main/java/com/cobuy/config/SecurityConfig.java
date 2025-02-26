@@ -128,7 +128,8 @@ public class SecurityConfig {
                     new AntPathRequestMatcher("/member/checkId"),
                     new AntPathRequestMatcher("/h2-console/**"),
                     new AntPathRequestMatcher("/admin/search"),
-                    new AntPathRequestMatcher("/seller/search")// GET 검색 요청은 CSRF 검사 제외
+                    new AntPathRequestMatcher("/seller/search"),// GET 검색 요청은 CSRF 검사 제외
+                    new AntPathRequestMatcher("/manage/**") // manage 관련 API는 CSRF 검증 제외
                 )
             );
 

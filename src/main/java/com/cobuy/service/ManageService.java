@@ -10,6 +10,8 @@ import com.cobuy.repository.ManageRepository;
 import com.cobuy.repository.SellerRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,7 +24,7 @@ import java.util.stream.Collectors;
 public class ManageService {
     private final ManageRepository manageRepository;
     private final AdminRepository adminRepository;
-    private SellerRepository sellerRepository;
+    private final SellerRepository sellerRepository;
 
 
     //협업요청
@@ -105,42 +107,30 @@ public class ManageService {
 
 
     //내가 보낸 요청 목록 조회
-    public List<ManageDto> getSentRequests(String requester){
-        //1. 요청자가 보낸 모든 요청을 등록일 기준 내림차순으로 조회 (최신순 정렬)
-        List<Manage> manages = manageRepository.findByRequesterOrderByRegTimeDesc(requester);
-
-        //2. 엔티티 목록을 DTO 목록으로 변환하여 반환
-        return manages.stream()
-            .map(this::convertToDto)
-            .collect(Collectors.toList());
+    public Page<ManageDto> getSentRequests(String requester, Pageable pageable) {
+        Page<Manage> manages = manageRepository.findByRequesterOrderByRegTimeDesc(requester, pageable);
+        return manages.map(this::convertToDto);
     }
 
-    //내가 받은 요청 목록 조회
-    //여기서는 대기중인 요청만 조회
-    // 자신이 보낸 요청은 제외함.
-    public List<ManageDto> getReceivedRequests(String id, String role) {
-        List<Manage> manages;
-        //1. ADMIN이 받은 요청 조회
+    //내가 받은 요청 목록 조회 (페이징 적용)
+    public Page<ManageDto> getReceivedRequests(String id, String role, Pageable pageable) {
+        Page<Manage> manages;
+
         if ("ADMIN".equals(role)) {
-            //ID로 ADMIN 찾기
             Admin admin = adminRepository.findByAdminId(id)
                 .orElseThrow(() -> new EntityNotFoundException("쇼핑몰 찾을 수 없음"));
-            //ADMIN이 받은 대기중(PENDING)상태 요청 조회
-            manages = manageRepository.findByAdminIdAndRequesterNotAndStatusOrderByRegTimeDesc(
-                admin, id, ManageStatus.PENDING); // 요청을 받은 ADMIN, 자신이 보낸 요청은 제외, 대기중인 요청만
+
+            manages = manageRepository.findByAdminIdAndRequesterNotOrderByRegTimeDesc(
+                admin, id, pageable);
         } else {
-            //SELLER가 받은 요청 조회
-            //ID로 SELLER 찾기
             Seller seller = sellerRepository.findBySellerId(id)
                 .orElseThrow(() -> new EntityNotFoundException("셀러 찾을 수 없음"));
-            //SELLER가 받은 PENDING 상태의 요청 조회
-            manages = manageRepository.findBySellerIdAndRequesterNotAndStatusOrderByRegTimeDesc(
-                seller, id, ManageStatus.PENDING); //요청을 받은 SELLER, 자신이 보낸 요청은 제외, 대기중인 요청만
+
+            manages = manageRepository.findBySellerIdAndRequesterNotOrderByRegTimeDesc(
+                seller, id, pageable);
         }
-        //3. 엔티티를 DTO로 변환하여 반환
-        return manages.stream()
-            .map(this::convertToDto)
-            .collect(Collectors.toList());
+
+        return manages.map(this::convertToDto);
     }
 
 
@@ -169,38 +159,74 @@ public class ManageService {
     }
 
 
+    // 수락되었거나 대기 중인 협업자 ID 목록 조회
+    public List<String> getAcceptedPartnerIds(String userId, String role) {
+        List<Manage> manages;
+
+        if ("ADMIN".equals(role)) {
+            Admin admin = adminRepository.findByAdminId(userId)
+                .orElseThrow(() -> new EntityNotFoundException("쇼핑몰 찾을 수 없음"));
+            // ACCEPTED 또는 PENDING 상태인 요청 모두 조회
+            manages = manageRepository.findByAdminIdAndStatusIn(
+                admin, List.of(ManageStatus.ACCEPTED, ManageStatus.PENDING));
+
+            return manages.stream()
+                .map(manage -> manage.getSellerId().getSellerId())
+                .collect(Collectors.toList());
+        } else {
+            Seller seller = sellerRepository.findBySellerId(userId)
+                .orElseThrow(() -> new EntityNotFoundException("셀러 찾을 수 없음"));
+            // ACCEPTED 또는 PENDING 상태인 요청 모두 조회
+            manages = manageRepository.findBySellerIdAndStatusIn(
+                seller, List.of(ManageStatus.ACCEPTED, ManageStatus.PENDING));
+
+            return manages.stream()
+                .map(manage -> manage.getAdminId().getAdminId())
+                .collect(Collectors.toList());
+        }
+    }
+
+    // 대기중인 요청 수 조회
+    @Transactional(readOnly = true)
+    public long countPendingRequests(String userId, String role) {
+        if ("ADMIN".equals(role)) {
+            Admin admin = adminRepository.findByAdminId(userId)
+                .orElseThrow(() -> new EntityNotFoundException("쇼핑몰을 찾을 수 없음"));
+            return manageRepository.countByAdminIdAndRequesterNotAndStatus(
+                admin, userId, ManageStatus.PENDING);
+        } else {
+            Seller seller = sellerRepository.findBySellerId(userId)
+                .orElseThrow(() -> new EntityNotFoundException("셀러를 찾을 수 없음"));
+            return manageRepository.countBySellerIdAndRequesterNotAndStatus(
+                seller, userId, ManageStatus.PENDING);
+        }
+    }
 
 
     //Manage 엔티티를 ManageDto로 변환
     private ManageDto convertToDto(Manage manage) {
-        return ManageDto.builder() // Builder 패턴 사용
-            .id(manage.getId()) //관리 id
-
-            // 1. Admin 관련 정보
-            .adminId(manage.getAdminId().getAdminId()) //관리자ID
-            .adminShopName(manage.getAdminId().getAdminShopName()) //쇼핑몰이름
-            .adminUrl(manage.getAdminId().getAdminUrl()) //쇼핑몰 URL
-            .adminContents(manage.getAdminId().getAdminContents()) //소개글
-            .adminCategories(manage.getAdminId().getProductCategories().stream()//카테고리 변환
-                .map(Enum::name) //enum -> String으로 변환
-                .collect(Collectors.toList())) // Set -> List 변환
-            //엔티티에서 Set으로 사용한 이유는
-            //중복방지(같은 카테고리를 두번 저장할 수 없음), 순서가 중요하지 않기 때문.
-            //List로 변경하는 이유는 JSON 직렬화가 더 자연스럽고 프론트엔드에서 배열 형태로 다루기 쉽기 때문이다.
-
-            // 2. Seller 관련 정보
-            .sellerId(manage.getSellerId().getSellerId()) //인플루언서ID
-            .sellerNickName(manage.getSellerId().getSellerNickName()) //인플루언서 닉네임
-            .sellerUrl(manage.getSellerId().getSellerUrl()) //SNS URL
-            .sellerContents(manage.getSellerId().getSellerContents()) //소개글
-            .sellerCategories(manage.getSellerId().getProductCategories().stream()// 카테고리 변환
-                .map(Enum::name) // enum -> String
-                .collect(Collectors.toList())) //Set -> List
-            
-            //3. 관리 상태 정보
-            .status(manage.getStatus()) //요청상태 (대기중 / 수락 / 거절 )
-            .requester(manage.getRequester()) //요청자 ID
-            .regTime(manage.getRegTime()) //요청 날짜
+        return ManageDto.builder()
+            .id(manage.getId())
+            // 요청자 정보
+            .requester(manage.getRequester())
+            .requesterRole(manage.getRequester().equals(manage.getAdminId().getAdminId()) ? "ADMIN" : "SELLER")
+            // ADMIN 정보
+            .adminId(manage.getAdminId().getAdminId())
+            .adminShopName(manage.getAdminId().getAdminShopName())
+            .adminUrl(manage.getAdminId().getAdminUrl())
+            .adminCategories(manage.getAdminId().getProductCategories().stream()
+                .map(category -> category.getDisplayName())
+                .collect(Collectors.toList()))
+            // SELLER 정보
+            .sellerId(manage.getSellerId().getSellerId())
+            .sellerNickName(manage.getSellerId().getSellerNickName())
+            .sellerUrl(manage.getSellerId().getSellerUrl())
+            .sellerCategories(manage.getSellerId().getProductCategories().stream()
+                .map(category -> category.getDisplayName())
+                .collect(Collectors.toList()))
+            // 상태 정보
+            .status(manage.getStatus())
+            .regTime(manage.getRegTime())
             .build();
     }
 }

@@ -2,6 +2,8 @@ package com.cobuy.repository;
 
 import com.cobuy.entity.Admin;
 import com.cobuy.entity.Seller;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -28,5 +30,9 @@ public interface SellerRepository extends JpaRepository<Seller, String> {
     List<Seller> findBySellerIdContaining(String sellerId);
     List<Seller> findBySellerNickNameContaining(String sellerNickName);
     List<Seller> findBySellerIdContainingOrSellerNickNameContaining(String sellerId, String sellerNickName);
+
+    Page<Seller> findBySellerIdNotIn(List<String> sellerIds, Pageable pageable);
+    Page<Seller> findBySellerNickNameContainingAndSellerIdNotIn(
+        String keyword, List<String> sellerIds, Pageable pageable);
 }
 

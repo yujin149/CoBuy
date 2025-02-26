@@ -2,6 +2,7 @@
 function searchAdmins() {
     const searchType = document.getElementById('adminSearchType').value;
     const searchInput = document.getElementById('adminSearchInput').value;
+    const currentUserId = document.getElementById('currentUserId').value;
 
     const tbody = document.getElementById('adminSearchResults');
     tbody.innerHTML = '';
@@ -23,7 +24,8 @@ function searchAdmins() {
     let params = new URLSearchParams({
         searchType: searchType,
         adminId: searchInput,        // 전체 검색일 때도 검색어를 adminId로 전달
-        adminShopName: searchInput   // 전체 검색일 때도 검색어를 adminShopName으로 전달
+        adminShopName: searchInput,   // 전체 검색일 때도 검색어를 adminShopName으로 전달
+        currentUserId: currentUserId
     });
 
     fetch(`/admin/search?${params.toString()}`, {
@@ -40,7 +42,7 @@ function searchAdmins() {
         .then(data => {
             tbody.innerHTML = ''; // 기존 결과 초기화
 
-            if (data.length === 0) {
+            if (!data || data.length === 0) {
                 tbody.innerHTML = `
                 <tr>
                     <td colspan="3"><p class="none">검색 결과가 없습니다.</p></td>
@@ -84,6 +86,7 @@ function searchAdmins() {
 function searchSellers() {
     const searchType = document.getElementById('sellerSearchType').value;
     const searchInput = document.getElementById('sellerSearchInput').value;
+    const currentUserId = document.getElementById('currentUserId').value;
 
     const tbody = document.getElementById('sellerSearchResults');
     tbody.innerHTML = '';
@@ -105,7 +108,8 @@ function searchSellers() {
     let params = new URLSearchParams({
         searchType: searchType,
         sellerId: searchInput,      // 전체 검색일 때도 검색어를 sellerId로 전달
-        sellerNickName: searchInput  // 전체 검색일 때도 검색어를 sellerNickName으로 전달
+        sellerNickName: searchInput,  // 전체 검색일 때도 검색어를 sellerNickName으로 전달
+        currentUserId: currentUserId
     });
 
     fetch(`/seller/search?${params.toString()}`, {
@@ -169,8 +173,7 @@ function sendManageRequest(role) {
 
     selectedCheckboxes.forEach(checkbox => {
         const targetId = checkbox.value;
-        // 현재 로그인한 사용자의 ID를 가져와야 합니다
-        const requesterId = document.getElementById('currentUserId').value; // 이 부분은 실제 구현에 맞게 수정 필요
+        const requesterId = document.getElementById('currentUserId').value;
 
         fetch('/manage/request', {
             method: 'POST',

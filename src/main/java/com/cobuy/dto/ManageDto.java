@@ -14,6 +14,10 @@ import java.util.List;
 public class ManageDto {
     private Long id;
 
+    // 요청자 정보
+    private String requester; // 요청자 ID
+    private String requesterRole; // 요청자 역할 (ADMIN/SELLER) 추가
+
     //쇼핑몰
     private String adminId; //아이디
     private String adminShopName; //쇼핑몰이름
@@ -29,8 +33,6 @@ public class ManageDto {
     private List<String> sellerCategories; //카테고리
 
     private ManageStatus status; //요청상태
-    private String requester; //요청자
-
     private LocalDateTime regTime; //요청날짜
 
 }

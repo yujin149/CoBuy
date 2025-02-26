@@ -12,126 +12,21 @@
                 <div class="tableWrap">
                     <table>
                         <colgroup>
-                            <col style = "width:45px">
-                            <col style = "width:220px">
-                            <col style = "width:100%">
-                            <col style = "width:100px">
+                            <col style="width:220px">
+                            <col style="width:100%">
+                            <col style="width:100px">
                         </colgroup>
                         <thead>
                         <tr>
-                            <th><div class="chkBox"><input type="checkbox" class="allChk"></div></th>
-                            <th>쇼핑몰명 / 인플루언서명</th>
-                            <th>홈페이지 주소 / SNS 주소</th>
-                            <th>요청 확인</th>
+                            <th class="partnerName"><!-- 동적으로 변경될 부분 --></th>
+                            <th class="url"><!-- 동적으로 변경될 부분 --></th>
+                            <th class="status">상태</th>
                         </tr>
                         </thead>
                         <tbody>
-
+                        <!-- 데이터가 동적으로 삽입될 위치 -->
                         <tr>
-                            <td><div class="chkBox"><input type="checkbox" class="chk"></div></td>
-                            <td>
-                                <div class="info">
-                                    <p class="name">CoBuy</p>
-                                    <ul class="category">
-                                        <li>패션잡화</li>
-                                        <li>화장품/미용</li>
-                                    </ul>
-                                </div>
-                            </td>
-                            <td>
-                                <a href="http://localhost:8080/product" target="_blank" class="url">http://localhost:8080/product</a>
-                            </td>
-                            <td>
-                                <div class="btnWrap">
-                                    <a href="javascript:void(0)" class="acceptBtn">수락</a>
-                                    <a href="javascript:void(0)" class="refuseBtn">거절</a>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td><div class="chkBox"><input type="checkbox" class="chk"></div></td>
-                            <td>
-                                <div class="info">
-                                    <p class="name">CoBuy</p>
-                                    <ul class="category">
-                                        <li>패션잡화</li>
-                                        <li>화장품/미용</li>
-                                    </ul>
-                                </div>
-                            </td>
-                            <td>
-                                <a href="http://localhost:8080/product" target="_blank" class="url">http://localhost:8080/product</a>
-                            </td>
-                            <td>
-                                <div class="btnWrap">
-                                    <span class="result result02">요청 거절</span>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><div class="chkBox"><input type="checkbox" class="chk"></div></td>
-                            <td>
-                                <div class="info">
-                                    <p class="name">CoBuy</p>
-                                    <ul class="category">
-                                        <li>패션잡화</li>
-                                        <li>화장품/미용</li>
-                                    </ul>
-                                </div>
-                            </td>
-                            <td>
-                                <a href="http://localhost:8080/product" target="_blank" class="url">http://localhost:8080/product</a>
-                            </td>
-                            <td>
-                                <div class="btnWrap">
-                                    <span class="result result01">요청 수락</span>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><div class="chkBox"><input type="checkbox" class="chk"></div></td>
-                            <td>
-                                <div class="info">
-                                    <p class="name">CoBuy</p>
-                                    <ul class="category">
-                                        <li>패션잡화</li>
-                                        <li>화장품/미용</li>
-                                    </ul>
-                                </div>
-                            </td>
-                            <td>
-                                <a href="http://localhost:8080/product" target="_blank" class="url">http://localhost:8080/product</a>
-                            </td>
-                            <td>
-                                <div class="btnWrap">
-                                    <span class="result">요청 대기중</span>
-                                </div>
-                            </td>
-                        </tr>
-
-                        </tbody>
-                    </table>
-                </div>
-                <!--결과 없음-->
-                <div class="tableWrap noneTableWrap">
-                    <table>
-                        <colgroup>
-                            <col style = "width:45px">
-                            <col style = "width:220px">
-                            <col style = "width:100%">
-                        </colgroup>
-                        <thead>
-                        <tr>
-                            <th>
-                                <div class="chkBox"><input type="checkbox" class="allChk"></div></th>
-                            <th>쇼핑몰명 / 인플루언서명</th>
-                            <th>홈페이지 주소 / SNS 주소</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td colspan="3"><p class="none">받은 요청이 없습니다.</p></td>
+                            <td colspan="4"><p class="none">요청 내역이 없습니다.</p></td>
                         </tr>
                         </tbody>
                     </table>
@@ -140,15 +35,13 @@
                 <!--페이징-->
                 <ul class="pagination">
                     <li class="page-item page-arrow page-prev">
-                        <a class="page-link" href="javascript:void(0)">이전 페이지</a>
+                        <a class="page-link" href="javascript:void(0)" onclick="changePage(currentPage - 1)">이전 페이지</a>
                     </li>
                     <li class="page-item page-num">
-                        <a class="page-link active" href="javascript:void(0)">1</a>
-                        <a class="page-link" href="javascript:void(0)">2</a>
-                        <a class="page-link" href="javascript:void(0)">3</a>
+                        <!-- 페이지 번호가 동적으로 삽입될 위치 -->
                     </li>
                     <li class="page-item page-arrow page-next">
-                        <a class="page-link" href="javascript:void(0)">다음 페이지</a>
+                        <a class="page-link" href="javascript:void(0)" onclick="changePage(currentPage + 1)">다음 페이지</a>
                     </li>
                 </ul>
             </div>
@@ -159,8 +52,19 @@
         <div class="bgB"></div>
     </div>
 
+    <!-- CSRF 토큰을 hidden input으로 추가 -->
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" id="csrf-token"/>
+    <input type="hidden" name="_csrf_header" th:value="${_csrf.headerName}" id="csrf-header"/>
 
-
+    <!-- 현재 로그인한 사용자 정보를 hidden input으로 저장 -->
+    <input type="hidden" id="currentUserId"
+           th:with="principal=${#authentication.principal}"
+           th:value="${principal.username}">
+    <input type="hidden" id="currentUserRole"
+           th:with="principal=${#authentication.principal}"
+           th:value="${principal.role}">
 </div>
+
+
 </body>
 </html>

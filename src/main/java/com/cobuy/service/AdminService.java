@@ -23,6 +23,7 @@ public class AdminService {
 
     private final AdminRepository adminRepository;
     private final PasswordEncoder passwordEncoder;
+    private final ManageService manageService;
 
     // 전화번호 합치기: 관리자 DTO에서 받은 전화번호를 하나로 합침
     private String combinePhoneNumber(AdminDto adminDto) {
@@ -119,7 +120,7 @@ public class AdminService {
 
     //쇼핑몰 검색 메서드 추가
     @Transactional(readOnly = true)
-    public List<Map<String, Object>> searchAdmins(String searchType, String adminId, String adminShopName) {
+    public List<Map<String, Object>> searchAdmins(String searchType, String adminId, String adminShopName, String currentUserId) {
         List<Admin> admins;
 
         if ("전체".equals(searchType)) {
@@ -143,6 +144,12 @@ public class AdminService {
             admins = new ArrayList<>();
         }
 
+        // 검색된 관리자 목록에서 이미 협업 중이거나 요청 대기 중인 관리자 제외
+        List<String> excludeAdminIds = manageService.getAcceptedPartnerIds(currentUserId, "SELLER");
+        admins = admins.stream()
+            .filter(admin -> !excludeAdminIds.contains(admin.getAdminId()))
+            .collect(Collectors.toList());
+
         return admins.stream()
             .map(admin -> {
                 Map<String, Object> result = new HashMap<>();
@@ -150,7 +157,7 @@ public class AdminService {
                 result.put("adminShopName", admin.getAdminShopName());
                 result.put("adminUrl", admin.getAdminUrl());
                 result.put("productCategories", admin.getProductCategories().stream()
-                    .map(ProductCategory::getDisplayName)  // enum의 displayName으로 변환
+                    .map(ProductCategory::getDisplayName)
                     .collect(Collectors.toList()));
                 return result;
             })

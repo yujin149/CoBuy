@@ -4,6 +4,10 @@ import com.cobuy.constant.ManageStatus;
 import com.cobuy.service.AdminService;
 import com.cobuy.service.ManageService;
 import com.cobuy.service.SellerService;
+import com.cobuy.dto.ManageDto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -69,9 +73,10 @@ public class ManageController {
     public ResponseEntity<List<Map<String, Object>>> searchAdmins(
         @RequestParam String searchType,
         @RequestParam(required = false) String adminId,
-        @RequestParam(required = false) String adminShopName) {
+        @RequestParam(required = false) String adminShopName,
+        @RequestParam String currentUserId) {
         try {
-            List<Map<String, Object>> results = adminService.searchAdmins(searchType, adminId, adminShopName);
+            List<Map<String, Object>> results = adminService.searchAdmins(searchType, adminId, adminShopName, currentUserId);
             return ResponseEntity.ok(results);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
@@ -84,12 +89,12 @@ public class ManageController {
     public ResponseEntity<List<Map<String, Object>>> searchSellers(
         @RequestParam String searchType,
         @RequestParam(required = false) String sellerId,
-        @RequestParam(required = false) String sellerNickName) {
+        @RequestParam(required = false) String sellerNickName,
+        @RequestParam String currentUserId) {
         try {
-            List<Map<String, Object>> results = sellerService.searchSellers(searchType, sellerId, sellerNickName);
+            List<Map<String, Object>> results = sellerService.searchSellers(searchType, sellerId, sellerNickName, currentUserId);
             return ResponseEntity.ok(results);
         } catch (Exception e) {
-            log.error("Search error", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
@@ -109,16 +114,70 @@ public class ManageController {
         }
     }
 
+    // 받은 요청 목록 조회 API (페이징 적용)
+    @GetMapping("/manage/received-requests")
+    @ResponseBody
+    public ResponseEntity<Page<ManageDto>> getReceivedRequests(
+        @RequestParam String id,
+        @RequestParam String role,
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "5") int size) {
+
+        try {
+            Pageable pageable = PageRequest.of(page, size);
+            Page<ManageDto> requests = manageService.getReceivedRequests(id, role, pageable);
+            return ResponseEntity.ok(requests);
+        } catch (Exception e) {
+            log.error("Error fetching received requests", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
+    // 보낸 요청 목록 조회 API (페이징 적용)
+    @GetMapping("/manage/sent-requests")
+    @ResponseBody
+    public ResponseEntity<Page<ManageDto>> getSentRequests(
+        @RequestParam String requester,
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "5") int size) {
+
+        try {
+            Pageable pageable = PageRequest.of(page, size);
+            Page<ManageDto> requests = manageService.getSentRequests(requester, pageable);
+            return ResponseEntity.ok(requests);
+        } catch (Exception e) {
+            log.error("Error fetching sent requests", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
+    // 협업 요청 응답 API
     @PostMapping("/manage/respond/{manageId}")
     @ResponseBody
-    public ResponseEntity<?> respondToRequest(
-        @PathVariable Long manageId, // 응답할 요청의 ID
-        @RequestParam ManageStatus status) { // 응답 상태(ACCEPTED/REJECTED)
+    public ResponseEntity<String> respondToRequest(
+        @PathVariable Long manageId,
+        @RequestParam ManageStatus status) {
         try {
             manageService.respondToRequest(manageId, status);
-            return ResponseEntity.ok().build(); // 성공 시 200 OK
+            return ResponseEntity.ok(status.getMessage());  // enum의 메시지 반환
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage()); // 실패 시 400 Bad Request
+            log.error("Error responding to request", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body("요청 처리 중 오류가 발생했습니다.");
+        }
+    }
+
+    // 대기중인 요청 수 조회 API
+    @GetMapping("/manage/pending-count")
+    @ResponseBody
+    public ResponseEntity<Long> getPendingRequestCount(
+        @RequestParam String userId,
+        @RequestParam String role) {
+        try {
+            long count = manageService.countPendingRequests(userId, role);
+            return ResponseEntity.ok(count);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
 

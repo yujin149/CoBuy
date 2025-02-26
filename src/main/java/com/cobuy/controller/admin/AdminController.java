@@ -1,10 +1,15 @@
 package com.cobuy.controller.admin;
 
 import com.cobuy.dto.AdminDto;
+import com.cobuy.dto.SellerDto;
 import com.cobuy.service.AdminService;
+import com.cobuy.service.ManageService;
+import com.cobuy.service.SellerService;
 import com.cobuy.validator.ValidationGroups;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -13,8 +18,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -23,6 +30,8 @@ import java.util.Map;
 public class AdminController {
 
     private final AdminService adminService;
+    private final ManageService manageService;
+    private final SellerService sellerService;
 
     /*업체 아이디 찾기*/
     @GetMapping(value = "/admin/find")
@@ -148,5 +157,17 @@ public class AdminController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(Collections.singletonMap("error", true));
         }
+    }
+    @GetMapping("/search-sellers")
+    public Page<SellerDto> searchSellers(@RequestParam(required = false) String keyword,
+                                         @RequestParam(defaultValue = "0") int page,
+                                         @RequestParam(defaultValue = "6") int size,
+                                         Principal principal) {
+        String adminId = principal.getName();
+        // 수락된 협업자 ID 목록 조회
+        List<String> acceptedSellerIds = manageService.getAcceptedPartnerIds(adminId, "ADMIN");
+
+        // 검색 시 수락된 협업자 제외
+        return sellerService.searchSellersExcluding(keyword, acceptedSellerIds, PageRequest.of(page, size));
     }
 }

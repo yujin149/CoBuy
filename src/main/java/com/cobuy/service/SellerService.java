@@ -5,7 +5,10 @@ import com.cobuy.dto.SellerDto;
 import com.cobuy.entity.Seller;
 import com.cobuy.repository.SellerRepository;
 import com.cobuy.constant.Role;
+import io.micrometer.common.util.StringUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +29,7 @@ public class SellerService {
     private final SellerRepository sellerRepository;
     private final PasswordEncoder passwordEncoder;
     private static final Logger log = LoggerFactory.getLogger(SellerService.class);
+    private final ManageService manageService;
 
     private String combinePhoneNumber(SellerDto sellerDto) {
         return sellerDto.getSellerPhone01() + "-" +
@@ -70,7 +74,7 @@ public class SellerService {
 
     //셀러 검색 메서드 추가
     @Transactional(readOnly = true)
-    public List<Map<String, Object>> searchSellers(String searchType, String sellerId, String sellerNickName) {
+    public List<Map<String, Object>> searchSellers(String searchType, String sellerId, String sellerNickName, String currentUserId) {
         List<Seller> sellers;
 
         if ("전체".equals(searchType)) {
@@ -94,6 +98,12 @@ public class SellerService {
             sellers = new ArrayList<>();
         }
 
+        // 검색된 셀러 목록에서 이미 협업 중이거나 요청 대기 중인 셀러 제외
+        List<String> excludeSellerIds = manageService.getAcceptedPartnerIds(currentUserId, "ADMIN");
+        sellers = sellers.stream()
+            .filter(seller -> !excludeSellerIds.contains(seller.getSellerId()))
+            .collect(Collectors.toList());
+
         return sellers.stream()
             .map(seller -> {
                 Map<String, Object> result = new HashMap<>();
@@ -101,12 +111,31 @@ public class SellerService {
                 result.put("sellerNickName", seller.getSellerNickName());
                 result.put("sellerUrl", seller.getSellerUrl());
                 result.put("productCategories", seller.getProductCategories().stream()
-                    .map(ProductCategory::getDisplayName)  // enum의 displayName으로 변환
+                    .map(ProductCategory::getDisplayName)
                     .collect(Collectors.toList()));
                 return result;
             })
             .collect(Collectors.toList());
     }
 
+    public Page<SellerDto> searchSellersExcluding(String keyword, List<String> excludeIds, Pageable pageable) {
+        Page<Seller> sellers;
+        if (StringUtils.isEmpty(keyword)) {
+            sellers = sellerRepository.findBySellerIdNotIn(excludeIds, pageable);
+        } else {
+            sellers = sellerRepository.findBySellerNickNameContainingAndSellerIdNotIn(
+                keyword, excludeIds, pageable);
+        }
+        // 변환
+        return sellers.map(seller -> {
+            SellerDto dto = new SellerDto();
+            dto.setSellerId(seller.getSellerId());
+            dto.setSellerNickName(seller.getSellerNickName());
+            dto.setSellerUrl(seller.getSellerUrl());
+            dto.setProductCategories(seller.getProductCategories());
+            // 필요한 다른 필드들도 설정
+            return dto;
+        });
+    }
 
 } 

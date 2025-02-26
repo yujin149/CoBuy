@@ -4,6 +4,8 @@ import com.cobuy.constant.ManageStatus;
 import com.cobuy.entity.Admin;
 import com.cobuy.entity.Manage;
 import com.cobuy.entity.Seller;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -33,4 +35,28 @@ public interface ManageRepository extends JpaRepository<Manage, Long> {
     // SELLER가 받은 요청 목록 조회
     List<Manage> findBySellerIdAndRequesterNotAndStatusOrderByRegTimeDesc(
         Seller seller, String requester, ManageStatus status);
+
+    // 페이징을 위한 메서드 추가
+    Page<Manage> findByAdminIdAndRequesterNotAndStatusOrderByRegTimeDesc(
+        Admin admin, String requester, ManageStatus status, Pageable pageable);
+
+    Page<Manage> findBySellerIdAndRequesterNotAndStatusOrderByRegTimeDesc(
+        Seller seller, String requester, ManageStatus status, Pageable pageable);
+
+    Page<Manage> findByRequesterOrderByRegTimeDesc(String requester, Pageable pageable);
+
+    // 모든 상태(PENDING/ACCEPTED/REJECTED)를 보여줌
+    Page<Manage> findByAdminIdAndRequesterNotOrderByRegTimeDesc(
+        Admin admin, String requester, Pageable pageable);
+
+    Page<Manage> findBySellerIdAndRequesterNotOrderByRegTimeDesc(
+        Seller seller, String requester, Pageable pageable);
+
+    // 수락/대기 상태인 요청 목록 조회회
+    List<Manage> findByAdminIdAndStatusIn(Admin admin, List<ManageStatus> statuses);
+    List<Manage> findBySellerIdAndStatusIn(Seller seller, List<ManageStatus> statuses);
+
+    // 대기중인 요청 수 조회
+    long countByAdminIdAndRequesterNotAndStatus(Admin admin, String requester, ManageStatus status);
+    long countBySellerIdAndRequesterNotAndStatus(Seller seller, String requester, ManageStatus status);
 }
