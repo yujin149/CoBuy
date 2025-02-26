@@ -138,8 +138,12 @@
 .requestModal .tableWrap table tr td .info .category li:last-child:after{display: none;}
 .requestModal .tableWrap table tr td .url{word-break: break-all; font-size:14px;}
 .requestModal .tableWrap table tr td .url:hover{color:var(--bk-color);}
-.requestModal .tableWrap table tr td .acceptBtn{font-size:14px; color:var(--bk-color); border:1px solid var(--gray-color); border-radius: 5px; background:var(--gray-bg1); display: flex; justify-content: center; align-items: center; height:35px; width:100%; font-weight:500;}
-.requestModal .tableWrap table tr td .acceptBtn:hover{background:var(--bk-color); border-color:var(--bk-color); color:var(--white-color);}
+.requestModal .tableWrap table tr td .btnWrap a{font-size:14px; color:var(--bk-color); border:1px solid var(--gray-color); border-radius: 5px; background:var(--gray-bg1); display: flex; justify-content: center; align-items: center; height:35px; width:100%; font-weight:500;}
+.requestModal .tableWrap table tr td .btnWrap a.refuseBtn{margin-top:5px;}
+.requestModal .tableWrap table tr td .btnWrap .result{display: flex; justify-content: center ;align-items: center; font-size:14px; color:var(--white-color); background:var(--bk-color); border-radius: 5px; height:35px; width:100%; font-weight:500;}
+.requestModal .tableWrap table tr td .btnWrap .result01{background:var(--green-color);}
+.requestModal .tableWrap table tr td .btnWrap .result02{background:var(--red-color);}
+.requestModal .tableWrap table tr td .btnWrap a:hover{background:var(--bk-color); border-color:var(--bk-color); color:var(--white-color);}
 
 
 .requestModal .modalBtn a{width:100%;}
