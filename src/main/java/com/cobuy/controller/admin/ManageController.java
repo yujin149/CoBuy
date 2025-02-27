@@ -15,9 +15,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.cobuy.entity.Admin;
+import com.cobuy.entity.Seller;
+import com.cobuy.constant.ProductCategory;
+import com.cobuy.repository.AdminRepository;
+import com.cobuy.repository.SellerRepository;
+import jakarta.persistence.EntityNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
+import java.util.stream.Collectors;
 
 @Controller
 public class ManageController {
@@ -26,6 +35,10 @@ public class ManageController {
     private final SellerService sellerService;
     private final ManageService manageService;
     private static final Logger log = LoggerFactory.getLogger(ManageController.class);
+    @Autowired
+    private AdminRepository adminRepository;
+    @Autowired
+    private SellerRepository sellerRepository;
 
     public ManageController(AdminService adminService, SellerService sellerService, ManageService manageService) {
         this.adminService = adminService;
@@ -70,14 +83,28 @@ public class ManageController {
     //쇼핑몰 검색 (추가할때 사용)
     @GetMapping("/admin/search")
     @ResponseBody
-    public ResponseEntity<List<Map<String, Object>>> searchAdmins(
+    public ResponseEntity<Map<String, Object>> searchAdmins(
         @RequestParam String searchType,
         @RequestParam(required = false) String adminId,
         @RequestParam(required = false) String adminShopName,
         @RequestParam String currentUserId) {
         try {
-            List<Map<String, Object>> results = adminService.searchAdmins(searchType, adminId, adminShopName, currentUserId);
-            return ResponseEntity.ok(results);
+            // 현재 사용자(Seller)의 카테고리 가져오기
+            Seller currentSeller = sellerRepository.findBySellerId(currentUserId)
+                .orElseThrow(() -> new EntityNotFoundException("Seller not found"));
+
+            // 검색 결과 가져오기
+            List<Map<String, Object>> partners = adminService.searchAdmins(searchType, adminId, adminShopName, currentUserId);
+
+            // 응답 데이터 구성
+            Map<String, Object> response = new HashMap<>();
+            response.put("currentUserCategories",
+                currentSeller.getProductCategories().stream()
+                    .map(ProductCategory::getDisplayName)
+                    .collect(Collectors.toList()));
+            response.put("partners", partners);
+
+            return ResponseEntity.ok(response);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
@@ -86,14 +113,28 @@ public class ManageController {
     //셀러 검색(추가할때 사용)
     @GetMapping("/seller/search")
     @ResponseBody
-    public ResponseEntity<List<Map<String, Object>>> searchSellers(
+    public ResponseEntity<Map<String, Object>> searchSellers(
         @RequestParam String searchType,
         @RequestParam(required = false) String sellerId,
         @RequestParam(required = false) String sellerNickName,
         @RequestParam String currentUserId) {
         try {
-            List<Map<String, Object>> results = sellerService.searchSellers(searchType, sellerId, sellerNickName, currentUserId);
-            return ResponseEntity.ok(results);
+            // 현재 사용자(Admin)의 카테고리 가져오기
+            Admin currentAdmin = adminRepository.findByAdminId(currentUserId)
+                .orElseThrow(() -> new EntityNotFoundException("Admin not found"));
+
+            // 검색 결과 가져오기
+            List<Map<String, Object>> partners = sellerService.searchSellers(searchType, sellerId, sellerNickName, currentUserId);
+
+            // 응답 데이터 구성
+            Map<String, Object> response = new HashMap<>();
+            response.put("currentUserCategories",
+                currentAdmin.getProductCategories().stream()
+                    .map(ProductCategory::getDisplayName)
+                    .collect(Collectors.toList()));
+            response.put("partners", partners);
+
+            return ResponseEntity.ok(response);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }

@@ -42,20 +42,37 @@ function initializeMatchModal(role) {
         })
         .then(data => {
             console.log('Received data:', data);
-            if (data && data.length > 0) {
-                // 아직 보여주지 않은 파트너만 필터링
-                const remainingPartners = data.filter(partner =>
-                    !shownPartnerIds.includes(role === 'ADMIN' ? partner.sellerId : partner.adminId)
-                );
+            if (data && data.currentUserCategories && data.partners) {
+                // 현재 사용자의 카테고리와 파트너 목록 분리
+                const currentUserCategories = data.currentUserCategories;
+                const partners = data.partners;
 
-                if (remainingPartners.length > 0) {
-                    displayRandomPartner(remainingPartners, role);
+                console.log('Current user categories:', currentUserCategories);
+                console.log('Available partners:', partners);
+
+                if (partners.length > 0) {
+                    // 카테고리가 일치하는 파트너만 필터링
+                    const matchedPartners = filterMatchingPartners(partners, currentUserCategories);
+                    console.log('Matched partners:', matchedPartners);
+
+                    if (matchedPartners.length > 0) {
+                        // 아직 보여주지 않은 파트너만 필터링
+                        const remainingPartners = matchedPartners.filter(partner =>
+                            !shownPartnerIds.includes(role === 'ADMIN' ? partner.sellerId : partner.adminId)
+                        );
+
+                        if (remainingPartners.length > 0) {
+                            displayRandomPartner(remainingPartners, role);
+                        } else {
+                            alert('더 이상 매칭할 파트너가 없습니다.');
+                            $('.matchModal').hide();
+                            shownPartnerIds = [];
+                        }
+                    } else {
+                        showNoMatchMessage(role);
+                    }
                 } else {
-                    // 모든 파트너를 다 보여줬을 경우
-                    alert('더 이상 매칭할 파트너가 없습니다.');
-                    $('.matchModal').hide(); // 모달 닫기
-                    // shownPartnerIds 초기화 (다음 매칭 시도를 위해)
-                    shownPartnerIds = [];
+                    showNoMatchMessage(role);
                 }
             } else {
                 showNoMatchMessage(role);
@@ -67,54 +84,92 @@ function initializeMatchModal(role) {
         });
 }
 
-// 현재 사용자의 카테고리 가져오기
-function getCurrentUserCategories() {
-    // 현재 페이지의 카테고리 정보를 다양한 선택자로 시도
-    let categoriesElements = document.querySelectorAll('.myInfo .category li');
-    if (!categoriesElements.length) {
-        categoriesElements = document.querySelectorAll('.category li');
-    }
-    if (!categoriesElements.length) {
-        categoriesElements = document.querySelectorAll('[class*="category"] li');
-    }
-
-    console.log('Found category elements:', categoriesElements);
-
-    if (!categoriesElements.length) {
-        console.error('카테고리 요소를 찾을 수 없습니다.');
-        return [];
-    }
-
-    const categories = Array.from(categoriesElements)
-        .map(li => li.textContent.trim())
-        .filter(category => category); // 빈 문자열 제거
-
-    console.log('Extracted categories:', categories);
-    return categories;
-}
-
 // 카테고리가 일치하는 파트너 필터링
-function filterMatchingPartners(partners) {
-    const currentUserCategories = getCurrentUserCategories();
-    console.log('Current user categories:', currentUserCategories);
-
-    if (!currentUserCategories || currentUserCategories.length === 0) {
-        console.warn('No categories found for current user');
-        return partners; // 카테고리가 없으면 모든 파트너 반환
+function filterMatchingPartners(partners, currentUserCategories) {
+    if (!currentUserCategories || !Array.isArray(currentUserCategories) || currentUserCategories.length === 0) {
+        console.warn('No valid categories found for current user');
+        return [];
     }
 
     const matchedPartners = partners.filter(partner => {
         console.log('Checking partner:', partner);
-        console.log('Partner categories:', partner.productCategories);
 
-        // 파트너의 카테고리가 현재 사용자의 카테고리와 하나라도 일치하는지 확인
-        return partner.productCategories.some(partnerCategory =>
-            currentUserCategories.includes(partnerCategory)
+        // 파트너의 카테고리 데이터 확인
+        const partnerCategories = partner.productCategories;
+        console.log('Partner productCategories:', partnerCategories);
+
+        // 파트너의 카테고리가 유효한지 확인
+        if (!partnerCategories || !Array.isArray(partnerCategories) || partnerCategories.length === 0) {
+            console.warn('No valid categories found for partner:', partner.sellerId || partner.adminId);
+            return false;
+        }
+
+        // 카테고리 매칭 확인
+        const matchingCategories = currentUserCategories.filter(userCategory =>
+            partnerCategories.includes(userCategory)  // 서버에서 이미 정확한 카테고리 문자열을 받으므로 단순 비교
         );
+
+        console.log('Matching categories:', matchingCategories);
+        return matchingCategories.length > 0;
     });
 
-    console.log('Matched partners after filtering:', matchedPartners);
+    console.log('Total partners before filtering:', partners.length);
+    console.log('Matched partners after filtering:', matchedPartners.length);
+
     return matchedPartners;
+}
+
+// 현재 사용자의 카테고리 가져오기
+function getCurrentUserCategories() {
+    let categoriesElements;
+    let source = '';
+
+    // 현재 페이지에서 내 정보의 카테고리만 정확하게 선택
+    categoriesElements = document.querySelectorAll('#myInfo .productCategories li, .myInfo .productCategories li');
+    console.log('1. My categories selector 결과:', {
+        found: categoriesElements.length > 0,
+        elements: Array.from(categoriesElements).map(el => el.textContent)
+    });
+
+    if (categoriesElements.length > 0) {
+        source = '#myInfo .productCategories li';
+    } else {
+        // 백업 선택자: 현재 사용자 영역의 카테고리
+        categoriesElements = document.querySelectorAll('.currentUser .category li, .myProfile .category li');
+        console.log('2. Backup selector 결과:', {
+            found: categoriesElements.length > 0,
+            elements: Array.from(categoriesElements).map(el => el.textContent)
+        });
+
+        if (categoriesElements.length > 0) {
+            source = '.currentUser .category li';
+        }
+    }
+
+    // 카테고리를 찾지 못한 경우 디버깅
+    if (!categoriesElements.length) {
+        console.log('DOM 구조 확인:', {
+            myInfo: document.querySelector('#myInfo, .myInfo'),
+            productCategories: document.querySelectorAll('.productCategories'),
+            allCategories: document.querySelectorAll('[class*="category"]')
+        });
+        console.error('카테고리 요소를 찾을 수 없습니다.');
+        return [];
+    }
+
+    // 중복 제거하고 카테고리 추출
+    const categories = Array.from(new Set(
+        Array.from(categoriesElements)
+            .map(li => li.textContent.trim())
+            .filter(category => category && category.length > 0)
+    ));
+
+    console.log('최종 카테고리 추출 결과:', {
+        source: source,
+        categories: categories
+    });
+
+    return categories;
 }
 
 // 랜덤 파트너 표시

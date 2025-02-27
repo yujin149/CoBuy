@@ -39,8 +39,9 @@ function searchAdmins() {
             }
             return response.json();
         })
-        .then(data => {
+        .then(response => {
             tbody.innerHTML = ''; // 기존 결과 초기화
+            const data = response.partners; // 변경된 부분: partners 배열 사용
 
             if (!data || data.length === 0) {
                 tbody.innerHTML = `
@@ -123,8 +124,9 @@ function searchSellers() {
             }
             return response.json();
         })
-        .then(data => {
+        .then(response => {
             tbody.innerHTML = '';
+            const data = response.partners; // 변경된 부분: partners 배열 사용
 
             if (!data || data.length === 0) {
                 tbody.innerHTML = `
