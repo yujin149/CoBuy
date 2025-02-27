@@ -56,7 +56,7 @@ public class AdminController {
             model.addAttribute("adminId", adminId);
             return "member/findId";
         } catch (IllegalStateException e) {
-            model.addAttribute("adminId", null); // 예외 처리하여 에러 메시지를 모델에 추가
+            model.addAttribute("adminId", null);
             model.addAttribute("error", e.getMessage());
             return "member/findId"; // 에러 발생 시 다시 아이디 찾기 폼으로
         }
