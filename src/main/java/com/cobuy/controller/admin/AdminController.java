@@ -39,6 +39,29 @@ public class AdminController {
         return "admin/join/findAdmin";
     }
 
+    /*업체 아이디 찾기 완료*/
+    @PostMapping(value = "/admin/find")
+    public String findAdminProcess(
+            @RequestParam String findType,
+            @RequestParam(required = false) String adminEmail,
+            @RequestParam(required = false) String adminPhone,
+            Model model) {
+        try {
+            String adminId;
+            if (findType.equals("email")) {
+                adminId = adminService.findAdminId(adminEmail);
+            } else {
+                adminId = adminService.findAdminIdByPhone(adminPhone);
+            }
+            model.addAttribute("adminId", adminId);
+            return "member/findId";
+        } catch (IllegalStateException e) {
+            model.addAttribute("adminId", null); // 예외 처리하여 에러 메시지를 모델에 추가
+            model.addAttribute("error", e.getMessage());
+            return "member/findId"; // 에러 발생 시 다시 아이디 찾기 폼으로
+        }
+    }
+
     /*업체 회원가입 폼*/
     @GetMapping(value = "/admin/join")
     public String joinAdmin(Model model) {

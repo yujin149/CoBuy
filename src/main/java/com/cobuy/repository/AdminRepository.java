@@ -18,6 +18,9 @@ public interface AdminRepository extends JpaRepository<Admin, String> {
     // 이메일로 관리자 정보 조회 (아이디 찾기에 사용)
     Optional<Admin> findByAdminEmail(String adminEmail);
 
+    // 전화번호로 관리자 정보 조회 (아이디 찾기에 사용)
+    Optional<Admin> findByAdminPhone(String adminPhone);
+    
     // 아이디와 이메일로 관리자 정보 조회 (비밀번호 찾기에 사용)
     Optional<Admin> findByAdminIdAndAdminEmail(String adminId, String adminEmail);
 

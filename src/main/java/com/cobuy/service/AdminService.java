@@ -101,6 +101,14 @@ public class AdminService {
             .orElseThrow(() -> new IllegalStateException("등록되지 않은 이메일입니다."));
     }
 
+    // 전화번호로 아이디 찾기
+    @Transactional(readOnly = true)
+    public String findAdminIdByPhone(String adminPhone) {
+        return adminRepository.findByAdminPhone(adminPhone)
+                .map(Admin::getAdminId)
+                .orElseThrow(() -> new IllegalStateException("등록되지 않은 전화번호입니다."));
+    }
+
     // 비밀번호 찾기 검증
     @Transactional(readOnly = true)
     public boolean verifyAdminForPasswordReset(String adminId, String adminEmail) {
