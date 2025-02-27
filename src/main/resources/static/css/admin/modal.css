@@ -45,6 +45,10 @@
 .matchModal .matchList > li .infoBox .snsLink{display: block; margin-top:10px;}
 .matchModal .matchList > li .infoBox .snsLink:hover{color:var(--bk-color);}
 
+.matchModal .modalInner .modalCont .none{text-align:center; font-size:14px; color:var(--small-color);}
+
+.matchModal .modalInner .modalCont .none{text-align:center; font-size:14px; color:var(--small-color);}
+
 .matchAdminModal .modalBtn a {width:calc(33.33% - 6.666px);}
 .matchSellerModal .modalBtn a {width:calc(33.33% - 6.666px);}
 

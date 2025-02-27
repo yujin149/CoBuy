@@ -164,6 +164,7 @@ public class AdminService {
                 result.put("adminId", admin.getAdminId());
                 result.put("adminShopName", admin.getAdminShopName());
                 result.put("adminUrl", admin.getAdminUrl());
+                result.put("adminContents", admin.getAdminContents());
                 result.put("productCategories", admin.getProductCategories().stream()
                     .map(ProductCategory::getDisplayName)
                     .collect(Collectors.toList()));

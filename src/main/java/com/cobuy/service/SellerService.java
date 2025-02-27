@@ -110,6 +110,7 @@ public class SellerService {
                 result.put("sellerId", seller.getSellerId());
                 result.put("sellerNickName", seller.getSellerNickName());
                 result.put("sellerUrl", seller.getSellerUrl());
+                result.put("sellerContents", seller.getSellerContents());
                 result.put("productCategories", seller.getProductCategories().stream()
                     .map(ProductCategory::getDisplayName)
                     .collect(Collectors.toList()));
