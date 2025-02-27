@@ -36,6 +36,14 @@
                         <a href="/user/login" class="loginBtn btn">로그인</a>
                     </div>
                 </div>
+                <div class="findUser" th:if="${sellerId != null && userId == null && adminId == null}">
+                    <p class="txt">고객님의 아이디는 <span class="userId" th:text="${sellerId}">ㅇ</span>입니다.</p>
+                    <div class="btnWrap">
+                        <!--비밀번호 찾기 이동 시, 이전 탭 눌렀던 값(기업/셀러/회원)에 따른 페이지 이동 -->
+                        <a href="/seller/find" class="findIdBtn btn">비밀번호 찾기</a>
+                        <a href="/seller/login" class="loginBtn btn">로그인</a>
+                    </div>
+                </div>
                 
 
             </div>

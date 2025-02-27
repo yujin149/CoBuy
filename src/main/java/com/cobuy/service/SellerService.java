@@ -38,6 +38,7 @@ public class SellerService {
     }
 
     public void join(SellerDto sellerDto) {
+        log.info("join 메서드 호출");
         Seller seller = new Seller();
         seller.setSellerId(sellerDto.getSellerId());
         seller.setSellerPW(passwordEncoder.encode(sellerDto.getSellerPW()));
