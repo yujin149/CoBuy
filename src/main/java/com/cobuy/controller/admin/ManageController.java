@@ -252,4 +252,16 @@ public class ManageController {
         }
     }
 
+    // 파트너 상세 정보 모달 표시
+    @GetMapping("/api/manage/partner/{manageId}")
+    @ResponseBody
+    public ResponseEntity<ManageDto> getPartnerInfo(@PathVariable Long manageId) {
+        try {
+            ManageDto partner = manageService.getPartnerInfo(manageId);
+            return ResponseEntity.ok(partner);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
 }

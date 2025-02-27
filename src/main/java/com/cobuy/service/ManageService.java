@@ -241,6 +241,7 @@ public class ManageService {
             .adminId(manage.getAdminId().getAdminId())
             .adminShopName(manage.getAdminId().getAdminShopName())
             .adminUrl(manage.getAdminId().getAdminUrl())
+            .adminContents(manage.getAdminId().getAdminContents())
             .adminCategories(manage.getAdminId().getProductCategories().stream()
                 .map(category -> category.getDisplayName())
                 .collect(Collectors.toList()))
@@ -248,6 +249,7 @@ public class ManageService {
             .sellerId(manage.getSellerId().getSellerId())
             .sellerNickName(manage.getSellerId().getSellerNickName())
             .sellerUrl(manage.getSellerId().getSellerUrl())
+            .sellerContents(manage.getSellerId().getSellerContents())
             .sellerCategories(manage.getSellerId().getProductCategories().stream()
                 .map(category -> category.getDisplayName())
                 .collect(Collectors.toList()))
@@ -255,5 +257,12 @@ public class ManageService {
             .status(manage.getStatus())
             .regTime(manage.getRegTime())
             .build();
+    }
+    // 파트너 상세 정보 조회
+    @Transactional(readOnly = true)
+    public ManageDto getPartnerInfo(Long manageId) {
+        Manage manage = manageRepository.findById(manageId)
+            .orElseThrow(() -> new EntityNotFoundException("Partner not found"));
+        return convertToDto(manage);
     }
 }

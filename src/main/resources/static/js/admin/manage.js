@@ -47,24 +47,35 @@ function loadPartnerList(page = 0) {
                 return;
             }
 
+            // 전체 아이템 수 계산
+            const totalItems = data.totalElements;
+
             tbody.innerHTML = data.content.map((partner, index) => {
+                // 역순 번호 계산
+                const reverseNumber = totalItems - (page * partnerItemsPerPage) - index;
+
                 const partnerInfo = currentUserRole === 'ADMIN' ? {
-                    name: partner.sellerNickName,
-                    url: partner.sellerUrl,
-                    categories: partner.sellerCategories
+                    name: partner.sellerNickName || '이름 없음',
+                    url: partner.sellerUrl || '#',
+                    categories: partner.sellerCategories || []
                 } : {
-                    name: partner.adminShopName,
-                    url: partner.adminUrl,
-                    categories: partner.adminCategories
+                    name: partner.adminShopName || '이름 없음',
+                    url: partner.adminUrl || '#',
+                    categories: partner.adminCategories || []
                 };
+
+                // 카테고리 목록이 배열인지 확인하고 처리
+                const categoryList = Array.isArray(partnerInfo.categories)
+                    ? partnerInfo.categories
+                    : [];
 
                 return `
                     <tr>
-                        <td>${index + 1 + (page * partnerItemsPerPage)}</td>
+                        <td>${reverseNumber}</td>
                         <td><p class="name">${partnerInfo.name}</p></td>
                         <td>
                             <ul class="category">
-                                ${partnerInfo.categories.map(cat => `<li>${cat}</li>`).join('')}
+                                ${categoryList.map(cat => `<li>${cat}</li>`).join('')}
                             </ul>
                         </td>
                         <td>
@@ -87,6 +98,11 @@ function loadPartnerList(page = 0) {
             }).join('');
 
             renderPartnerPagination(data.totalPages, page + 1);
+        })
+        .catch(error => {
+            console.error('Error loading partner list:', error);
+            const tbody = document.querySelector('.tableWrap tbody');
+            tbody.innerHTML = '<tr><td colspan="5">데이터를 불러오는데 실패했습니다.</td></tr>';
         });
 }
 
@@ -165,4 +181,49 @@ function setupUrlCopy() {
             alert('URL이 복사되었습니다: ' + input.value);
         }
     });
+}
+// 파트너 상세 정보 모달 표시
+function showPartnerInfo(partnerId) {
+    const currentUserRole = document.getElementById('currentUserRole').value;
+
+    fetch(`/api/manage/partner/${partnerId}`)
+        .then(response => response.json())
+        .then(partner => {
+            // 모달 요소 선택 (ADMIN/SELLER에 따라 다른 모달 선택)
+            const modalClass = currentUserRole === 'ADMIN' ? '.infoSellerModal' : '.infoAdminModal';
+            const modal = document.querySelector(modalClass);
+
+            if (modal) {
+                // 파트너 정보에 따라 모달 내용 업데이트
+                const partnerInfo = currentUserRole === 'ADMIN' ? {
+                    name: partner.sellerNickName,
+                    categories: partner.sellerCategories,
+                    contents: partner.sellerContents || '소개글이 없습니다.',
+                    url: partner.sellerUrl
+                } : {
+                    name: partner.adminShopName,
+                    categories: partner.adminCategories,
+                    contents: partner.adminContents || '소개글이 없습니다.',
+                    url: partner.adminUrl
+                };
+
+                // 모달 내용 업데이트
+                modal.querySelector('.titWrap .tit').textContent = partnerInfo.name;
+                modal.querySelector('.category').innerHTML =
+                    partnerInfo.categories.map(cat => `<li>${cat}</li>`).join('');
+                modal.querySelector('.infoBox').textContent = partnerInfo.contents;
+
+                const snsLink = modal.querySelector('.snsLink');
+                const formattedUrl = formatUrl(partnerInfo.url);
+                snsLink.href = formattedUrl;
+                snsLink.textContent = partnerInfo.url;
+
+                // 모달 표시
+                modal.style.display = 'block';
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('파트너 정보를 불러오는데 실패했습니다.');
+        });
 }
