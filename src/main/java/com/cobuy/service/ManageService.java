@@ -202,6 +202,33 @@ public class ManageService {
         }
     }
 
+    public List<ManageDto> getAcceptedPartners(String userId, boolean isAdmin) {
+        List<Manage> manages = isAdmin ?
+            manageRepository.findByAdminIdAdminIdAndStatus(userId, ManageStatus.ACCEPTED) :
+            manageRepository.findBySellerIdSellerIdAndStatus(userId, ManageStatus.ACCEPTED);
+
+        return manages.stream()
+            .map(this::convertToDto)
+            .collect(Collectors.toList());
+    }
+
+    public ManageDto updateManageStatus(Long manageId, ManageStatus status) {
+        Manage manage = manageRepository.findById(manageId)
+            .orElseThrow(() -> new EntityNotFoundException("Manage not found"));
+        manage.setStatus(status);
+        manage = manageRepository.save(manage);
+        return convertToDto(manage);  // DTO로 변환하여 반환
+    }
+    //페이징 처리
+    public Page<ManageDto> getAcceptedPartners(String userId, String role, Pageable pageable) {
+        Page<Manage> manages;
+        if ("ADMIN".equals(role)) {
+            manages = manageRepository.findByAdminIdAdminIdAndStatusOrderByRegTimeDesc(userId, ManageStatus.ACCEPTED, pageable);
+        } else {
+            manages = manageRepository.findBySellerIdSellerIdAndStatusOrderByRegTimeDesc(userId, ManageStatus.ACCEPTED, pageable);
+        }
+        return manages.map(this::convertToDto);
+    }
 
     //Manage 엔티티를 ManageDto로 변환
     private ManageDto convertToDto(Manage manage) {

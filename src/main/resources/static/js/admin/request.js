@@ -155,6 +155,10 @@ function getStatusText(status, isRequester) {
         'REJECTED': {
             text: isRequester ? '거절됨' : '요청거절',
             class: 'status status02'
+        },
+        'CANCELED': {
+            text: isRequester ? '취소됨' : '취소됨',
+            class: 'status status02'
         }
     };
     return statusConfig[status] || { text: status, class: 'status' };
@@ -179,8 +183,10 @@ function getActionButton(request, isRequester) {
 
 // 페이지네이션 업데이트 함수
 function updatePagination(totalPages) {
-    const pageNumContainer = document.querySelector('.requestModal .pagination .page-num');
-    const maxVisiblePages = 5; // 한 번에 보여줄 페이지 번호 개수
+    const paginationContainer = document.querySelector('.requestModal .pagination');
+    if (!paginationContainer) return;
+
+    const maxVisiblePages = 5;
 
     // 시작 페이지와 끝 페이지 계산
     let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
@@ -191,19 +197,35 @@ function updatePagination(totalPages) {
         startPage = Math.max(1, endPage - maxVisiblePages + 1);
     }
 
-    // 이전/다음 버튼 활성화/비활성화
-    //prevBtn.style.display = currentPage > 1 ? '' : 'none';
-    //nextBtn.style.display = currentPage < totalPages ? '' : 'none';
+    // 전체 페이지네이션 HTML 생성
+    let html = `
+        <li class="page-item page-arrow page-prev ${currentPage <= 1 ? 'disabled' : ''}">
+            <a class="page-link" href="javascript:void(0)" 
+               ${currentPage > 1 ? `onclick="changePage(${currentPage - 1})"` : ''}
+               style="cursor: ${currentPage <= 1 ? 'auto' : 'pointer'}">이전 페이지</a>
+        </li>
+        <li class="page-item page-num">
+    `;
 
     // 페이지 번호 생성
-    pageNumContainer.innerHTML = '';
-    for (let i = startPage; i <= endPage; i++) {  // 수정: 1부터 totalPages까지가 아닌 startPage부터 endPage까지
-        pageNumContainer.innerHTML += `
+    for (let i = startPage; i <= endPage; i++) {
+        html += `
             <a class="page-link ${i === currentPage ? 'active' : ''}" 
                href="javascript:void(0)" 
                onclick="changePage(${i})">${i}</a>
         `;
     }
+
+    html += `
+        </li>
+        <li class="page-item page-arrow page-next ${currentPage >= totalPages ? 'disabled' : ''}">
+            <a class="page-link" href="javascript:void(0)" 
+               ${currentPage < totalPages ? `onclick="changePage(${currentPage + 1})"` : ''}
+               style="cursor: ${currentPage >= totalPages ? 'auto' : 'pointer'}">다음 페이지</a>
+        </li>
+    `;
+
+    paginationContainer.innerHTML = html;
 }
 
 // 페이지 변경 함수

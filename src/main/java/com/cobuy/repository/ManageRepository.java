@@ -8,9 +8,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import org.springframework.stereotype.Repository;
+
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public interface ManageRepository extends JpaRepository<Manage, Long> {
     //수락, 대기중, 거절 상태별로 조회하기 위한. (ADMIN/ SELLER 별 모든 상태 조회)
     List<Manage> findByAdminIdAndStatusOrderByRegTimeDesc(Admin admin, ManageStatus status);
@@ -59,4 +62,12 @@ public interface ManageRepository extends JpaRepository<Manage, Long> {
     // 대기중인 요청 수 조회
     long countByAdminIdAndRequesterNotAndStatus(Admin admin, String requester, ManageStatus status);
     long countBySellerIdAndRequesterNotAndStatus(Seller seller, String requester, ManageStatus status);
+
+    // 파트너 목록 조회
+    List<Manage> findByAdminIdAdminIdAndStatus(String userId, ManageStatus status);
+    List<Manage> findBySellerIdSellerIdAndStatus(String userId, ManageStatus status);
+
+    // 페이징 처리
+    Page<Manage> findByAdminIdAdminIdAndStatusOrderByRegTimeDesc(String userId, ManageStatus status, Pageable pageable);
+    Page<Manage> findBySellerIdSellerIdAndStatusOrderByRegTimeDesc(String userId, ManageStatus status, Pageable pageable);
 }

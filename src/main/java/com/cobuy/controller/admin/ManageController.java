@@ -222,4 +222,34 @@ public class ManageController {
         }
     }
 
+    // 파트너 목록 조회회
+    @GetMapping("/api/manage/partners")
+    @ResponseBody
+    public ResponseEntity<Page<ManageDto>> getAcceptedPartners(
+        @RequestParam String userId,
+        @RequestParam String role,
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "10") int size) {  // 페이지당 10개
+        try {
+            Pageable pageable = PageRequest.of(page, size);
+            Page<ManageDto> partners = manageService.getAcceptedPartners(userId, role, pageable);
+            return ResponseEntity.ok(partners);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
+    // 파트너 관계 취소 API
+    @PostMapping("/api/manage/cancel")
+    @ResponseBody
+    public ResponseEntity<?> cancelPartnership(
+        @RequestParam Long manageId) {
+        try {
+            ManageDto updatedManage = manageService.updateManageStatus(manageId, ManageStatus.CANCELED);
+            return ResponseEntity.ok(updatedManage);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+
 }
