@@ -17,21 +17,21 @@
             </ul>
 
             <div class="tabCont active" id="tab01">
-                <form class="findIdForm" action="/findId" method="get">
+                <form class="findIdForm" th:action="@{/seller/find}" method="post">
                     <ul class="findIdInput">
                         <li>
                             <label for="email">
                                 <input id="email" name="findType" type="radio" value="email" checked>
                                 <span class="tit">이메일로 찾기</span>
                             </label>
-                            <input class="email" id="userEmail" name="userEmail" placeholder="이메일을 입력해주세요." type="text">
+                            <input class="email" id="sellerEmail" name="sellerEmail" placeholder="이메일을 입력해주세요." type="text">
                         </li>
                         <li>
                             <label for="phone">
-                                <input id="phone" name="findId" type="radio" value="phone">
+                                <input id="phone" name="findType" type="radio" value="phone">
                                 <span class="tit">휴대폰 번호으로 찾기</span>
                             </label>
-                            <input class="phone" id="userPhone" name="userPhone" placeholder="휴대폰 번호를 입력해주세요." type="text">
+                            <input class="phone" id="sellerPhone" name="sellerPhone" placeholder="휴대폰 번호를 입력해주세요." type="text">
                         </li>
                     </ul>
                     <div class="btnWrap">

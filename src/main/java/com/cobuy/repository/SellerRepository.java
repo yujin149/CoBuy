@@ -15,13 +15,16 @@ public interface SellerRepository extends JpaRepository<Seller, String> {
     // 아이디 중복 확인을 위한 메소드
     boolean existsBySellerId(String sellerId);
 
-    // 아이디로 관리자 정보 조회
+    // 아이디로 셀러 정보 조회
     Optional<Seller> findBySellerId(String sellerId);
 
-    // 이메일로 관리자 정보 조회 (아이디 찾기에 사용)
+    // 이메일로 셀러 정보 조회 (아이디 찾기에 사용)
     Optional<Seller> findBySellerEmail(String sellerEmail);
 
-    // 아이디와 이메일로 관리자 정보 조회 (비밀번호 찾기에 사용)
+    // 전화번호로 셀러 정보 조회 (아이디 찾기에 사용)
+    Optional<Seller> findBySellerPhone(String sellerPhone);
+
+    // 아이디와 이메일로 셀러 정보 조회 (비밀번호 찾기에 사용)
     Optional<Seller> findBySellerIdAndSellerEmail(String sellerId, String sellerEmail);
 
     boolean existsBySellerEmail(String sellerEmail);

@@ -1,21 +1,27 @@
 package com.cobuy.controller;
 
-import com.cobuy.dto.UserDto;
-import com.cobuy.service.UserService;
-import com.cobuy.validator.ValidationGroups;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import com.cobuy.dto.UserDto;
+import com.cobuy.service.UserService;
+import com.cobuy.validator.ValidationGroups;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
@@ -32,9 +38,27 @@ public class MemberController {
 
     /*아이디 찾기 완료*/
     @GetMapping(value = "/findId")
-    public String findId() {
-        return "member/findId";
-    }
+    public String findUserProcess(
+            @RequestParam String findType,
+            @RequestParam(required = false) String userEmail,
+            @RequestParam(required = false) String userPhone,
+            Model model) {
+        try {
+            String userId;
+            if (findType.equals("email")) {
+                userId = userService.findUserId(userEmail);
+            } else {
+                userId = userService.findUserIdByPhone(userPhone);
+            }
+            model.addAttribute("userId", userId);
+            return "member/findId";
+        } catch (IllegalStateException e) {
+            model.addAttribute("userId", null);
+            model.addAttribute("error", e.getMessage());
+            return "member/findId";
+        }
+    }    
+
 
     /*비밀번호 재설정*/
     @GetMapping(value = "/findPw")
@@ -145,6 +169,8 @@ public class MemberController {
 
     /*회원가입완료*/
     @GetMapping(value = "/join02")
-    public String join02() {return "member/join02";}
+    public String join02() {
+        return "member/join02";
+    }
 
 }

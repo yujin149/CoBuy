@@ -97,8 +97,8 @@ public class AdminService {
     @Transactional(readOnly = true)
     public String findAdminId(String adminEmail) {
         return adminRepository.findByAdminEmail(adminEmail)
-            .map(Admin::getAdminId)
-            .orElseThrow(() -> new IllegalStateException("등록되지 않은 이메일입니다."));
+                .map(Admin::getAdminId)
+                .orElseThrow(() -> new IllegalStateException("등록되지 않은 이메일입니다."));
     }
 
     // 전화번호로 아이디 찾기

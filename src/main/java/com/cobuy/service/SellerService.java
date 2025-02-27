@@ -71,6 +71,22 @@ public class SellerService {
         return sellerRepository.existsBySellerPhone(phone);
     }
 
+    // 셀러 아이디 찾기
+    @Transactional(readOnly = true)
+    public String findSellerId(String sellerEmail) {
+        return sellerRepository.findBySellerEmail(sellerEmail)
+                .map(Seller::getSellerId)
+                .orElseThrow(() -> new IllegalStateException("등록되지 않은 이메일입니다."));
+    }
+
+    // 셀러 전화번호로 아이디 찾기
+    @Transactional(readOnly = true)
+    public String findSellerIdByPhone(String sellerPhone) {
+        return sellerRepository.findBySellerPhone(sellerPhone)
+                .map(Seller::getSellerId)
+                .orElseThrow(() -> new IllegalStateException("등록되지 않은 연락처입니다."));
+    }
+
 
     //셀러 검색 메서드 추가
     @Transactional(readOnly = true)

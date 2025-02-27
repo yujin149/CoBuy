@@ -51,4 +51,19 @@ public class UserService {
     public boolean existsByPhone(String phone) {
         return userRepository.existsByUserPhone(phone);
     }
+
+    @Transactional(readOnly = true)
+    public String findUserId(String userEmail) {
+        return userRepository.findByUserEmail(userEmail)
+                .map(User::getUserId)
+                .orElseThrow(() -> new IllegalStateException("등록되지 않은 이메일입니다."));
+    }
+
+    // 전화번호로 아이디 찾기
+    @Transactional(readOnly = true)
+    public String findUserIdByPhone(String userPhone) {
+        return userRepository.findByUserPhone(userPhone)
+                .map(User::getUserId)
+                .orElseThrow(() -> new IllegalStateException("등록되지 않은 전화번호입니다."));
+    }
 } 

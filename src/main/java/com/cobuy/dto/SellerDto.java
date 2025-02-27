@@ -1,22 +1,22 @@
 package com.cobuy.dto;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import org.hibernate.validator.constraints.Length;
+
 import com.cobuy.constant.ProductCategory;
-import com.cobuy.validator.ValidationGroups;
+import com.cobuy.validator.ValidationGroups.PasswordValidation;
 import com.cobuy.validator.ValidationGroups.SignUpValidation;
 import com.cobuy.validator.ValidationGroups.UpdateValidation;
-import com.cobuy.validator.ValidationGroups.PasswordValidation;
+
+import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.validator.constraints.Length;
-import jakarta.persistence.Transient;
-import jakarta.validation.constraints.AssertTrue;
-
-import java.util.Set;
-import java.util.HashSet;
 
 @Getter
 @Setter
@@ -88,5 +88,6 @@ public class SellerDto {
     private String baseAddress;     // 기본 주소
     private String detailAddress;   // 상세 주소
     private String extraAddress;    // 참고 항목
+
 }
 
