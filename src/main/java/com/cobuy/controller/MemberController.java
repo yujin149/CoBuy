@@ -48,7 +48,18 @@ public class MemberController {
             if (findType.equals("email")) {
                 userId = userService.findUserId(userEmail);
             } else {
-                userId = userService.findUserIdByPhone(userPhone);
+                // 전화번호로 아이디 찾기('-' 제외)
+                if (userPhone == null || userPhone.trim().isEmpty()) {
+                    throw new IllegalStateException("전화번호를 입력해주세요.");
+                }
+                if (!userPhone.matches("^\\d{11}$")) {
+                    throw new IllegalStateException("올바른 전화번호 형식이 아닙니다.");
+                }
+                // 전화번호 형식 변환 (01012345678 -> 010-1234-5678)
+                String formattedPhone = userPhone.substring(0, 3) + "-" 
+                    + userPhone.substring(3, 7) + "-" 
+                    + userPhone.substring(7);
+                userId = userService.findUserIdByPhone(formattedPhone);
             }
             model.addAttribute("userId", userId);
             return "member/findId";

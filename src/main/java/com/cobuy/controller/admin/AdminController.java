@@ -51,7 +51,18 @@ public class AdminController {
             if (findType.equals("email")) {
                 adminId = adminService.findAdminId(adminEmail);
             } else {
-                adminId = adminService.findAdminIdByPhone(adminPhone);
+                // 전화번호로 아이디 찾기('-' 제외)
+                if (adminPhone == null || adminPhone.trim().isEmpty()) {
+                    throw new IllegalStateException("전화번호를 입력해주세요.");
+                }
+                if (!adminPhone.matches("^\\d{11}$")) {
+                    throw new IllegalStateException("올바른 전화번호 형식이 아닙니다.");
+                }
+                // 전화번호 형식 변환 (01012345678 -> 010-1234-5678)
+                String formattedPhone = adminPhone.substring(0, 3) + "-" 
+                    + adminPhone.substring(3, 7) + "-" 
+                    + adminPhone.substring(7);
+                adminId = adminService.findAdminIdByPhone(formattedPhone);
             }
             model.addAttribute("adminId", adminId);
             return "member/findId";

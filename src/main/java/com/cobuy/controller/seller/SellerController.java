@@ -48,7 +48,18 @@ public class SellerController {
             if (findType.equals("email")) {
                 sellerId = sellerService.findSellerId(sellerEmail);
             } else {
-                sellerId = sellerService.findSellerIdByPhone(sellerPhone);
+                // 전화번호로 아이디 찾기('-' 제외)
+                if (sellerPhone == null || sellerPhone.trim().isEmpty()) {
+                    throw new IllegalStateException("전화번호를 입력해주세요.");
+                }
+                if (!sellerPhone.matches("^\\d{11}$")) {
+                    throw new IllegalStateException("올바른 전화번호 형식이 아닙니다.");
+                }
+                // 전화번호 형식 변환 (01012345678 -> 010-1234-5678)
+                String formattedPhone = sellerPhone.substring(0, 3) + "-" 
+                    + sellerPhone.substring(3, 7) + "-" 
+                    + sellerPhone.substring(7);
+                sellerId = sellerService.findSellerIdByPhone(formattedPhone);
             }
             model.addAttribute("sellerId", sellerId);
             return "member/findId";
