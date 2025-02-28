@@ -18,13 +18,18 @@ function updatePendingRequestCount() {
         .catch(error => console.error('Error:', error));
 }
 
-// 페이지 로드 시 실행할 함수들
+// 검색 관련 변수 추가
+let searchType = '전체';
+let searchKeyword = '';
+
+// 검색 폼 이벤트 리스너 추가
 document.addEventListener('DOMContentLoaded', function() {
     updatePendingRequestCount();
     // 파트너 리스트 페이지인 경우에만 실행
     if (document.querySelector('.manageWrap')) {
         loadPartnerList();
         setupUrlCopy();
+        setupSearch(); // 검색 설정 추가
     }
     // 주기적으로 카운트 업데이트 (5분마다)
     setInterval(updatePendingRequestCount, 300000);
@@ -32,6 +37,41 @@ document.addEventListener('DOMContentLoaded', function() {
 
 let partnerCurrentPage = 0;
 const partnerItemsPerPage = 10;
+
+// 검색 설정 함수
+function setupSearch() {
+    const searchForm = document.querySelector('.searchWrap form');
+    if (!searchForm) return;
+
+    const searchSelect = searchForm.querySelector('select');
+    const searchInput = searchForm.querySelector('input');
+
+    // 현재 페이지가 어떤 관리 페이지인지 확인
+    const isShopManage = document.querySelector('.shopMangeWrap');
+    const isSellerManage = document.querySelector('.sellerMangeWrap');
+
+    // select 옵션 설정
+    if (isShopManage) {
+        searchSelect.innerHTML = `
+            <option value="전체">전체</option>
+            <option value="쇼핑몰명">쇼핑몰명</option>
+            <option value="카테고리">카테고리</option>
+        `;
+    } else if (isSellerManage) {
+        searchSelect.innerHTML = `
+            <option value="전체">전체</option>
+            <option value="인플루언서명">인플루언서명</option>
+            <option value="카테고리">카테고리</option>
+        `;
+    }
+
+    searchForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        searchType = searchSelect.value;
+        searchKeyword = searchInput.value.trim();
+        loadPartnerList(0); // 검색 시 첫 페이지부터 시작
+    });
+}
 
 function loadPartnerList(page = 0) {
     const currentUserId = document.getElementById('currentUserId').value;
@@ -43,14 +83,49 @@ function loadPartnerList(page = 0) {
             const tbody = document.querySelector('.tableWrap tbody');
             if (!data.content || data.content.length === 0) {
                 tbody.innerHTML = '<tr><td colspan="5">등록된 파트너가 없습니다.</td></tr>';
-                renderPartnerPagination(0, 1); // 데이터가 없어도 1페이지는 보이도록
+                renderPartnerPagination(0, 1);
+                return;
+            }
+
+            // 검색 필터링 적용
+            let filteredContent = data.content;
+            if (searchKeyword) {
+                filteredContent = data.content.filter(partner => {
+                    const partnerInfo = currentUserRole === 'ADMIN' ? {
+                        name: partner.sellerNickName || '',
+                        categories: partner.sellerCategories || []
+                    } : {
+                        name: partner.adminShopName || '',
+                        categories: partner.adminCategories || []
+                    };
+
+                    switch (searchType) {
+                        case '전체':
+                            return partnerInfo.name.toLowerCase().includes(searchKeyword.toLowerCase()) ||
+                                partnerInfo.categories.some(cat =>
+                                    cat.toLowerCase().includes(searchKeyword.toLowerCase()));
+                        case '쇼핑몰명':
+                        case '인플루언서명':
+                            return partnerInfo.name.toLowerCase().includes(searchKeyword.toLowerCase());
+                        case '카테고리':
+                            return partnerInfo.categories.some(cat =>
+                                cat.toLowerCase().includes(searchKeyword.toLowerCase()));
+                        default:
+                            return true;
+                    }
+                });
+            }
+
+            if (filteredContent.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5">검색 결과가 없습니다.</td></tr>';
+                renderPartnerPagination(0, 1);
                 return;
             }
 
             // 전체 아이템 수 계산
-            const totalItems = data.totalElements;
+            const totalItems = filteredContent.length;
 
-            tbody.innerHTML = data.content.map((partner, index) => {
+            tbody.innerHTML = filteredContent.map((partner, index) => {
                 // 역순 번호 계산
                 const reverseNumber = totalItems - (page * partnerItemsPerPage) - index;
 
@@ -97,7 +172,9 @@ function loadPartnerList(page = 0) {
                 `;
             }).join('');
 
-            renderPartnerPagination(data.totalPages, page + 1);
+            // 필터링된 결과에 맞춰 페이지네이션 업데이트
+            const totalPages = Math.ceil(totalItems / partnerItemsPerPage);
+            renderPartnerPagination(totalPages, page + 1);
         })
         .catch(error => {
             console.error('Error loading partner list:', error);

@@ -1,10 +1,12 @@
-// 쇼핑몰 검색
+// 쇼핑몰 검색 (모달용)
 function searchAdmins() {
     const searchType = document.getElementById('adminSearchType').value;
     const searchInput = document.getElementById('adminSearchInput').value;
     const currentUserId = document.getElementById('currentUserId').value;
 
     const tbody = document.getElementById('adminSearchResults');
+    if (!tbody) return; // 모달이 없는 경우 종료
+
     tbody.innerHTML = '';
 
     // 검색어가 비어있는지 체크
@@ -83,13 +85,15 @@ function searchAdmins() {
         });
 }
 
-// 인플루언서 검색
+// 인플루언서 검색 (모달용)
 function searchSellers() {
     const searchType = document.getElementById('sellerSearchType').value;
     const searchInput = document.getElementById('sellerSearchInput').value;
     const currentUserId = document.getElementById('currentUserId').value;
 
     const tbody = document.getElementById('sellerSearchResults');
+    if (!tbody) return; // 모달이 없는 경우 종료
+
     tbody.innerHTML = '';
 
     // 검색어가 비어있는지 체크
@@ -203,3 +207,33 @@ function sendManageRequest(role) {
             });
     });
 }
+
+// 검색 이벤트 설정 함수 추가
+function setupModalSearch() {
+    // 쇼핑몰 검색 모달
+    const adminSearchInput = document.getElementById('adminSearchInput');
+    if (adminSearchInput) {
+        adminSearchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault(); // 폼 제출 방지
+                searchAdmins();
+            }
+        });
+    }
+
+    // 인플루언서 검색 모달
+    const sellerSearchInput = document.getElementById('sellerSearchInput');
+    if (sellerSearchInput) {
+        sellerSearchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault(); // 폼 제출 방지
+                searchSellers();
+            }
+        });
+    }
+}
+
+// 페이지 로드 시 검색 이벤트 설정
+document.addEventListener('DOMContentLoaded', function() {
+    setupModalSearch();
+});
