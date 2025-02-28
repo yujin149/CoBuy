@@ -13,10 +13,10 @@
 
             <div class="findIdWrap">
 
-                <div class="noneFind" th:if="${adminId == null && sellerId == null && userId == null}">
+                <div class="noneFind" th:if="${error != null}">
                     <p class="txt">고객님 명의로 찾은 아이디가 없습니다.</p>
                     <div class="btnWrap">
-                        <a href="/admin/find" class="findIdBtn btn">아이디 찾기</a>
+                        <a href="javascript:history.back()" class="findIdBtn btn">아이디 찾기</a>
                         <a href="/login" class="loginBtn btn">로그인</a>
                     </div>
                 </div>

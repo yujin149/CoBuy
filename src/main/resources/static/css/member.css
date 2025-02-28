@@ -47,7 +47,7 @@
 
 /*아이디 찾기 findId.html*/
 
-.findWrap .noneFind{padding-top:40px; display: none;}
+.findWrap .noneFind{padding-top:40px;}
 .findWrap .findIdWrap .txt{color:var(--bk-color); font-size:16px; font-weight:600; padding:120px 20px 0; position:relative; text-align: center; word-break: keep-all; }
 .findWrap .findIdWrap .txt:before{content:''; display: block; background:url("/images/notiIcon.png") no-repeat center; background-size:100%; position:absolute; top:0; left:50%; transform: translateX(-50%); width:90px; height:90px;}
 
