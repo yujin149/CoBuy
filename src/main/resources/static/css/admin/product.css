@@ -56,7 +56,7 @@
 
 .prodWriteWrap table .sellerSelect{display: flex; justify-content: flex-start; align-items: center;}
 .prodWriteWrap table .sellerSelect select{max-width:220px; height:45px; border:1px solid var(--gray-color); padding:0 5px; border-radius: 5px; outline: none; font-size:15px;}
-.prodWriteWrap table .sellerSelect .btn{display: flex; justify-content: center; align-items: center; font-size:15px; background: var(--gray-bg1); border:1px solid var(--gray-color); border-radius: 5px; height:35px; width:80px; color:var(--bk-color); margin-left:5px;}
+.prodWriteWrap table .sellerSelect .btn{display: flex; justify-content: center; align-items: center; font-size:15px; background: var(--gray-bg1); border:1px solid var(--gray-color); border-radius: 5px; height:35px; width:120px; color:var(--bk-color); margin-left:5px;}
 .prodWriteWrap table .sellerSelect .infoSeller{width:120px;}
 .prodWriteWrap table .sellerSelect .btn:hover{border-color:var(--bk-color); background:var(--bk-color); color:var(--white-color);}
 .prodWriteWrap table .sellerSelect .btn:hover{border-color:var(--bk-color); background:var(--bk-color); color:var(--white-color);}
