@@ -7,6 +7,8 @@ import com.cobuy.service.ManageService;
 import com.cobuy.constant.ProductStatus;
 import com.cobuy.service.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,6 +19,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import jakarta.validation.Valid;
 import java.util.List;
 import java.util.Map;
+import java.time.LocalDate;
 
 @Controller
 @RequiredArgsConstructor
@@ -27,9 +30,36 @@ public class ProductController {
 
     /*상품 리스트*/
     @GetMapping(value = "/admin/product/list")
-    public String productList(Model model) {
-        model.addAttribute("currentPage", "상품관리");
-        return "admin/product/list";
+    public String productList(
+        @RequestParam(defaultValue = "1") int page,
+        @RequestParam(defaultValue = "전체") String searchType,
+        @RequestParam(required = false) String searchKeyword,
+        @AuthenticationPrincipal CustomUserDetails customUserDetails,
+        Model model) {
+        try {
+            // 페이지당 10개씩 표시
+            Page<ProductDto> productPage = productService.getAdminProductPage(
+                customUserDetails.getUsername(),
+                page,
+                10,
+                searchType,
+                searchKeyword
+            );
+
+            model.addAttribute("products", productPage);
+            model.addAttribute("currentPage", "상품관리");
+            model.addAttribute("maxPage", 10); // 페이지 네비게이션에 표시할 최대 페이지 수
+            model.addAttribute("searchType", searchType);
+            model.addAttribute("searchKeyword", searchKeyword);
+            model.addAttribute("adminId", customUserDetails.getUsername());
+            model.addAttribute("adminShopName", customUserDetails.getAdminShopName());
+            model.addAttribute("today", LocalDate.now());
+
+            return "admin/product/list";
+        } catch (Exception e) {
+            model.addAttribute("errorMessage", "상품 목록을 불러오는 중 오류가 발생했습니다.");
+            return "admin/product/list";
+        }
     }
 
     /*상품등록 페이지*/
@@ -158,5 +188,17 @@ public class ProductController {
     public String sellerProductList(Model model) {
         model.addAttribute("currentPage", "상품관리");
         return "admin/product/list";
+    }
+
+    /*상품 삭제*/
+    @PostMapping("/admin/product/delete/{productId}")
+    @ResponseBody
+    public ResponseEntity<?> deleteProduct(@PathVariable("productId") Long productId) {
+        try {
+            productService.deleteProduct(productId);
+            return ResponseEntity.ok().body("상품이 성공적으로 삭제되었습니다.");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("상품 삭제 중 오류가 발생했습니다: " + e.getMessage());
+        }
     }
 }

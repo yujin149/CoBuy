@@ -28,6 +28,7 @@
 .prodWriteWrap table .setOpt.active{display: table-row;}
 
 
+
 .prodWriteWrap table .optionList{width:100%; margin-top:5px;}
 .prodWriteWrap table .optionList li{display: flex; justify-content: flex-start; align-items: center; border:1px solid var(--gray-color); border-top:none;}
 .prodWriteWrap table .optionList li:first-child{border-top:1px solid var(--gray-color); background:var(--gray-bg1);}

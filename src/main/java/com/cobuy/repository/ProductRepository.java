@@ -2,6 +2,8 @@ package com.cobuy.repository;
 
 import com.cobuy.entity.Product;
 import com.cobuy.entity.Admin;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -40,4 +42,15 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     // 모든 상품 코드 조회
     List<Product> findAllByOrderByProductCodeAsc();
+
+    // 특정 관리자의 상품 목록을 등록일 기준 내림차순으로 페이징하여 조회
+    Page<Product> findByAdminOrderByIdDesc(Admin admin, Pageable pageable);
+
+    // 특정 관리자의 상품을 검색어로 검색하여 페이징 처리
+    Page<Product> findByAdminAndProductNameContainingOrderByIdDesc(Admin admin, String searchKeyword, Pageable pageable);
+    Page<Product> findByAdminAndProductCodeContainingOrderByIdDesc(Admin admin, String searchKeyword, Pageable pageable);
+
+    // 전체 검색 (상품코드 또는 상품명)
+    Page<Product> findByAdminAndProductCodeContainingOrAdminAndProductNameContainingOrderByIdDesc(
+        Admin admin, String codeKeyword, Admin admin2, String nameKeyword, Pageable pageable);
 }

@@ -47,7 +47,8 @@ public class CustomUserDetailsService implements UserDetailsService {
                         admin.getAdminPW(),
                         Collections.singletonList(new SimpleGrantedAuthority("ROLE_ADMIN")),
                         admin.getAdminName(),
-                        admin.getAdminId()
+                        admin.getAdminEmail(),
+                        admin.getAdminShopName()
                     );
                 })
                 .orElseThrow(() -> new UsernameNotFoundException("Admin not found"));
@@ -63,7 +64,8 @@ public class CustomUserDetailsService implements UserDetailsService {
                         seller.getSellerPW(),
                         Collections.singletonList(new SimpleGrantedAuthority("ROLE_SELLER")),
                         seller.getSellerName(),
-                        seller.getSellerId()
+                        seller.getSellerEmail(),
+                        null
                     );
                 })
                 .orElseThrow(() -> new UsernameNotFoundException("Seller not found"));
@@ -79,7 +81,8 @@ public class CustomUserDetailsService implements UserDetailsService {
                         user.getUserPW(),
                         Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER")),
                         user.getUserName(),
-                        user.getUserId()
+                        user.getUserEmail(),
+                        null
                     );
                 })
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));

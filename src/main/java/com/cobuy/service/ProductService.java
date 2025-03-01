@@ -13,6 +13,9 @@ import com.cobuy.repository.ProductSellerRepository;
 import com.cobuy.repository.ManageRepository;
 import com.cobuy.repository.AdminRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -200,5 +203,50 @@ public class ProductService {
             .orElseThrow(() -> new IllegalArgumentException("상품이 존재하지 않습니다."));
 
         productRepository.delete(product);
+    }
+
+    // 상품 목록 조회 (페이징)
+    @Transactional(readOnly = true)
+    public Page<ProductDto> getAdminProductPage(String adminId, int page, int size, String searchType, String searchKeyword) {
+        Admin admin = adminRepository.findByAdminId(adminId)
+            .orElseThrow(() -> new IllegalArgumentException("관리자를 찾을 수 없습니다."));
+
+        Pageable pageable = PageRequest.of(page - 1, size);
+        Page<Product> productPage;
+
+        if (searchKeyword != null && !searchKeyword.trim().isEmpty()) {
+            if ("상품코드".equals(searchType)) {
+                productPage = productRepository.findByAdminAndProductCodeContainingOrderByIdDesc(admin, searchKeyword, pageable);
+            } else if ("제목".equals(searchType)) {
+                productPage = productRepository.findByAdminAndProductNameContainingOrderByIdDesc(admin, searchKeyword, pageable);
+            } else {
+                // 전체 검색: 상품코드 또는 상품명으로 검색
+                productPage = productRepository.findByAdminAndProductCodeContainingOrAdminAndProductNameContainingOrderByIdDesc(
+                    admin, searchKeyword, admin, searchKeyword, pageable);
+            }
+        } else {
+            productPage = productRepository.findByAdminOrderByIdDesc(admin, pageable);
+        }
+
+        return productPage.map(product -> {
+            ProductDto dto = new ProductDto(product);
+            // URL 생성
+            String baseUrl = "/product/detail/" + adminId + product.getProductCode();
+            dto.setShopUrl(baseUrl);
+
+            // 판매자별 URL 설정
+            if (dto.getProductSellers() != null) {
+                dto.getProductSellers().forEach(seller -> {
+                    // Manage 엔티티를 통해 Seller의 ID를 가져와서 URL 생성
+                    Manage manage = manageRepository.findById(seller.getManageId())
+                        .orElseThrow(() -> new IllegalArgumentException("Manage 정보를 찾을 수 없습니다."));
+                    String sellerId = manage.getSellerId().getSellerId();
+                    String sellerUrl = baseUrl + sellerId;
+                    seller.setProductUrl(sellerUrl);
+                });
+            }
+
+            return dto;
+        });
     }
 }
