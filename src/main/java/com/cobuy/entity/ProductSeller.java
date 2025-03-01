@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @ToString
 public class ProductSeller {
     @Id
+    @Column(name = "product_seller_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

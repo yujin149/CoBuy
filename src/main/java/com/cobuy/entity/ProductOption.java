@@ -12,6 +12,7 @@ import lombok.ToString;
 @ToString
 public class ProductOption {
     @Id
+    @Column(name = "option_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
