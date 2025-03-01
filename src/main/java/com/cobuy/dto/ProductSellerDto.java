@@ -1,13 +1,15 @@
 package com.cobuy.dto;
 
 import com.cobuy.entity.ProductSeller;
+import com.cobuy.entity.Manage;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Getter
 @Setter
@@ -23,13 +25,17 @@ public class ProductSellerDto {
     @Min(value = 0, message = "판매가는 0원 이상이어야 합니다.")
     private Integer salePrice;  // 판매가
 
+    @NotNull(message = "판매 수량은 필수 입력 값입니다.")
+    @Min(value = 0, message = "판매 수량은 0개 이상이어야 합니다.")
     private Integer saleQuantity;  // 판매 수량
 
     @NotNull(message = "판매 시작일은 필수 입력 값입니다.")
-    private LocalDateTime saleStartDate;  // 판매 시작일
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate saleStartDate;  // 판매 시작일
 
     @NotNull(message = "판매 종료일은 필수 입력 값입니다.")
-    private LocalDateTime saleEndDate;  // 판매 종료일
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate saleEndDate;  // 판매 종료일
 
     private String productUrl;  // 상품 URL
 
@@ -66,6 +72,14 @@ public class ProductSellerDto {
         productSeller.setSaleStartDate(this.saleStartDate);
         productSeller.setSaleEndDate(this.saleEndDate);
         productSeller.setProductUrl(this.productUrl);
+
+        // Set Manage entity
+        if (this.manageId != null) {
+            Manage manage = new Manage();
+            manage.setId(this.manageId);
+            productSeller.setManage(manage);
+        }
+
         return productSeller;
     }
 

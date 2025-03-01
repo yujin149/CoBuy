@@ -1,11 +1,18 @@
 package com.cobuy.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
+
+    @Value("${file.upload.path}")
+    private String uploadPath;
+
+    @Value("${upload.editor.dir}")
+    private String editorUploadDir;
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -22,10 +29,12 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/images/**")
             .addResourceLocations("classpath:/static/images/");
 
-        // 외부 저장소의 이미지 파일 접근 설정
-        // /upload/** URL 요청이 들어오면 사용자 홈 디렉토리의 cobuy 폴더에서 파일을 찾음
-        // 로고 이미지 등 업로드된 파일을 서비스하기 위한 설정
-        registry.addResourceHandler("/upload/**")
-            .addResourceLocations("file:" + System.getProperty("user.home") + "/cobuy/");
+        // 업로드된 상품 이미지 파일 접근 설정
+        registry.addResourceHandler("/images/products/**")
+            .addResourceLocations("file:" + uploadPath + "/products/");
+
+        // 에디터 이미지 업로드 파일 접근 설정
+        registry.addResourceHandler("/uploads/editor/**")
+            .addResourceLocations("file:" + editorUploadDir + "/");
     }
 }

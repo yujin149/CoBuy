@@ -3,13 +3,11 @@ package com.cobuy.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 @Entity
 @Table(name = "product_option")
 @Getter
 @Setter
-@ToString
 public class ProductOption {
     @Id
     @Column(name = "option_id")
@@ -25,4 +23,11 @@ public class ProductOption {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Product product; // 상품과의 연관 관계
+
+    @Override
+    public String toString() {
+        return "ProductOption(id=" + id +
+            ", optionName='" + optionName + "'" +
+            ", optionValues='" + optionValues + "')";
+    }
 }

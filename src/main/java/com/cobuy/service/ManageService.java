@@ -1,6 +1,7 @@
 package com.cobuy.service;
 
 import com.cobuy.constant.ManageStatus;
+import com.cobuy.constant.ProductCategory;
 import com.cobuy.dto.ManageDto;
 import com.cobuy.entity.Admin;
 import com.cobuy.entity.Manage;
@@ -15,7 +16,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -264,5 +267,45 @@ public class ManageService {
         Manage manage = manageRepository.findById(manageId)
             .orElseThrow(() -> new EntityNotFoundException("Partner not found"));
         return convertToDto(manage);
+    }
+
+    // 활성화된 인플루언서 목록 조회
+    @Transactional(readOnly = true)
+    public List<Map<String, Object>> getSellerList(String adminId) {
+        // 현재 관리자 정보 조회
+        Admin admin = adminRepository.findByAdminId(adminId)
+            .orElseThrow(() -> new IllegalArgumentException("관리자를 찾을 수 없습니다."));
+
+        // 현재 관리자와 연결된 ACCEPTED 상태의 Manage 목록 조회
+        List<Manage> sellers = manageRepository.findByAdminIdAndStatusOrderByRegTimeDesc(admin, ManageStatus.ACCEPTED);
+
+        return sellers.stream().map(seller -> {
+            Map<String, Object> sellerInfo = new HashMap<>();
+            sellerInfo.put("id", seller.getId());
+            sellerInfo.put("sellerId", seller.getSellerId().getSellerId());
+            sellerInfo.put("sellerNickName", seller.getSellerId().getSellerNickName());
+            sellerInfo.put("sellerContents", seller.getSellerId().getSellerContents());
+            sellerInfo.put("sellerUrl", seller.getSellerId().getSellerUrl());
+            return sellerInfo;
+        }).collect(Collectors.toList());
+    }
+
+    // 특정 인플루언서 정보 조회
+    @Transactional(readOnly = true)
+    public Map<String, Object> getSellerInfo(Long manageId) {
+        Manage seller = manageRepository.findById(manageId)
+            .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 인플루언서입니다."));
+
+        Map<String, Object> sellerInfo = new HashMap<>();
+        sellerInfo.put("id", seller.getId());
+        sellerInfo.put("sellerId", seller.getSellerId().getSellerId());
+        sellerInfo.put("sellerNickName", seller.getSellerId().getSellerNickName());
+        sellerInfo.put("sellerContents", seller.getSellerId().getSellerContents());
+        sellerInfo.put("sellerUrl", seller.getSellerId().getSellerUrl());
+        sellerInfo.put("productCategories", seller.getSellerId().getProductCategories().stream()
+            .map(ProductCategory::getDisplayName)
+            .collect(Collectors.toList()));
+
+        return sellerInfo;
     }
 }

@@ -3,18 +3,15 @@ package com.cobuy.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "product_seller")
 @Getter
 @Setter
-@ToString
 public class ProductSeller {
     @Id
-    @Column(name = "product_seller_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -33,11 +30,21 @@ public class ProductSeller {
     private int saleQuantity; // 판매수량
 
     @Column(name = "sale_start_date", nullable = false)
-    private LocalDateTime saleStartDate; // 판매 시작 기간
+    private LocalDate saleStartDate; // 판매 시작 기간
 
     @Column(name = "sale_end_date", nullable = false)
-    private LocalDateTime saleEndDate; // 판매 종료 기간
+    private LocalDate saleEndDate; // 판매 종료 기간
 
     @Column(name = "product_url", unique = true)
     private String productUrl; // URL 주소 (adminId+상품코드+sellerId)
+
+    @Override
+    public String toString() {
+        return "ProductSeller(id=" + id +
+            ", salePrice=" + salePrice +
+            ", saleQuantity=" + saleQuantity +
+            ", saleStartDate=" + saleStartDate +
+            ", saleEndDate=" + saleEndDate +
+            ", productUrl='" + productUrl + "')";
+    }
 }

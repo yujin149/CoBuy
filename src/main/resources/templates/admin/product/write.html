@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html
     layout:decorate="~{layouts/adminLayout}"
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>상품 등록</title>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 </head>
 <body class="bodyCont">
 <div layout:fragment="content">
@@ -11,7 +14,7 @@
         <div class="titleWrap">
             <h3 class="title">상품 등록</h3>
         </div>
-        <form action="/admin/product/list">
+        <form th:action="@{/admin/product/write}" th:object="${productDto}" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
             <div class="tableWrap tableWrap02">
                 <table>
                     <colgroup>
@@ -23,10 +26,16 @@
                         <th>판매 상태</th>
                         <td>
                             <ul class="saleStatus radioBox">
-                                <li><input checked id="saleOn" name="sale" type="radio"><label for="saleOn">판매</label>
+                                <li>
+                                    <input th:field="*{productStatus}" type="radio" value="SALE_ON" id="saleOn">
+                                    <label for="saleOn">판매</label>
                                 </li>
-                                <li><input id="saleOff" name="sale" type="radio"><label for="saleOff">판매안함</label></li>
+                                <li>
+                                    <input th:field="*{productStatus}" type="radio" value="SALE_OFF" id="saleOff">
+                                    <label for="saleOff">판매안함</label>
+                                </li>
                             </ul>
+                            <p th:if="${#fields.hasErrors('productStatus')}" th:errors="*{productStatus}" class="error"></p>
                         </td>
                     </tr>
                     <!--카테고리 선택 추후 추가예정-->
@@ -94,8 +103,8 @@
                         <th><p class="tit">상품명<span class="star">*</span></p></th>
                         <td>
                             <div class="txtBox">
-                                <input type="text">
-                                <span class="error">상품명을 입력해주세요.</span>
+                                <input type="text" th:field="*{productName}">
+                                <p th:if="${#fields.hasErrors('productName')}" th:errors="*{productName}" class="error"></p>
                             </div>
                         </td>
                     </tr>
@@ -104,12 +113,12 @@
                         <td>
                             <div class="codeBox">
                                 <div class="inputBox">
-                                    <input class="active" name="ranCode" readonly type="text" value="P000001">
-                                    <input name="inputCode" type="text">
+                                    <input type="text" th:field="*{productCode}" class="active" readonly>
+                                    <input type="text" name="inputCode" style="display:none;">
                                     <a class="codeBtn" href="javascript:void(0)">직접입력</a>
-                                    <a class="codeChk" href="javascript:void(0)">중복확인</a>
+                                    <a class="codeChk" href="javascript:void(0)" style="display:none;">중복확인</a>
                                 </div>
-                                <span class="error">상품코드를 입력해주세요.</span>
+                                <p th:if="${#fields.hasErrors('productCode')}" th:errors="*{productCode}" class="error"></p>
                             </div>
                         </td>
                     </tr>
@@ -117,7 +126,7 @@
                         <th><p class="tit">상품 요약 설명</p></th>
                         <td>
                             <div class="txtBox">
-                                <input type="text">
+                                <input type="text" th:field="*{productSummary}">
                             </div>
                         </td>
                     </tr>
@@ -125,21 +134,21 @@
                         <th><p class="tit">상품 상세 설명</p></th>
                         <td>
                             <div class="txtBox">
-                                <textarea id="editorTxt" name="editorTxt" ></textarea>
+                                <textarea id="editorTxt" th:field="*{productContents}"></textarea>
                             </div>
                         </td>
                     </tr>
                     <tr class="imgBox">
-                        <th><p class="tit">상품 이미지 <span class="star"></span></p></th>
+                        <th><p class="tit">상품 이미지 <span class="star">*</span></p></th>
                         <td>
                             <ul class="txtBox">
-                                <li><input type="file"></li>
-                                <li><input type="file"></li>
-                                <li><input type="file"></li>
-                                <li><input type="file"></li>
-                                <li><input type="file"></li>
+                                <li><input type="file" name="productImgFile" accept="image/*"></li>
+                                <li><input type="file" name="productImgFile" accept="image/*"></li>
+                                <li><input type="file" name="productImgFile" accept="image/*"></li>
+                                <li><input type="file" name="productImgFile" accept="image/*"></li>
+                                <li><input type="file" name="productImgFile" accept="image/*"></li>
                                 <span class="info">권장 사이즈 640px * 640px </span>
-                                <span class="error">최소 1개의 이미지를 등록해주세요.</span>
+                                <span class="error" th:if="${#fields.hasErrors('productImages')}" th:errors="*{productImages}"></span>
                             </ul>
                         </td>
                     </tr>
@@ -147,7 +156,8 @@
                         <th><p class="tit">소비자가</p></th>
                         <td>
                             <div class="price">
-                                <input type="number" value="10000"><span>원</span>
+                                <input type="number" th:field="*{productOriPrice}"><span>원</span>
+                                <p th:if="${#fields.hasErrors('productOriPrice')}" th:errors="*{productOriPrice}" class="error"></p>
                             </div>
                         </td>
                     </tr>
@@ -155,7 +165,8 @@
                         <th><p class="tit">판매가 <span class="star">*</span></p></th>
                         <td>
                             <div class="price">
-                                <input type="number" value="0"><span>원</span>
+                                <input type="number" th:field="*{productSalePrice}"><span>원</span>
+                                <p th:if="${#fields.hasErrors('productSalePrice')}" th:errors="*{productSalePrice}" class="error"></p>
                             </div>
                         </td>
                     </tr>
@@ -163,7 +174,8 @@
                         <th><p class="tit">배송비 <span class="star">*</span></p></th>
                         <td>
                             <div class="price">
-                                <input type="number" value="0"><span>원</span>
+                                <input type="number" th:field="*{productFee}"><span>원</span>
+                                <p th:if="${#fields.hasErrors('productFee')}" th:errors="*{productFee}" class="error"></p>
                             </div>
                         </td>
                     </tr>
@@ -195,7 +207,8 @@
                         <th><p class="tit">재고 <span class="star">*</span></p></th>
                         <td>
                             <div class="price">
-                                <input type="number" value="0"><span>개</span>
+                                <input type="number" th:field="*{productStock}"><span>개</span>
+                                <p th:if="${#fields.hasErrors('productStock')}" th:errors="*{productStock}" class="error"></p>
                             </div>
                         </td>
                     </tr>
@@ -203,9 +216,14 @@
                         <th><p class="tit">옵션</p></th>
                         <td>
                             <ul class="option radioBox">
-                                <li><input id="optON" name="opt" type="radio"><label for="optON">사용</label>
+                                <li>
+                                    <input th:field="*{productOptionStatus}" type="radio" value="OPTION_ON" id="optON">
+                                    <label for="optON">사용</label>
                                 </li>
-                                <li><input id="optOff" name="opt" type="radio" checked><label for="optOff">사용안함</label></li>
+                                <li>
+                                    <input th:field="*{productOptionStatus}" type="radio" value="OPTION_OFF" id="optOff" checked>
+                                    <label for="optOff">사용안함</label>
+                                </li>
                             </ul>
                         </td>
                     </tr>
@@ -219,24 +237,24 @@
                                         <p>옵션명</p>
                                         <p>옵션값</p>
                                     </li>
-                                    <li class="text">
+                                    <li class="text" th:if="${productDto.productOptions == null or productDto.productOptions.isEmpty()}">
                                         <div class="optTit">
-                                            <input type="text" placeholder="예시) 사이즈">
+                                            <input type="text" name="productOptions[0].optionName" placeholder="예시) 사이즈">
                                             <a href="javascript:void(0)" class="plusBtn optBtn">추가</a>
                                             <a href="javascript:void(0)" class="minusBtn optBtn">제거</a>
                                         </div>
                                         <div class="optTxt">
-                                            <textarea placeholder="옵션값을 입력해주세요."></textarea>
+                                            <textarea name="productOptions[0].optionValues" placeholder="옵션값을 입력해주세요."></textarea>
                                         </div>
                                     </li>
-                                    <li class="text">
+                                    <li class="text" th:each="option, status : ${productDto.productOptions}">
                                         <div class="optTit">
-                                            <input type="text" placeholder="예시) 사이즈">
+                                            <input type="text" th:field="*{productOptions[__${status.index}__].optionName}" placeholder="예시) 사이즈">
                                             <a href="javascript:void(0)" class="plusBtn optBtn">추가</a>
                                             <a href="javascript:void(0)" class="minusBtn optBtn">제거</a>
                                         </div>
                                         <div class="optTxt">
-                                            <textarea placeholder="옵션값을 입력해주세요."></textarea>
+                                            <textarea th:field="*{productOptions[__${status.index}__].optionValues}" placeholder="옵션값을 입력해주세요."></textarea>
                                         </div>
                                     </li>
                                 </ul>
@@ -249,76 +267,46 @@
                         <th><p class="tit">인플루언서 선택</p></th>
                         <td>
                             <div class="sellerSelect">
-                                <select>
-                                    <option value="선택안함">선택안함</option>
-                                    <option value="셀러명02">셀러명01</option>
-                                    <option value="셀러명02">셀러명02셀러명02셀러명02셀러명02셀러명02</option>
+                                <select id="sellerSelect">
+                                    <option value="">선택안함</option>
+                                    <option th:each="seller : ${sellers}"
+                                            th:value="${seller.id}"
+                                            th:text="${seller.sellerNickName}">셀러명</option>
                                 </select>
-                                <a href="/admin/manage" target="_blank" class="btn">인플루언서 추가</a>
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <th><p class="tit">인플루언서 설정</p></th>
                         <td>
-                            <ul class="sellerSet">
-                                <li>
+                            <ul class="sellerSet" id="sellerList">
+                                <li th:each="seller, status : ${productDto.productSellers}" th:id="'seller_' + ${seller.manageId}">
+                                    <input type="hidden" th:field="*{productSellers[__${status.index}__].manageId}">
                                     <div class="nameBox">
-                                        <input type="text" value="셀러명02" readonly>
-                                        <a href="javascript:void(0)" class="infoSeller btn">인플루언서정보</a>
+                                        <input type="text" th:field="*{productSellers[__${status.index}__].sellerNickName}" readonly>
+                                        <a href="javascript:void(0)" class="infoSeller btn" th:data-seller-id="*{productSellers[__${status.index}__].manageId}">인플루언서정보</a>
                                         <a href="javascript:void(0)" class="deleteBtn btn">삭제</a>
                                     </div>
                                     <div class="priceBox textBox">
                                         <p class="title">판매가</p>
-                                        <p class="text"><input type="number" value="0"><span>원</span></p>
+                                        <p class="text">
+                                            <input type="number" th:field="*{productSellers[__${status.index}__].salePrice}">
+                                            <span>원</span>
+                                        </p>
                                         <p class="title">수량</p>
-                                        <p class="text"><input type="number" value="0"><span>개</span></p>
+                                        <p class="text">
+                                            <input type="number" th:field="*{productSellers[__${status.index}__].saleQuantity}">
+                                            <span>개</span>
+                                        </p>
                                     </div>
                                     <div class="dateBox textBox textBox02">
                                         <p class="title">판매기간</p>
                                         <p class="text date">
-                                            <input type="date" name="date01" class="startDate">
+                                            <input type="date" th:field="*{productSellers[__${status.index}__].saleStartDate}" required pattern="\d{4}-\d{2}-\d{2}">
                                             <span>~</span>
-                                            <input type="date" name="date02">
+                                            <input type="date" th:field="*{productSellers[__${status.index}__].saleEndDate}" required pattern="\d{4}-\d{2}-\d{2}">
                                         </p>
                                     </div>
-                                    <div class="urlBox textBox textBox02">
-                                        <p class="title">url주소</p>
-                                        <p class="text ">
-                                            <input type="text" class="urlInput" value="http://cobuy/product/detail/seller01P0000001" readonly>
-                                            <a href="javascript:void(0)" class="copyBtn btn">URL 복사</a>
-                                        </p>
-                                    </div>
-
-                                </li>
-                                <li>
-                                    <div class="nameBox">
-                                        <input type="text" value="셀러명01" readonly>
-                                        <a href="javascript:void(0)" class="infoSeller btn">인플루언서정보</a>
-                                        <a href="javascript:void(0)" class="deleteBtn btn">삭제</a>
-                                    </div>
-                                    <div class="priceBox textBox">
-                                        <p class="title">판매가</p>
-                                        <p class="text"><input type="number" value="0"><span>원</span></p>
-                                        <p class="title">수량</p>
-                                        <p class="text"><input type="number" value="0"><span>개</span></p>
-                                    </div>
-                                    <div class="dateBox textBox textBox02">
-                                        <p class="title">판매기간</p>
-                                        <p class="text date">
-                                            <input type="date" name="date01" class="startDate">
-                                            <span>~</span>
-                                            <input type="date" name="date02">
-                                        </p>
-                                    </div>
-                                    <div class="urlBox textBox textBox02">
-                                        <p class="title">url주소</p>
-                                        <p class="text ">
-                                            <input type="text" class="urlInput" value="http://cobuy/product/detail/seller01P0000002" readonly>
-                                            <a href="javascript:void(0)" class="copyBtn btn">URL 복사</a>
-                                        </p>
-                                    </div>
-
                                 </li>
                             </ul>
                         </td>
@@ -336,5 +324,365 @@
 
     </div>
 </div>
+
+<script th:inline="javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+        // 상품 코드 직접 입력 처리
+        const codeBtn = document.querySelector('.codeBtn');
+        const productCodeInput = document.querySelector('input[name="productCode"]');
+        const inputCode = document.querySelector('input[name="inputCode"]');
+        const codeChk = document.querySelector('.codeChk');
+        let isCodeChecked = false;  // 중복확인 여부를 저장하는 변수
+
+        if(codeBtn) {
+            // 페이지 로드 시 자동 생성된 코드 가져오기
+            fetch('/admin/product/generateCode')
+                .then(response => response.text())
+                .then(code => {
+                    productCodeInput.value = code;
+                    isCodeChecked = true; // 자동생성된 코드는 중복체크 필요없음
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('상품코드 생성 중 오류가 발생했습니다.');
+                });
+
+            codeBtn.addEventListener('click', function() {
+                if(productCodeInput.classList.contains('active')) {
+                    // 직접입력 모드로 전환
+                    productCodeInput.classList.remove('active');
+                    productCodeInput.style.display = 'none';
+                    inputCode.style.display = 'block';
+                    inputCode.classList.add('active');
+                    codeBtn.textContent = '자동생성';
+                    codeChk.style.display = 'block';
+                    isCodeChecked = false;  // 직접입력 모드로 전환시 중복확인 상태 초기화
+                } else {
+                    // 자동생성 모드로 전환
+                    fetch('/admin/product/generateCode')
+                        .then(response => response.text())
+                        .then(code => {
+                            productCodeInput.value = code;
+                            productCodeInput.classList.add('active');
+                            productCodeInput.style.display = 'block';
+                            inputCode.style.display = 'none';
+                            inputCode.classList.remove('active');
+                            inputCode.value = '';
+                            codeBtn.textContent = '직접입력';
+                            codeChk.style.display = 'none';
+                            isCodeChecked = true;  // 자동생성된 코드는 중복체크 필요없음
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('상품코드 생성 중 오류가 발생했습니다.');
+                        });
+                }
+            });
+        }
+
+        // 상품 코드 중복 체크
+        if(codeChk) {
+            codeChk.addEventListener('click', function() {
+                const code = inputCode.value.trim();
+                if(!code) {
+                    alert('상품코드를 입력해주세요.');
+                    return;
+                }
+
+                const csrfHeader = document.querySelector('meta[name="_csrf_header"]').content;
+                const csrfToken = document.querySelector('meta[name="_csrf"]').content;
+
+                fetch('/admin/product/checkProductCode', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        [csrfHeader]: csrfToken
+                    },
+                    body: JSON.stringify({ productCode: code })
+                })
+                    .then(response => response.json())
+                    .then(exists => {
+                        if(exists) {
+                            alert('이미 사용중인 상품코드입니다.');
+                            isCodeChecked = false;
+                        } else {
+                            alert('사용 가능한 상품코드입니다.');
+                            isCodeChecked = true;
+                            productCodeInput.value = code; // 중복체크 통과한 코드를 실제 필드에 설정
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('상품코드 중복 확인 중 오류가 발생했습니다.');
+                        isCodeChecked = false;
+                    });
+            });
+        }
+
+        // 입력값이 변경되면 중복확인 상태 초기화
+        if(inputCode) {
+            inputCode.addEventListener('input', function() {
+                isCodeChecked = false;
+                productCodeInput.value = ''; // 직접 입력값이 변경되면 실제 필드 값을 초기화
+            });
+        }
+
+        // 폼 제출 시 중복확인 여부 검사
+        const form = document.querySelector('form');
+        form.addEventListener('submit', function(e) {
+            // 직접입력 모드일 때
+            if(inputCode.style.display === 'block') {
+                if(!isCodeChecked) {
+                    alert('상품코드 중복확인을 해주세요.');
+                    e.preventDefault();
+                    return;
+                }
+                // 중복체크 통과한 코드를 다시 한 번 확인
+                if(!productCodeInput.value) {
+                    productCodeInput.value = inputCode.value;
+                }
+            }
+            // 자동생성 모드일 때는 항상 유효
+            if(!validateForm(isCodeChecked)) {
+                e.preventDefault();
+            }
+        });
+
+        // 옵션 추가/제거 처리
+        const optionList = document.querySelector('.optionList');
+        if(optionList) {
+            optionList.addEventListener('click', function(e) {
+                if(e.target.classList.contains('plusBtn')) {
+                    const li = e.target.closest('li');
+                    const clone = li.cloneNode(true);
+                    const inputs = clone.querySelectorAll('input, textarea');
+                    inputs.forEach(input => input.value = '');
+                    li.parentNode.insertBefore(clone, li.nextSibling);
+                } else if(e.target.classList.contains('minusBtn')) {
+                    const li = e.target.closest('li');
+                    if(document.querySelectorAll('.optionList li.text').length > 1) {
+                        li.remove();
+                    }
+                }
+            });
+        }
+
+        // 인플루언서 선택 처리
+        const sellerSelect = document.getElementById('sellerSelect');
+        if(sellerSelect) {
+            sellerSelect.addEventListener('change', function() {
+                const sellerId = this.value;
+                if(sellerId) {
+                    fetch('/admin/manage/seller/' + sellerId)
+                        .then(response => response.json())
+                        .then(seller => {
+                            addSellerToList(seller);
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('인플루언서 정보를 가져오는 중 오류가 발생했습니다.');
+                        });
+                }
+            });
+        }
+
+        // 날짜 입력 필드 포맷팅 함수
+        function formatDateInput(input) {
+            input.addEventListener('input', function(e) {
+                let value = e.target.value;
+
+                // 날짜 형식이 "yy. M. d." 형식인 경우 변환
+                if (value.match(/^\d{2}\.\s*\d{1,2}\.\s*\d{1,2}\.$/)) {
+                    let parts = value.split('.');
+                    let year = '20' + parts[0].trim();
+                    let month = parts[1].trim().padStart(2, '0');
+                    let day = parts[2].trim().padStart(2, '0');
+
+                    e.target.value = `${year}-${month}-${day}`;
+                }
+            });
+
+            // 날짜 선택 시 자동 포맷팅
+            input.addEventListener('change', function(e) {
+                if (e.target.value) {
+                    let date = new Date(e.target.value);
+                    if (!isNaN(date.getTime())) {
+                        let year = date.getFullYear();
+                        let month = String(date.getMonth() + 1).padStart(2, '0');
+                        let day = String(date.getDate()).padStart(2, '0');
+                        e.target.value = `${year}-${month}-${day}`;
+                    }
+                }
+            });
+        }
+
+        // 모든 날짜 입력 필드에 포맷팅 적용
+        document.querySelectorAll('input[type="date"]').forEach(input => {
+            formatDateInput(input);
+        });
+
+        // 새로운 셀러 추가 시 날짜 입력 필드 포맷팅 적용
+        function addSellerToList(seller) {
+            const sellerList = document.getElementById('sellerList');
+            const sellerCount = sellerList.children.length;
+
+            // 이미 추가된 인플루언서인지 확인
+            if(document.getElementById('seller_' + seller.id)) {
+                alert('이미 추가된 인플루언서입니다.');
+                return;
+            }
+
+            const li = document.createElement('li');
+            li.id = 'seller_' + seller.id;
+            li.innerHTML = `
+                <input type="hidden" name="productSellers[${sellerCount}].manageId" value="${seller.id}">
+                <div class="nameBox">
+                    <input type="text" name="productSellers[${sellerCount}].sellerNickName" value="${seller.sellerNickName}" readonly>
+                    <a href="javascript:void(0)" class="infoSeller btn" th:data-seller-id="*{productSellers[__${status.index}__].manageId}">인플루언서정보</a>
+                    <a href="javascript:void(0)" class="deleteBtn btn">삭제</a>
+                </div>
+                <div class="priceBox textBox">
+                    <p class="title">판매가</p>
+                    <p class="text">
+                        <input type="number" name="productSellers[${sellerCount}].salePrice" value="0">
+                        <span>원</span>
+                    </p>
+                    <p class="title">수량</p>
+                    <p class="text">
+                        <input type="number" name="productSellers[${sellerCount}].saleQuantity" value="0">
+                        <span>개</span>
+                    </p>
+                </div>
+                <div class="dateBox textBox textBox02">
+                    <p class="title">판매기간</p>
+                    <p class="text date">
+                        <input type="date" name="productSellers[${sellerCount}].saleStartDate" required pattern="\\d{4}-\\d{2}-\\d{2}">
+                        <span>~</span>
+                        <input type="date" name="productSellers[${sellerCount}].saleEndDate" required pattern="\\d{4}-\\d{2}-\\d{2}">
+                    </p>
+                </div>
+            `;
+            sellerList.appendChild(li);
+
+            // 새로 추가된 날짜 입력 필드에 포맷팅 적용
+            const newDateInputs = li.querySelectorAll('input[type="date"]');
+            newDateInputs.forEach(input => formatDateInput(input));
+        }
+
+        // 폼 유효성 검사 함수
+        function validateForm(isCodeChecked) {
+            let isValid = true;
+
+            // 상품코드 직접입력 모드 검사
+            const codeBtn = document.querySelector('.codeBtn');
+            const inputCode = document.querySelector('input[name="inputCode"]');
+            if(codeBtn.textContent === '자동생성') {
+                if(!inputCode.value.trim()) {
+                    alert('상품코드를 입력해주세요.');
+                    inputCode.focus();
+                    return false;
+                }
+                if(!isCodeChecked) {
+                    alert('상품코드 중복확인을 해주세요.');
+                    return false;
+                }
+            }
+
+            // 이미지 유효성 검사
+            const firstImageInput = document.querySelector('input[name="productImgFile"]');
+            if (!firstImageInput.files || firstImageInput.files.length === 0) {
+                alert('대표 이미지는 필수입니다.');
+                isValid = false;
+                return false;
+            }
+
+            // 옵션 유효성 검사
+            const optionStatus = document.querySelector('input[name="productOptionStatus"]:checked').value;
+            if (optionStatus === 'OPTION_ON') {
+                const optionNames = document.querySelectorAll('input[name^="productOptions"][name$="optionName"]');
+                const optionValues = document.querySelectorAll('textarea[name^="productOptions"][name$="optionValues"]');
+
+                if (optionNames.length === 0) {
+                    alert('옵션을 1개 이상 입력해주세요.');
+                    isValid = false;
+                    return false;
+                }
+
+                for (let i = 0; i < optionNames.length; i++) {
+                    if (!optionNames[i].value.trim()) {
+                        alert('옵션명은 필수 입력 값입니다.');
+                        optionNames[i].focus();
+                        isValid = false;
+                        return false;
+                    }
+                    if (!optionValues[i].value.trim()) {
+                        alert('옵션값은 필수 입력 값입니다.');
+                        optionValues[i].focus();
+                        isValid = false;
+                        return false;
+                    }
+                }
+            }
+
+            // 인플루언서 유효성 검사
+            const sellerList = document.getElementById('sellerList');
+            const sellers = sellerList.querySelectorAll('li');
+
+            if (sellers.length > 0) {
+                for (let seller of sellers) {
+                    const salePrice = seller.querySelector('input[name$="salePrice"]');
+                    const saleQuantity = seller.querySelector('input[name$="saleQuantity"]');
+                    const startDate = seller.querySelector('input[name$="saleStartDate"]');
+                    const endDate = seller.querySelector('input[name$="saleEndDate"]');
+
+                    if (!salePrice || !salePrice.value || parseInt(salePrice.value) < 0) {
+                        alert('판매가는 0원 이상이어야 합니다.');
+                        if (salePrice) salePrice.focus();
+                        isValid = false;
+                        return false;
+                    }
+
+                    if (!saleQuantity || !saleQuantity.value || parseInt(saleQuantity.value) < 0) {
+                        alert('판매 수량은 0개 이상이어야 합니다.');
+                        if (saleQuantity) saleQuantity.focus();
+                        isValid = false;
+                        return false;
+                    }
+
+                    if (!startDate || !startDate.value) {
+                        alert('판매 시작일은 필수 입력 값입니다.');
+                        if (startDate) startDate.focus();
+                        isValid = false;
+                        return false;
+                    }
+
+                    if (!endDate || !endDate.value) {
+                        alert('판매 종료일은 필수 입력 값입니다.');
+                        if (endDate) endDate.focus();
+                        isValid = false;
+                        return false;
+                    }
+
+                    // 날짜 형식 검사
+                    if (!startDate.value.match(/^\d{4}-\d{2}-\d{2}$/) || !endDate.value.match(/^\d{4}-\d{2}-\d{2}$/)) {
+                        alert('날짜 형식이 올바르지 않습니다. (YYYY-MM-DD)');
+                        isValid = false;
+                        return false;
+                    }
+
+                    // 시작일이 종료일보다 늦은 경우
+                    if (new Date(startDate.value) > new Date(endDate.value)) {
+                        alert('판매 시작일은 종료일보다 늦을 수 없습니다.');
+                        startDate.focus();
+                        isValid = false;
+                        return false;
+                    }
+                }
+            }
+
+            return isValid;
+        }
+    });
+</script>
 </body>
 </html>

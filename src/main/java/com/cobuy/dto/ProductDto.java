@@ -6,6 +6,8 @@ import com.cobuy.entity.Product;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.AssertTrue;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -47,6 +49,7 @@ public class ProductDto {
     @Min(value = 0, message = "재고는 0개 이상이어야 합니다.")
     private Integer productStock;
 
+    @NotNull(message = "옵션 사용 여부는 필수 선택 값입니다.")
     private ProductOptionStatus productOptionStatus;
 
     private List<ProductImageDto> productImages = new ArrayList<>();
@@ -54,6 +57,19 @@ public class ProductDto {
     private List<ProductOptionDto> productOptions = new ArrayList<>();
 
     private List<ProductSellerDto> productSellers = new ArrayList<>();
+
+    @AssertTrue(message = "옵션을 입력해주세요.")
+    public boolean isValidProductOptions() {
+        if (productOptionStatus == ProductOptionStatus.OPTION_ON) {
+            return !productOptions.isEmpty() &&
+                productOptions.stream()
+                    .allMatch(option ->
+                        option.getOptionName() != null && !option.getOptionName().trim().isEmpty() &&
+                            option.getOptionValues() != null && !option.getOptionValues().trim().isEmpty()
+                    );
+        }
+        return true;
+    }
 
     // Entity -> DTO 변환 생성자
     public ProductDto(Product product) {
@@ -87,6 +103,7 @@ public class ProductDto {
 
     // 기본 생성자
     public ProductDto() {
+        this.productOptionStatus = ProductOptionStatus.OPTION_OFF; // 기본값 옵션 미사용
     }
 
     // DTO -> Entity 변환 메서드

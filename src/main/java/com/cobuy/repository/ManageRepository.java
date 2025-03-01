@@ -7,6 +7,7 @@ import com.cobuy.entity.Seller;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import org.springframework.stereotype.Repository;
 
@@ -70,4 +71,12 @@ public interface ManageRepository extends JpaRepository<Manage, Long> {
     // 페이징 처리
     Page<Manage> findByAdminIdAdminIdAndStatusOrderByRegTimeDesc(String userId, ManageStatus status, Pageable pageable);
     Page<Manage> findBySellerIdSellerIdAndStatusOrderByRegTimeDesc(String userId, ManageStatus status, Pageable pageable);
+
+    // 활성화된 인플루언서 목록 조회 (상태가 ACCEPTED 경우)
+    List<Manage> findByStatus(ManageStatus status);
+
+    // 활성화된 인플루언서 목록 조회를 위한 쿼리 메서드
+    default List<Manage> findAllActiveSellers() {
+        return findByStatus(ManageStatus.ACCEPTED);
+    }
 }
