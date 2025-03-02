@@ -53,4 +53,14 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     // 전체 검색 (상품코드 또는 상품명)
     Page<Product> findByAdminAndProductCodeContainingOrAdminAndProductNameContainingOrderByIdDesc(
         Admin admin, String codeKeyword, Admin admin2, String nameKeyword, Pageable pageable);
+
+    // 수정일자 기준으로 상품 목록 조회
+    Page<Product> findByAdminOrderByUpdateTimeDesc(Admin admin, Pageable pageable);
+
+    Page<Product> findByAdminAndProductCodeContainingOrderByUpdateTimeDesc(Admin admin, String productCode, Pageable pageable);
+
+    Page<Product> findByAdminAndProductNameContainingOrderByUpdateTimeDesc(Admin admin, String productName, Pageable pageable);
+
+    Page<Product> findByAdminAndProductCodeContainingOrAdminAndProductNameContainingOrderByUpdateTimeDesc(
+        Admin admin, String codeKeyword, Admin admin2, String nameKeyword, Pageable pageable);
 }

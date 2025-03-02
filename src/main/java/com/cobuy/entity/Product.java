@@ -1,6 +1,5 @@
 package com.cobuy.entity;
 
-
 import com.cobuy.constant.ProductOptionStatus;
 import com.cobuy.constant.ProductStatus;
 import jakarta.persistence.*;
@@ -16,7 +15,7 @@ import java.util.List;
 })
 @Getter
 @Setter
-public class Product {
+public class Product extends BaseEntity {
 
     @Id
     @Column(name = "product_id")
@@ -43,16 +42,16 @@ public class Product {
     @Column(name = "product_contents")
     private String productContents; // 상품상세설명
 
-    @Column(name = "product_ori_price",nullable = false)
+    @Column(name = "product_ori_price", nullable = false)
     private int productOriPrice; // 소비자가
 
-    @Column(name = "product_sale_price",nullable = false)
-    private int ProductSalePrice; // 판매가
+    @Column(name = "product_sale_price", nullable = false)
+    private int productSalePrice; // 판매가
 
-    @Column(name = "product_fee",nullable = false)
+    @Column(name = "product_fee", nullable = false)
     private int productFee; // 배송비
 
-    @Column(name = "product_stock",nullable = false)
+    @Column(name = "product_stock", nullable = false)
     private int productStock; // 재고
 
     @Enumerated(EnumType.STRING)
@@ -88,10 +87,9 @@ public class Product {
             ", productCode='" + productCode + "'" +
             ", productSummary='" + productSummary + "'" +
             ", productOriPrice=" + productOriPrice +
-            ", ProductSalePrice=" + ProductSalePrice +
+            ", productSalePrice=" + productSalePrice +
             ", productFee=" + productFee +
             ", productStock=" + productStock +
             ", productOptionStatus=" + productOptionStatus + ")";
     }
-
 }

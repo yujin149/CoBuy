@@ -12,11 +12,6 @@ $(function() {
         }
     });
 
-    // 페이지 로드 시 자동 생성된 코드 표시
-    if ($("input[name='productCode']").length) {
-        generateProductCode();
-    }
-
     // 인플루언서 선택 이벤트 처리
     $("#sellerSelect").change(function() {
         var sellerId = $(this).val();
@@ -250,6 +245,10 @@ $(function() {
             success: function(code) {
                 if(code) {
                     $("input[name='productCode']").val(code);
+                    $("input[name='productCode']").addClass("active").show();
+                    $("input[name='inputCode']").hide();
+                    $(".codeBtn").text("직접입력");
+                    $(".codeChk").hide(); // Hide duplicate check button
                 } else {
                     console.error('상품 코드가 생성되지 않았습니다.');
                     alert('상품 코드 생성 중 오류가 발생했습니다.');
@@ -263,7 +262,8 @@ $(function() {
     }
 
     // "직접입력" 버튼 클릭 시
-    $(".prodWriteWrap .codeBtn").click(function() {
+    $(".prodWriteWrap .codeBtn").off('click').on('click', function() {
+        console.log("자동 생성 버튼 클릭됨.");
         var $productCode = $("input[name='productCode']");
         var $inputCode = $("input[name='inputCode']");
         var $codeBtn = $(".prodWriteWrap .codeBtn");
@@ -276,12 +276,8 @@ $(function() {
             $codeBtn.text("자동생성");
             $codeChk.show();
         } else {
-            // 자동생성 모드로 전환
-            $productCode.addClass("active").show();
-            $inputCode.removeClass("active").hide();
-            $codeBtn.text("직접입력");
-            $codeChk.hide(); // 중복 확인 버튼 숨김
-            generateProductCode(); //
+            // Call the centralized function to generate product code
+            generateProductCode();
         }
     });
 

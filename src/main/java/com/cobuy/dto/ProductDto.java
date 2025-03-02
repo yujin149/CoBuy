@@ -12,6 +12,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,6 +22,12 @@ import java.util.stream.Collectors;
 @ToString
 public class ProductDto {
     private Long id;
+
+    private LocalDateTime regTime;    // 등록일
+    private LocalDateTime updateTime; // 수정일
+    private String createdBy;        // 등록자
+    private String modifiedBy;       // 수정자
+
     @NotNull(message = "상품 상태는 필수 선택 값입니다.")
     private ProductStatus productStatus;
 
@@ -76,6 +83,10 @@ public class ProductDto {
     // Entity -> DTO 변환 생성자
     public ProductDto(Product product) {
         this.id = product.getId();
+        this.regTime = product.getRegTime();
+        this.updateTime = product.getUpdateTime();
+        this.createdBy = product.getCreatedBy();
+        this.modifiedBy = product.getModifiedBy();
         this.productStatus = product.getProductStatus();
         this.productName = product.getProductName();
         this.productCode = product.getProductCode();

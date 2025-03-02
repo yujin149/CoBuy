@@ -4,7 +4,7 @@
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
     xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>상품 등록</title>
+    <title th:text="${isModify} ? '상품 수정' : '상품 등록'">상품 등록</title>
     <meta name="_csrf" th:content="${_csrf.token}"/>
     <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 </head>
@@ -12,9 +12,10 @@
 <div layout:fragment="content">
     <div class="adminWrap productWrap prodWriteWrap">
         <div class="titleWrap">
-            <h3 class="title">상품 등록</h3>
+            <h3 class="title" th:text="${isModify} ? '상품 수정' : '상품 등록'">상품 등록</h3>
         </div>
-        <form th:action="@{/admin/product/write}" th:object="${productDto}" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+        <form th:action="${isModify} ? @{/admin/product/modify/{id}(id=${productDto.id})} : @{/admin/product/write}"
+              th:object="${productDto}" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
             <div class="tableWrap tableWrap02">
                 <table>
                     <colgroup>
@@ -113,10 +114,10 @@
                         <td>
                             <div class="codeBox">
                                 <div class="inputBox">
-                                    <input type="text" th:field="*{productCode}" class="active" readonly>
-                                    <input type="text" name="inputCode" style="display:none;">
-                                    <a class="codeBtn" href="javascript:void(0)">직접입력</a>
-                                    <a class="codeChk" href="javascript:void(0)" style="display:none;">중복확인</a>
+                                    <input type="text" th:field="*{productCode}" th:style="${isModify} ? 'display:block' : 'display:none'" class="active" readonly>
+                                    <input type="text" name="inputCode" th:style="${!isModify} ? 'display:block' : 'display:none'" class="active">
+                                    <a class="codeBtn" href="javascript:void(0)" th:if="${!isModify}">자동생성</a>
+                                    <a class="codeChk" href="javascript:void(0)" th:if="${!isModify}">중복확인</a>
                                 </div>
                                 <p th:if="${#fields.hasErrors('productCode')}" th:errors="*{productCode}" class="error"></p>
                             </div>
@@ -142,11 +143,14 @@
                         <th><p class="tit">상품 이미지 <span class="star">*</span></p></th>
                         <td>
                             <ul class="txtBox">
-                                <li><input type="file" name="productImgFile" accept="image/*"></li>
-                                <li><input type="file" name="productImgFile" accept="image/*"></li>
-                                <li><input type="file" name="productImgFile" accept="image/*"></li>
-                                <li><input type="file" name="productImgFile" accept="image/*"></li>
-                                <li><input type="file" name="productImgFile" accept="image/*"></li>
+                                <li th:each="i : ${#numbers.sequence(0, 4)}">
+                                    <div th:if="${isModify and productDto.productImages != null and productDto.productImages.size() > i}"
+                                         class="current-image">
+                                        <img th:src="${productDto.productImages[i].imageUrl}" style="max-width: 100px;">
+                                        <p th:text="${productDto.productImages[i].imageName}"></p>
+                                    </div>
+                                    <input type="file" name="productImgFile" accept="image/*">
+                                </li>
                                 <span class="info">권장 사이즈 640px * 640px </span>
                                 <span class="error" th:if="${#fields.hasErrors('productImages')}" th:errors="*{productImages}"></span>
                             </ul>
@@ -316,7 +320,7 @@
                 </table>
             </div>
             <div class="btnWrap">
-                <button type="submit" class="writeBtn">등록</button>
+                <button type="submit" class="writeBtn" th:text="${isModify} ? '수정' : '등록'">등록</button>
             </div>
         </form>
 
@@ -327,126 +331,128 @@
 
 <script th:inline="javascript">
     document.addEventListener('DOMContentLoaded', function() {
-        // 상품 코드 직접 입력 처리
-        const codeBtn = document.querySelector('.codeBtn');
+        const isModify = /*[[${isModify}]]*/ false;
+        console.log('Mode check:', isModify ? 'Modification' : 'Registration');
+
         const productCodeInput = document.querySelector('input[name="productCode"]');
         const inputCode = document.querySelector('input[name="inputCode"]');
+        const codeBtn = document.querySelector('.codeBtn');
         const codeChk = document.querySelector('.codeChk');
-        let isCodeChecked = false;  // 중복확인 여부를 저장하는 변수
+        let isCodeChecked = false;
 
-        if(codeBtn) {
-            // 페이지 로드 시 자동 생성된 코드 가져오기
+        // 수정 모드에서 상품 코드 읽기 전용 처리
+        if (isModify) {
+            console.log('Modification mode - Current product code:', productCodeInput.value);
+            // 수정 모드에서는 이미 등록된 상품코드를 표시하고 관련 버튼 숨김
+            productCodeInput.readOnly = true;
+            if (codeBtn) codeBtn.style.display = 'none';
+            if (codeChk) codeChk.style.display = 'none';
+            if (inputCode) inputCode.style.display = 'none';
+            isCodeChecked = true;
+        } else {
+            // 등록 모드에서는 직접 입력 모드로 시작
+            console.log('Registration mode - Starting with manual input');
+            if (codeBtn) codeBtn.textContent = '자동생성';
+            productCodeInput.style.display = 'none';
+            if (inputCode) {
+                inputCode.style.display = 'block';
+                inputCode.classList.add('active');
+            }
+            if (codeChk) codeChk.style.display = 'block';
+        }
+
+        // 상품 코드 자동 생성 함수
+        function generateNewCode() {
             fetch('/admin/product/generateCode')
                 .then(response => response.text())
                 .then(code => {
+                    console.log('Generated new product code:', code);
                     productCodeInput.value = code;
-                    isCodeChecked = true; // 자동생성된 코드는 중복체크 필요없음
+                    productCodeInput.classList.add('active');
+                    productCodeInput.style.display = 'block';
+                    productCodeInput.readOnly = true;
+                    if (inputCode) {
+                        inputCode.style.display = 'none';
+                        inputCode.classList.remove('active');
+                        inputCode.value = '';
+                    }
+                    if (codeBtn) {
+                        codeBtn.textContent = '직접입력';
+                    }
+                    if (codeChk) {
+                        codeChk.style.display = 'none';
+                    }
+                    isCodeChecked = true;
                 })
                 .catch(error => {
-                    console.error('Error:', error);
+                    console.error('Error generating code:', error);
                     alert('상품코드 생성 중 오류가 발생했습니다.');
                 });
+        }
 
+        // 직접 입력 버튼 이벤트 처리
+        if (codeBtn && !isModify) {
             codeBtn.addEventListener('click', function() {
-                if(productCodeInput.classList.contains('active')) {
-                    // 직접입력 모드로 전환
-                    productCodeInput.classList.remove('active');
-                    productCodeInput.style.display = 'none';
-                    inputCode.style.display = 'block';
-                    inputCode.classList.add('active');
-                    codeBtn.textContent = '자동생성';
-                    codeChk.style.display = 'block';
-                    isCodeChecked = false;  // 직접입력 모드로 전환시 중복확인 상태 초기화
+                if (this.textContent === '자동생성') {
+                    generateNewCode();
                 } else {
-                    // 자동생성 모드로 전환
-                    fetch('/admin/product/generateCode')
-                        .then(response => response.text())
-                        .then(code => {
-                            productCodeInput.value = code;
-                            productCodeInput.classList.add('active');
-                            productCodeInput.style.display = 'block';
-                            inputCode.style.display = 'none';
-                            inputCode.classList.remove('active');
-                            inputCode.value = '';
-                            codeBtn.textContent = '직접입력';
-                            codeChk.style.display = 'none';
-                            isCodeChecked = true;  // 자동생성된 코드는 중복체크 필요없음
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                            alert('상품코드 생성 중 오류가 발생했습니다.');
-                        });
+                    switchToManualInput();
                 }
             });
         }
 
-        // 상품 코드 중복 체크
-        if(codeChk) {
+        // 중복 확인 버튼 이벤트 처리
+        if (codeChk && !isModify) {
             codeChk.addEventListener('click', function() {
                 const code = inputCode.value.trim();
-                if(!code) {
+                if (!code) {
                     alert('상품코드를 입력해주세요.');
                     return;
                 }
 
-                const csrfHeader = document.querySelector('meta[name="_csrf_header"]').content;
-                const csrfToken = document.querySelector('meta[name="_csrf"]').content;
+                // CSRF 토큰 가져오기
+                const token = document.querySelector("meta[name='_csrf']").getAttribute("content");
+                const header = document.querySelector("meta[name='_csrf_header']").getAttribute("content");
 
                 fetch('/admin/product/checkProductCode', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        [csrfHeader]: csrfToken
+                        [header]: token
                     },
                     body: JSON.stringify({ productCode: code })
                 })
                     .then(response => response.json())
-                    .then(exists => {
-                        if(exists) {
+                    .then(isDuplicate => {
+                        if (isDuplicate) {
                             alert('이미 사용중인 상품코드입니다.');
                             isCodeChecked = false;
                         } else {
                             alert('사용 가능한 상품코드입니다.');
+                            productCodeInput.value = code;
                             isCodeChecked = true;
-                            productCodeInput.value = code; // 중복체크 통과한 코드를 실제 필드에 설정
                         }
                     })
                     .catch(error => {
                         console.error('Error:', error);
                         alert('상품코드 중복 확인 중 오류가 발생했습니다.');
-                        isCodeChecked = false;
                     });
             });
         }
 
-        // 입력값이 변경되면 중복확인 상태 초기화
-        if(inputCode) {
-            inputCode.addEventListener('input', function() {
-                isCodeChecked = false;
-                productCodeInput.value = ''; // 직접 입력값이 변경되면 실제 필드 값을 초기화
-            });
+        // 직접 입력 모드로 전환
+        function switchToManualInput() {
+            productCodeInput.classList.remove('active');
+            productCodeInput.style.display = 'none';
+            productCodeInput.readOnly = false;
+            if (inputCode) {
+                inputCode.style.display = 'block';
+                inputCode.classList.add('active');
+            }
+            if (codeBtn) codeBtn.textContent = '자동생성';
+            if (codeChk) codeChk.style.display = 'block';
+            isCodeChecked = false;
         }
-
-        // 폼 제출 시 중복확인 여부 검사
-        const form = document.querySelector('form');
-        form.addEventListener('submit', function(e) {
-            // 직접입력 모드일 때
-            if(inputCode.style.display === 'block') {
-                if(!isCodeChecked) {
-                    alert('상품코드 중복확인을 해주세요.');
-                    e.preventDefault();
-                    return;
-                }
-                // 중복체크 통과한 코드를 다시 한 번 확인
-                if(!productCodeInput.value) {
-                    productCodeInput.value = inputCode.value;
-                }
-            }
-            // 자동생성 모드일 때는 항상 유효
-            if(!validateForm(isCodeChecked)) {
-                e.preventDefault();
-            }
-        });
 
         // 옵션 추가/제거 처리
         const optionList = document.querySelector('.optionList');
@@ -570,21 +576,32 @@
         }
 
         // 폼 유효성 검사 함수
-        function validateForm(isCodeChecked) {
+        function validateForm() {
             let isValid = true;
 
-            // 상품코드 직접입력 모드 검사
+            // 상품코드 검사
             const codeBtn = document.querySelector('.codeBtn');
             const inputCode = document.querySelector('input[name="inputCode"]');
-            if(codeBtn.textContent === '자동생성') {
-                if(!inputCode.value.trim()) {
-                    alert('상품코드를 입력해주세요.');
-                    inputCode.focus();
-                    return false;
-                }
-                if(!isCodeChecked) {
-                    alert('상품코드 중복확인을 해주세요.');
-                    return false;
+            const productCodeInput = document.querySelector('input[name="productCode"]');
+
+            if (!isModify) { // 등록 모드일 때만 검사
+                if (codeBtn.textContent === '자동생성') {
+                    // 직접 입력 모드
+                    if(!inputCode.value.trim()) {
+                        alert('상품코드를 입력해주세요.');
+                        inputCode.focus();
+                        return false;
+                    }
+                    if(!isCodeChecked) {
+                        alert('상품코드 중복확인을 해주세요.');
+                        return false;
+                    }
+                } else {
+                    // 자동생성 모드
+                    if(!productCodeInput.value.trim()) {
+                        alert('상품코드가 생성되지 않았습니다.');
+                        return false;
+                    }
                 }
             }
 

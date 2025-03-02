@@ -70,6 +70,7 @@ public class ProductController {
         model.addAttribute("currentPage", "상품관리");
         model.addAttribute("productDto", productDto);
         model.addAttribute("sellers", manageService.getSellerList(customUserDetails.getUsername()));
+        model.addAttribute("isModify", false); // 등록 모드 설정
         return "admin/product/write";
     }
 
@@ -110,6 +111,7 @@ public class ProductController {
                 System.err.println("Code: " + error.getCode());
             });
             model.addAttribute("sellers", manageService.getSellerList(customUserDetails.getUsername()));
+            model.addAttribute("isModify", false); // 등록 모드 설정
             return "admin/product/write";
         }
 
@@ -138,6 +140,7 @@ public class ProductController {
 
             model.addAttribute("errorMessage", "상품 등록 중 에러가 발생하였습니다: " + e.getMessage());
             model.addAttribute("sellers", manageService.getSellerList(customUserDetails.getUsername()));
+            model.addAttribute("isModify", false);
             return "admin/product/write";
         }
     }
@@ -176,11 +179,39 @@ public class ProductController {
             model.addAttribute("productDto", productDto);
             model.addAttribute("currentPage", "상품관리");
             model.addAttribute("sellers", manageService.getSellerList(customUserDetails.getUsername()));
+            model.addAttribute("isModify", true); // 수정 모드 표시
         } catch (Exception e) {
             model.addAttribute("errorMessage", "상품 정보를 불러오는 중 에러가 발생하였습니다.");
             return "redirect:/admin/product/list";
         }
         return "admin/product/write";
+    }
+
+    /*상품수정 처리*/
+    @PostMapping(value = "/admin/product/modify/{productId}")
+    public String productModify(@Valid ProductDto productDto,
+                                BindingResult bindingResult,
+                                @RequestParam(value = "productImgFile", required = false) List<MultipartFile> productImgFileList,
+                                @PathVariable("productId") Long productId,
+                                Model model,
+                                @AuthenticationPrincipal CustomUserDetails customUserDetails) {
+        if(bindingResult.hasErrors()) {
+            model.addAttribute("sellers", manageService.getSellerList(customUserDetails.getUsername()));
+            model.addAttribute("isModify", true);
+            return "admin/product/write";
+        }
+
+        try {
+            productDto.setId(productId);
+            productService.updateProduct(productDto, productImgFileList);
+        } catch (Exception e) {
+            model.addAttribute("errorMessage", "상품 수정 중 에러가 발생하였습니다.");
+            model.addAttribute("sellers", manageService.getSellerList(customUserDetails.getUsername()));
+            model.addAttribute("isModify", true);
+            return "admin/product/write";
+        }
+
+        return "redirect:/admin/product/list";
     }
 
     /*셀러 상품 리스트*/
