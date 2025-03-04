@@ -95,7 +95,7 @@ public class ProductService {
             .orElseThrow(() -> new IllegalArgumentException("관리자를 찾을 수 없습니다."));
         product.setAdmin(admin);
 
-        // 판매자 설정
+        // Set Manage entities for ProductSellers
         if (product.getProductSellers() != null) {
             System.out.println("Processing " + product.getProductSellers().size() + " sellers");
             for (ProductSeller seller : product.getProductSellers()) {
@@ -129,16 +129,13 @@ public class ProductService {
         if (productImgFileList != null && !productImgFileList.isEmpty()) {
             System.out.println("Processing " + productImgFileList.size() + " images");
             for(int i=0; i<productImgFileList.size(); i++) {
-                try {
-                    boolean isRepImage = i == 0;
+                if(!productImgFileList.get(i).isEmpty()) {
+                    boolean isRepImage = product.getProductImages().isEmpty() && i == 0;
                     ProductImage productImage = fileService.uploadProductImage(productImgFileList.get(i), product, isRepImage);
                     if (productImage != null) {
                         productImageRepository.save(productImage);
-                        System.out.println("Saved image " + (i + 1));
+                        product.getProductImages().add(productImage);
                     }
-                } catch (Exception e) {
-                    System.err.println("Error saving image " + (i + 1) + ": " + e.getMessage());
-                    throw e;
                 }
             }
         }
@@ -169,6 +166,7 @@ public class ProductService {
         Product product = productRepository.findById(productDto.getId())
             .orElseThrow(() -> new IllegalArgumentException("상품이 존재하지 않습니다."));
 
+        // 기본 정보 업데이트
         product.setProductStatus(productDto.getProductStatus());
         product.setProductName(productDto.getProductName());
         product.setProductSummary(productDto.getProductSummary());
@@ -179,17 +177,36 @@ public class ProductService {
         product.setProductStock(productDto.getProductStock());
         product.setProductOptionStatus(productDto.getProductOptionStatus());
 
-        // 기존 이미지 삭제
-        if(productImgFileList != null && !productImgFileList.isEmpty()) {
-            productImageRepository.deleteByProductId(product.getId());
+        // 옵션 정보 업데이트
+        productOptionRepository.deleteByProductId(product.getId());
+        product.getProductOptions().clear();
+        productDto.getProductOptions().forEach(optionDto -> {
+            product.addProductOption(optionDto.createProductOption());
+        });
 
-            // 새 이미지 등록
+        // 판매자 정보 업데이트
+        productSellerRepository.deleteByProductId(product.getId());
+        product.getProductSellers().clear();
+        productDto.getProductSellers().forEach(sellerDto -> {
+            ProductSeller seller = sellerDto.createProductSeller();
+            if (seller.getManage() != null && seller.getManage().getId() != null) {
+                Manage manage = manageRepository.findById(seller.getManage().getId())
+                    .orElseThrow(() -> new IllegalArgumentException("Invalid Manage ID: " + seller.getManage().getId()));
+                seller.setManage(manage);
+            }
+            product.addProductSeller(seller);
+        });
+
+        // 이미지 업데이트
+        if(productImgFileList != null && !productImgFileList.isEmpty()) {
             for(int i=0; i<productImgFileList.size(); i++) {
-                boolean isRepImage = i == 0;
-                ProductImage productImage = fileService.uploadProductImage(productImgFileList.get(i), product, isRepImage);
-                if (productImage != null) {
-                    productImageRepository.save(productImage);
-                    System.out.println("Saved image " + (i + 1));
+                if(!productImgFileList.get(i).isEmpty()) {
+                    boolean isRepImage = product.getProductImages().isEmpty() && i == 0;
+                    ProductImage productImage = fileService.uploadProductImage(productImgFileList.get(i), product, isRepImage);
+                    if (productImage != null) {
+                        productImageRepository.save(productImage);
+                        product.getProductImages().add(productImage);
+                    }
                 }
             }
         }
@@ -216,16 +233,16 @@ public class ProductService {
 
         if (searchKeyword != null && !searchKeyword.trim().isEmpty()) {
             if ("상품코드".equals(searchType)) {
-                productPage = productRepository.findByAdminAndProductCodeContainingOrderByIdDesc(admin, searchKeyword, pageable);
+                productPage = productRepository.findByAdminAndProductCodeContainingOrderByUpdateTimeDesc(admin, searchKeyword, pageable);
             } else if ("제목".equals(searchType)) {
-                productPage = productRepository.findByAdminAndProductNameContainingOrderByIdDesc(admin, searchKeyword, pageable);
+                productPage = productRepository.findByAdminAndProductNameContainingOrderByUpdateTimeDesc(admin, searchKeyword, pageable);
             } else {
                 // 전체 검색: 상품코드 또는 상품명으로 검색
-                productPage = productRepository.findByAdminAndProductCodeContainingOrAdminAndProductNameContainingOrderByIdDesc(
+                productPage = productRepository.findByAdminAndProductCodeContainingOrAdminAndProductNameContainingOrderByUpdateTimeDesc(
                     admin, searchKeyword, admin, searchKeyword, pageable);
             }
         } else {
-            productPage = productRepository.findByAdminOrderByIdDesc(admin, pageable);
+            productPage = productRepository.findByAdminOrderByUpdateTimeDesc(admin, pageable);
         }
 
         return productPage.map(product -> {
