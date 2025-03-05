@@ -3,6 +3,17 @@ $(function() {
     var token = $("meta[name='_csrf']").attr("content");
     var header = $("meta[name='_csrf_header']").attr("content");
 
+    // 현재 도메인 가져오기
+    var currentDomain = window.location.origin;
+
+    // URL 입력 필드에 도메인 추가
+    $('.prodListWrap .urlInput').each(function() {
+        var path = $(this).val();
+        if (path && !path.startsWith('http')) {
+            $(this).val(currentDomain + path);
+        }
+    });
+
     // Ajax 요청 전에 CSRF 토큰을 헤더에 추가
     $.ajaxSetup({
         beforeSend: function(xhr) {
