@@ -1,9 +1,18 @@
-package com.cobuy.service;
+package com.cobuy.service.impl;
 
 import com.cobuy.dto.CartItemDto;
 import com.cobuy.dto.ProductImageDto;
-import com.cobuy.entity.*;
-import com.cobuy.repository.*;
+import com.cobuy.entity.Cart;
+import com.cobuy.entity.Product;
+import com.cobuy.entity.User;
+import com.cobuy.entity.Admin;
+import com.cobuy.entity.Seller;
+import com.cobuy.repository.CartRepository;
+import com.cobuy.repository.ProductRepository;
+import com.cobuy.repository.UserRepository;
+import com.cobuy.repository.AdminRepository;
+import com.cobuy.repository.SellerRepository;
+import com.cobuy.service.CartService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -47,8 +56,6 @@ public class CartServiceImpl implements CartService {
     public List<CartItemDto> getCartItems() {
         String userId = getCurrentUserId();
         String memberType = getCurrentMemberType();
-        String adminId = null;
-        String sellerId = null;
 
         List<Cart> cartItems;
         switch (memberType) {
@@ -56,10 +63,10 @@ public class CartServiceImpl implements CartService {
                 cartItems = cartRepository.findByUser_UserIdOrderByRegTimeDesc(userId);
                 break;
             case "ADMIN":
-                cartItems = cartRepository.findByAdmin_AdminIdOrderByRegTimeDesc(adminId);
+                cartItems = cartRepository.findByAdmin_AdminIdOrderByRegTimeDesc(userId);
                 break;
             case "SELLER":
-                cartItems = cartRepository.findBySeller_SellerIdOrderByRegTimeDesc(sellerId);
+                cartItems = cartRepository.findBySeller_SellerIdOrderByRegTimeDesc(userId);
                 break;
             default:
                 throw new IllegalArgumentException("Invalid member type: " + memberType);
@@ -91,8 +98,24 @@ public class CartServiceImpl implements CartService {
         String adminId = product.getAdmin().getAdminId();
         System.out.println("Product Admin ID: " + adminId);
 
-        // 기존 장바구니 항목 확인
-        Cart existingCart = cartRepository.findByMemberTypeIdAndProductId(userId, adminId, null, product.getId());
+        // 회원 타입별로 기존 장바구니 항목 확인
+        Cart existingCart = null;
+        switch (memberType) {
+            case "USER":
+                existingCart = cartRepository.findByUser_UserIdAndProduct_IdAndSelectedOptions(
+                    userId, product.getId(), cartItemDto.getSelectedOptions());
+                break;
+            case "ADMIN":
+                existingCart = cartRepository.findByAdmin_AdminIdAndProduct_IdAndSelectedOptions(
+                    userId, product.getId(), cartItemDto.getSelectedOptions());
+                break;
+            case "SELLER":
+                existingCart = cartRepository.findBySeller_SellerIdAndProduct_IdAndSelectedOptions(
+                    userId, product.getId(), cartItemDto.getSelectedOptions());
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid member type: " + memberType);
+        }
         System.out.println("Existing Cart Item: " + existingCart);
 
         if (existingCart != null) {
@@ -136,12 +159,27 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
+    @Transactional
     public void updateCartItem(CartItemDto cartItemDto) {
+        System.out.println("\n=== CartServiceImpl.updateCartItem Start ===");
+        System.out.println("CartItemDto: " + cartItemDto);
+
         Cart cart = cartRepository.findById(cartItemDto.getId())
             .orElseThrow(() -> new EntityNotFoundException("장바구니 상품을 찾을 수 없습니다."));
 
+        System.out.println("Found Cart Item: " + cart);
+        System.out.println("Current Quantity: " + cart.getQuantity());
+        System.out.println("New Quantity: " + cartItemDto.getQuantity());
+        System.out.println("Current Options: " + cart.getSelectedOptions());
+        System.out.println("New Options: " + cartItemDto.getSelectedOptions());
+
         cart.updateQuantity(cartItemDto.getQuantity());
         cart.updateSelectedOptions(cartItemDto.getSelectedOptions());
+
+        // 변경사항 저장
+        cartRepository.save(cart);
+        System.out.println("Cart item updated successfully");
+        System.out.println("=== CartServiceImpl.updateCartItem End ===\n");
     }
 
     @Override
@@ -160,7 +198,8 @@ public class CartServiceImpl implements CartService {
         }
         dto.setProductCode(cart.getProduct().getProductCode());
         dto.setProductName(cart.getProduct().getProductName());
-        dto.setSelectedOptions(cart.getSelectedOptions());
+        // selectedOptions 설정 (null 체크 제거)
+        dto.setSelectedOptions(cart.getSelectedOptions() != null ? cart.getSelectedOptions() : "");
         dto.setQuantity(cart.getQuantity());
         dto.setProductOriPrice(cart.getProduct().getProductOriPrice());
         dto.setProductSalePrice(cart.getProductSalePrice());

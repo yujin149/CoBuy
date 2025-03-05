@@ -3,6 +3,7 @@ package com.cobuy.controller;
 import com.cobuy.dto.CartItemDto;
 import com.cobuy.service.CartService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -11,14 +12,14 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/cart")
 public class CartController {
 
     private final CartService cartService;
 
-    @GetMapping("/cart")
+    @GetMapping
     public String cartList(Model model) {
         model.addAttribute("pageTitle", "장바구니");
-        // TODO: 실제 로그인한 사용자의 장바구니 목록을 가져오도록 수정
         List<CartItemDto> cartItems = cartService.getCartItems();
 
         // 총 상품 금액 계산
@@ -26,9 +27,10 @@ public class CartController {
             .mapToInt(item -> item.getProductSalePrice() * item.getQuantity())
             .sum();
 
-        // 총 배송비 계산 (각 상품의 배송비 합계)
+        // 총 배송비 계산 (상품당 한 번만)
         int totalDeliveryFee = cartItems.stream()
             .mapToInt(CartItemDto::getProductFee)
+            .distinct()
             .sum();
 
         // 총 결제 예상 금액
@@ -42,36 +44,44 @@ public class CartController {
         return "mypage/cart";
     }
 
-    @PostMapping("/cart/add")
+    @PostMapping("/add")
     @ResponseBody
-    public String addToCart(@RequestBody CartItemDto cartItemDto) {
+    public ResponseEntity<?> addToCart(@RequestBody CartItemDto cartItemDto) {
         try {
             cartService.addToCart(cartItemDto);
-            return "success";
+            return ResponseEntity.ok().body("장바구니에 상품이 추가되었습니다.");
         } catch (Exception e) {
-            return "error: " + e.getMessage();
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
-    @PostMapping("/cart/update")
+    @PostMapping("/update")
     @ResponseBody
-    public String updateCartItem(@RequestBody CartItemDto cartItemDto) {
+    public ResponseEntity<?> updateCartItem(@RequestBody CartItemDto cartItemDto) {
         try {
+            System.out.println("=== CartController.updateCartItem Start ===");
+            System.out.println("CartItemDto: " + cartItemDto);
+            System.out.println("Selected Options: " + cartItemDto.getSelectedOptions());
+
             cartService.updateCartItem(cartItemDto);
-            return "success";
+
+            System.out.println("=== CartController.updateCartItem End ===");
+            return ResponseEntity.ok().body("장바구니가 수정되었습니다.");
         } catch (Exception e) {
-            return "error: " + e.getMessage();
+            System.err.println("Error updating cart item: " + e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
-    @PostMapping("/cart/delete/{id}")
+    @PostMapping("/delete/{id}")
     @ResponseBody
-    public String deleteCartItem(@PathVariable Long id) {
+    public ResponseEntity<?> deleteCartItem(@PathVariable Long id) {
         try {
             cartService.deleteCartItem(id);
-            return "success";
+            return ResponseEntity.ok().body("장바구니에서 상품이 삭제되었습니다.");
         } catch (Exception e) {
-            return "error: " + e.getMessage();
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 }

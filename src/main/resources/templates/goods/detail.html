@@ -56,7 +56,7 @@
                     </li>
                 </ul>
 
-                <div class="optionList" th:if="${product.productOptionStatus != null and product.productOptionStatus == T(com.cobuy.constant.ProductOptionStatus).OPTION_ON and not #lists.isEmpty(product.productOptions)}">
+                <div class="optionList" th:if="${product.productOptionStatus != null and product.productOptionStatus.name() == 'OPTION_ON' and not #lists.isEmpty(product.productOptions)}">
                     <div th:each="option, stat : ${product.productOptions}">
                         <p class="tit" th:text="${option.optionName}">옵션</p>
                         <select th:id="'prodOpt' + ${stat.index}" class="prodOpt" th:name="'prodOpt' + ${stat.index}">
@@ -68,7 +68,7 @@
                     </div>
                 </div>
 
-                <ul class="prodCntWrap" th:if="${product.productOptionStatus == T(com.cobuy.constant.ProductOptionStatus).OPTION_OFF}">
+                <ul class="prodCntWrap" th:if="${product.productOptionStatus != null and product.productOptionStatus.name() == 'OPTION_OFF'}">
                     <li>
                         <div class="leftBox">
                             <p class="tit" th:text="${product.productName}">상품명</p>
@@ -369,20 +369,21 @@
             })
                 .then(response => {
                     console.log('Response status:', response.status);
+                    if (!response.ok) {
+                        return response.text().then(text => {
+                            throw new Error(text || '장바구니 추가에 실패했습니다.');
+                        });
+                    }
                     return response.text();
                 })
                 .then(result => {
                     console.log('Response result:', result);
-                    if (result === 'success') {
-                        alert('장바구니에 상품이 추가되었습니다.');
-                        window.location.href = '/cart';
-                    } else {
-                        alert('장바구니 추가 중 오류가 발생했습니다.');
-                    }
+                    alert(result || '장바구니에 상품이 추가되었습니다.');
+                    window.location.href = '/cart';
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    alert('장바구니 추가 중 오류가 발생했습니다.');
+                    alert(error.message || '장바구니 추가 중 오류가 발생했습니다. 다시 시도해주세요.');
                 });
         }
     </script>
