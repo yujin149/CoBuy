@@ -63,4 +63,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     Page<Product> findByAdminAndProductCodeContainingOrAdminAndProductNameContainingOrderByUpdateTimeDesc(
         Admin admin, String codeKeyword, Admin admin2, String nameKeyword, Pageable pageable);
+
+    // 상품 코드와 관리자로 상품 조회
+    Optional<Product> findByProductCodeAndAdmin(String productCode, Admin admin);
 }

@@ -65,6 +65,8 @@ public class ProductDto {
 
     private List<ProductSellerDto> productSellers = new ArrayList<>();
 
+    private ProductSellerDto currentSeller; // 현재 조회 중인 셀러 정보
+
     private String shopUrl; // 상품 상세 페이지 URL
 
     @AssertTrue(message = "옵션을 입력해주세요.")

@@ -266,4 +266,33 @@ public class ProductService {
             return dto;
         });
     }
+
+    // 상품 코드와 관리자 ID로 상품 조회
+    @Transactional(readOnly = true)
+    public ProductDto getProductByCode(String productCode, String adminId) {
+        Admin admin = adminRepository.findByAdminId(adminId)
+            .orElseThrow(() -> new IllegalArgumentException("관리자를 찾을 수 없습니다."));
+
+        Product product = productRepository.findByProductCodeAndAdmin(productCode, admin)
+            .orElseThrow(() -> new IllegalArgumentException("상품을 찾을 수 없습니다."));
+
+        ProductDto productDto = new ProductDto(product);
+
+        // URL 생성
+        String baseUrl = "/product/detail/" + adminId + product.getProductCode();
+        productDto.setShopUrl(baseUrl);
+
+        // 판매자별 URL 설정
+        if (productDto.getProductSellers() != null) {
+            productDto.getProductSellers().forEach(seller -> {
+                Manage manage = manageRepository.findById(seller.getManageId())
+                    .orElseThrow(() -> new IllegalArgumentException("Manage 정보를 찾을 수 없습니다."));
+                String sellerId = manage.getSellerId().getSellerId();
+                String sellerUrl = baseUrl + "/" + sellerId;
+                seller.setProductUrl(sellerUrl);
+            });
+        }
+
+        return productDto;
+    }
 }
