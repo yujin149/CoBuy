@@ -32,13 +32,13 @@
                 <ul class="info">
                     <li>
                         <p class="tit">정상가</p>
-                        <p class="txt"><span class="cost" th:text="${#numbers.formatInteger(product.productOriPrice, 3, 'COMMA')} + '원'">50,000원</span></p>
+                        <p class="txt"><span class="cost" th:text="${#numbers.formatInteger(product.productOriPrice, 0, 'COMMA')} + '원'">50,000원</span></p>
                     </li>
                     <li class="discount">
                         <p class="tit">판매가</p>
                         <p class="txt">
                             <span class="percent" th:text="${#numbers.formatInteger(T(java.lang.Math).ceil((product.productOriPrice - product.productSalePrice) * 100.0 / product.productOriPrice), 0, 'COMMA')} + '%'">36%</span>
-                            <span th:text="${#numbers.formatInteger(product.productSalePrice, 3, 'COMMA')} + '원'">31,900원</span>
+                            <span th:text="${#numbers.formatInteger(product.productSalePrice, 0, 'COMMA')} + '원'">31,900원</span>
                         </p>
                     </li>
                     <li>
@@ -52,7 +52,7 @@
                     <li class="delivery">
                         <p class="tit">배송비</p>
                         <p class="txt">
-                            <span class="bold" th:text="${#numbers.formatInteger(product.productFee, 3, 'COMMA')} + '원'">2,500원</span>
+                            <span class="bold" th:text="${#numbers.formatInteger(product.productFee, 0, 'COMMA')} + '원'">2,500원</span>
                         </p>
                     </li>
                 </ul>
@@ -79,13 +79,13 @@
                                 <span class="minus">-</span>
                             </div>
                         </div>
-                        <p class="price" th:text="${#numbers.formatInteger(product.productSalePrice, 3, 'COMMA')} + '원'">31,900원</p>
+                        <p class="price" th:text="${#numbers.formatInteger(product.productSalePrice, 0, 'COMMA')} + '원'">31,900원</p>
                     </li>
                 </ul>
                 <div class="totalPrice">
                     <p class="tit">총 상품 금액</p>
                     <p class="total">
-                        <span th:text="${#numbers.formatInteger(product.productSalePrice, 3, 'COMMA')} + '원'">31,900원</span>
+                        <span th:text="${#numbers.formatInteger(product.productSalePrice, 0, 'COMMA')} + '원'">31,900원</span>
                         <span class="count">(1개)</span>
                     </p>
                 </div>
