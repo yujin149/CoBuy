@@ -39,10 +39,10 @@ public class MemberController {
     /*아이디 찾기 완료*/
     @GetMapping(value = "/findId")
     public String findUserProcess(
-            @RequestParam String findType,
-            @RequestParam(required = false) String userEmail,
-            @RequestParam(required = false) String userPhone,
-            Model model) {
+        @RequestParam String findType,
+        @RequestParam(required = false) String userEmail,
+        @RequestParam(required = false) String userPhone,
+        Model model) {
         try {
             String userId;
             if (findType.equals("email")) {
@@ -56,8 +56,8 @@ public class MemberController {
                     throw new IllegalStateException("올바른 전화번호 형식이 아닙니다.");
                 }
                 // 전화번호 형식 변환 (01012345678 -> 010-1234-5678)
-                String formattedPhone = userPhone.substring(0, 3) + "-" 
-                    + userPhone.substring(3, 7) + "-" 
+                String formattedPhone = userPhone.substring(0, 3) + "-"
+                    + userPhone.substring(3, 7) + "-"
                     + userPhone.substring(7);
                 userId = userService.findUserIdByPhone(formattedPhone);
             }
@@ -68,7 +68,7 @@ public class MemberController {
             model.addAttribute("error", e.getMessage());
             return "member/findId";
         }
-    }    
+    }
 
 
     /*비밀번호 재설정*/

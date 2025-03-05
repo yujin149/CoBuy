@@ -15,12 +15,7 @@ public class MypageController {
         return "mypage/profile";
     }
 
-    /*장바구니*/
-    @GetMapping(value = "/cart")
-    public String cart(Model model) {
-        model.addAttribute("pageTitle", "장바구니");
-        return "mypage/cart";
-    }
+
 
     /*구매내역*/
     @GetMapping(value = "/order")

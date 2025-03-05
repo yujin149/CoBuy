@@ -13,6 +13,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class GoodsController {
     private final ProductService productService;
 
+    /*최근 본 상품*/
+    @GetMapping(value = "/product")
+    public String product(Model model) {
+        model.addAttribute("pageTitle", "최근 본 상품");
+        return "goods/list";
+    }
+
     /*상품 상세페이지 - 일반*/
     @GetMapping(value = "/product/detail/{adminId}/{productCode}")
     public String productDetail(@PathVariable String adminId,

@@ -66,6 +66,9 @@ public class SecurityConfig {
                 .requestMatchers(new AntPathRequestMatcher("/product")).permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/product/**")).permitAll()
 
+                // 장바구니 관련 엔드포인트는 로그인한 사용자만 사용가능
+                .requestMatchers(new AntPathRequestMatcher("/cart/**")).hasAnyRole("USER", "SELLER", "ADMIN")
+
                 // 검색 API 접근 허용
                 .requestMatchers(new AntPathRequestMatcher("/admin/search")).permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/seller/search")).permitAll()

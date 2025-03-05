@@ -11,104 +11,186 @@
         <div class="allChkBox">
             <label for="allChk">
                 <input type="checkbox" id="allChk">
-                <p class="tit">전체선택 <span class="pl">(</span><span class="chkCount">1</span> / <span class="total">12</span><span class="pl">)</span></p>
+                <p class="tit">전체선택 <span class="pl">(</span><span class="chkCount">0</span> / <span class="total" th:text="${#lists.size(cartItems)}">0</span><span class="pl">)</span></p>
             </label>
             <a href="#" class="deleteBtn">선택 삭제</a>
         </div>
         <div class="mypageInner">
-            <div class="noneProd">
-                <p class="title">장바구니에 담긴 상품이 없어요</p>
+            <div class="noneProd" th:if="${#lists.isEmpty(cartItems)}">
+                <p class="title">장바구니에 담긴 상품이 없습니다.</p>
                 <p class="txt">원하는 상품을 담아보세요</p>
-
                 <a href="/product" class="moreBtn">상품 보러 가기</a>
             </div>
-            <ul class="cartList">
-                <li>
+            <ul class="cartList" th:if="${not #lists.isEmpty(cartItems)}">
+                <li th:each="item : ${cartItems}">
                     <div class="list">
-                        <input type="checkbox" class="prodChk">
+                        <input type="checkbox" class="prodChk" th:data-id="${item.id}">
                         <div class="prodInfoWrap">
                             <div class="prodBox">
-                                <a href="/product/detail" class="prodImg">
-                                    <img src="https://picsum.photos/800/800"/>
+                                <a th:href="@{'/product/detail/' + ${item.adminId} + '/' + ${item.productCode}}" class="prodImg">
+                                    <img th:src="${item.productImages[0].imageUrl}" th:alt="${item.productName}"/>
                                 </a>
                                 <div class="txtBox">
-                                    <p class="tit">로우 플리츠 니트스커트</p>
-                                    <p class="option"><span>아이보리</span><span>FREE</span></p>
+                                    <p class="tit" th:text="${item.productName}">상품명</p>
+                                    <p class="option" th:if="${item.selectedOptions != null and not #strings.isEmpty(item.selectedOptions)}">
+                                        <span th:text="${item.selectedOptions}">옵션</span>
+                                    </p>
                                     <div class="prodPrice">
                                         <div class="countBox">
-                                            <input type="number" value="1" >
+                                            <input type="number" th:value="${item.quantity}" th:min="1" th:max="${item.productStock}">
                                             <span class="plus">+</span>
                                             <span class="minus">-</span>
                                         </div>
                                         <div class="priceInfo">
-                                            <p class="oriPrice">60,000원</p>
-                                            <p class="price">43,000원</p>
+                                            <p class="oriPrice" th:text="${#numbers.formatInteger(item.productOriPrice, 0, 'COMMA')} + '원'">60,000원</p>
+                                            <p class="price" th:text="${#numbers.formatInteger(item.productSalePrice, 0, 'COMMA')} + '원'">43,000원</p>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
-
-                        <a href="#" class="deleteBtn">삭제</a>
-                    </div>
-                    <div class="list">
-                        <input type="checkbox" class="prodChk">
-                        <div class="prodInfoWrap">
-                            <div class="prodBox">
-                                <a href="/product/detail" class="prodImg">
-                                    <img src="https://picsum.photos/800/800"/>
-                                </a>
-                                <div class="txtBox">
-                                    <p class="tit">로우 플리츠 니트스커트</p>
-                                    <p class="option"><span>아이보리</span><span>FREE</span></p>
-                                    <div class="prodPrice">
-                                        <div class="countBox">
-                                            <input type="number" value="1" >
-                                            <span class="plus">+</span>
-                                            <span class="minus">-</span>
-                                        </div>
-                                        <div class="priceInfo">
-                                            <p class="oriPrice">60,000원</p>
-                                            <p class="price">43,000원</p>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <a href="#" class="deleteBtn">삭제</a>
                     </div>
                     <p class="totalPrice">
-                        <span class="prod">상품 금액 43,000원</span>
+                        <span class="prod">상품 금액 <span th:text="${#numbers.formatInteger(item.productSalePrice * item.quantity, 0, 'COMMA')} + '원'">43,000원</span></span>
                         <span>+</span>
-                        <span class="fee">배송비 2,500원</span>
+                        <span class="fee">배송비 <span th:text="${#numbers.formatInteger(item.productFee, 0, 'COMMA')} + '원'">2,500원</span></span>
                         <span>=</span>
-                        <span class="total">45,500원</span>
+                        <span class="total" th:text="${#numbers.formatInteger((item.productSalePrice * item.quantity) + item.productFee, 0, 'COMMA')} + '원'">45,500원</span>
                     </p>
+                    <a href="#" class="deleteBtn" th:data-id="${item.id}">삭제</a>
                 </li>
-
             </ul>
-            <ul class="totalInfo">
+            <ul class="totalInfo" th:if="${not #lists.isEmpty(cartItems)}">
                 <li>
                     <p class="tit">총 상품 금액</p>
-                    <p class="txt">103,000원</p>
+                    <p class="txt" th:text="${#numbers.formatInteger(totalProductPrice, 0, 'COMMA')} + '원'">103,000원</p>
                 </li>
                 <li>
                     <p class="tit">총 배송비</p>
-                    <p class="txt">2,500원</p>
+                    <p class="txt" th:text="${#numbers.formatInteger(totalDeliveryFee, 0, 'COMMA')} + '원'">2,500원</p>
                 </li>
                 <li class="total">
                     <p class="tit">총 결제예상 금액</p>
-                    <p class="txt">105,500원</p>
+                    <p class="txt" th:text="${#numbers.formatInteger(totalPrice, 0, 'COMMA')} + '원'">105,500원</p>
                 </li>
             </ul>
         </div>
-        <div class="orderBtnWrap">
-            <a href="/pay">총 <span class="price">105,500원</span> 구매하기</a>
+        <div class="orderBtnWrap" th:if="${not #lists.isEmpty(cartItems)}">
+            <a href="/pay">총 <span class="price" th:text="${#numbers.formatInteger(totalPrice, 0, 'COMMA')} + '원'">105,500원</span> 구매하기</a>
         </div>
     </div>
 </div>
+
+<th:block layout:fragment="script">
+    <script th:inline="javascript">
+        $(function() {
+            // 전체 선택 체크박스
+            $('#allChk').change(function() {
+                $('.prodChk').prop('checked', $(this).prop('checked'));
+                updateChkCount();
+            });
+
+            // 개별 체크박스
+            $('.prodChk').change(function() {
+                updateChkCount();
+            });
+
+            // 체크된 항목 수 업데이트
+            function updateChkCount() {
+                const checkedCount = $('.prodChk:checked').length;
+                $('.chkCount').text(checkedCount);
+            }
+
+            // 수량 변경 이벤트
+            $('.countBox input').change(function() {
+                const input = $(this);
+                const value = parseInt(input.val());
+                const maxValue = parseInt(input.attr('max'));
+
+                if (value < 1) {
+                    alert("최소 구매 수량은 1개입니다.");
+                    input.val(1).trigger('change');
+                } else if (value > maxValue) {
+                    alert("더 이상 재고가 없습니다!");
+                    input.val(maxValue).trigger('change');
+                }
+
+                updateItemTotal($(this).closest('li'));
+            });
+
+            // 수량 증가 버튼
+            $('.countBox .plus').click(function() {
+                const input = $(this).siblings('input');
+                const currentValue = parseInt(input.val());
+                const maxValue = parseInt(input.attr('max'));
+
+                if (currentValue < maxValue) {
+                    input.val(currentValue + 1).trigger('change');
+                } else {
+                    alert("더 이상 재고가 없습니다!");
+                }
+            });
+
+            // 수량 감소 버튼
+            $('.countBox .minus').click(function() {
+                const input = $(this).siblings('input');
+                const currentValue = parseInt(input.val());
+
+                if (currentValue > 1) {
+                    input.val(currentValue - 1).trigger('change');
+                } else {
+                    alert("최소 구매 수량은 1개입니다.");
+                }
+            });
+
+            // 개별 상품 총액 업데이트
+            function updateItemTotal(item) {
+                const quantity = parseInt(item.find('.countBox input').val());
+                const price = parseInt(item.find('.price').text().replace(/[^0-9]/g, ''));
+                const fee = parseInt(item.find('.fee').text().replace(/[^0-9]/g, ''));
+
+                const total = (price * quantity) + fee;
+
+                item.find('.totalPrice .prod span').text(price * quantity + '원');
+                item.find('.totalPrice .total').text(total + '원');
+
+                updateCartTotal();
+            }
+
+            // 장바구니 전체 총액 업데이트
+            function updateCartTotal() {
+                let totalProductPrice = 0;
+                let totalDeliveryFee = 0;
+
+                $('.cartList li').each(function() {
+                    const quantity = parseInt($(this).find('.countBox input').val());
+                    const price = parseInt($(this).find('.price').text().replace(/[^0-9]/g, ''));
+                    const fee = parseInt($(this).find('.fee').text().replace(/[^0-9]/g, ''));
+
+                    totalProductPrice += price * quantity;
+                    totalDeliveryFee += fee;
+                });
+
+                const totalPrice = totalProductPrice + totalDeliveryFee;
+
+                $('.totalInfo .totalProductPrice').text(totalProductPrice + '원');
+                $('.totalInfo .totalDeliveryFee').text(totalDeliveryFee + '원');
+                $('.totalInfo .totalPrice').text(totalPrice + '원');
+                $('.orderBtnWrap .price').text(totalPrice + '원');
+            }
+
+            // 삭제 버튼 클릭
+            $('.deleteBtn').click(function(e) {
+                e.preventDefault();
+                if (confirm('선택한 상품을 삭제하시겠습니까?')) {
+                    const itemId = $(this).data('id');
+                    // TODO: 서버에 삭제 요청 보내기
+                    $(this).closest('li').remove();
+                    updateCartTotal();
+                }
+            });
+        });
+    </script>
+</th:block>
 </body>
 </html>

@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 @ToString
 public class ProductDto {
     private Long id;
+    private String adminId;  // 추가된 필드
 
     private LocalDateTime regTime;    // 등록일
     private LocalDateTime updateTime; // 수정일
@@ -85,6 +86,7 @@ public class ProductDto {
     // Entity -> DTO 변환 생성자
     public ProductDto(Product product) {
         this.id = product.getId();
+        this.adminId = product.getAdmin().getAdminId();
         this.regTime = product.getRegTime();
         this.updateTime = product.getUpdateTime();
         this.createdBy = product.getCreatedBy();

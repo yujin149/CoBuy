@@ -3,7 +3,6 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org">
 
-
 <body class="productCont">
 <div layout:fragment="content">
     <div class="prodDetailWrap">
@@ -57,7 +56,7 @@
                     </li>
                 </ul>
 
-                <div class="optionList" th:if="${product.productOptionStatus == T(com.cobuy.constant.ProductOptionStatus).OPTION_ON and not #lists.isEmpty(product.productOptions)}">
+                <div class="optionList" th:if="${product.productOptionStatus != null and product.productOptionStatus == T(com.cobuy.constant.ProductOptionStatus).OPTION_ON and not #lists.isEmpty(product.productOptions)}">
                     <div th:each="option, stat : ${product.productOptions}">
                         <p class="tit" th:text="${option.optionName}">옵션</p>
                         <select th:id="'prodOpt' + ${stat.index}" class="prodOpt" th:name="'prodOpt' + ${stat.index}">
@@ -91,7 +90,7 @@
                 </div>
 
                 <div class="buyWrap">
-                    <a class="cartBtn" href="/cart">장바구니 담기</a>
+                    <a class="cartBtn" href="#" onclick="addToCart(event)">장바구니 담기</a>
                     <a class="payBtn" href="/pay">결제하기</a>
                 </div>
             </div>
@@ -307,6 +306,85 @@
                 $(this).val(maxValue).trigger('change');
             }
         });
+
+        // 장바구니에 상품 추가
+        function addToCart(event) {
+            event.preventDefault();
+
+            const productId = /*[[${product.id}]]*/ '';
+            const adminId = /*[[${product.adminId}]]*/ '';
+            const productCode = /*[[${product.productCode}]]*/ '';
+            const productName = /*[[${product.productName}]]*/ '';
+            const productOriPrice = /*[[${product.productOriPrice}]]*/ 0;
+            const productSalePrice = /*[[${product.productSalePrice}]]*/ 0;
+            const productStock = /*[[${product.productStock}]]*/ 0;
+            const productFee = /*[[${product.productFee}]]*/ 0;
+
+            let selectedOptions = '';
+            const optionSelects = document.querySelectorAll('.prodOpt');
+            if (optionSelects.length > 0) {
+                selectedOptions = Array.from(optionSelects)
+                    .map(select => select.value)
+                    .filter(value => value !== '선택')
+                    .join(' / ');
+            }
+
+            const quantity = parseInt(document.querySelector('.prodCntWrap input[type="number"]').value);
+
+            const cartItem = {
+                id: productId,
+                adminId: adminId,
+                productCode: productCode,
+                productName: productName,
+                selectedOptions: selectedOptions,
+                quantity: quantity,
+                productOriPrice: productOriPrice,
+                productSalePrice: productSalePrice,
+                productStock: productStock,
+                productFee: productFee,
+                imageUrl: document.querySelector('.prodImgSlide img').src
+            };
+
+            console.log('=== Cart Request Data ===');
+            console.log('Product ID:', productId);
+            console.log('Admin ID:', adminId);
+            console.log('Product Code:', productCode);
+            console.log('Product Name:', productName);
+            console.log('Selected Options:', selectedOptions);
+            console.log('Quantity:', quantity);
+            console.log('Product Sale Price:', productSalePrice);
+            console.log('Product Fee:', productFee);
+            console.log('Image URL:', cartItem.imageUrl);
+            console.log('CSRF Token:', /*[[${_csrf.token}]]*/ '');
+            console.log('=====================');
+
+            // 장바구니에 상품 추가
+            fetch('/cart/add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': /*[[${_csrf.token}]]*/ ''
+                },
+                body: JSON.stringify(cartItem)
+            })
+                .then(response => {
+                    console.log('Response status:', response.status);
+                    return response.text();
+                })
+                .then(result => {
+                    console.log('Response result:', result);
+                    if (result === 'success') {
+                        alert('장바구니에 상품이 추가되었습니다.');
+                        window.location.href = '/cart';
+                    } else {
+                        alert('장바구니 추가 중 오류가 발생했습니다.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('장바구니 추가 중 오류가 발생했습니다.');
+                });
+        }
     </script>
 </th:block>
 </body>

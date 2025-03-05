@@ -39,10 +39,10 @@ public class SellerController {
     /*셀러 아이디 찾기 완료*/
     @PostMapping(value = "/seller/find")
     public String findSellerProcess(
-            @RequestParam String findType,
-            @RequestParam(required = false) String sellerEmail,
-            @RequestParam(required = false) String sellerPhone,
-            Model model) {
+        @RequestParam String findType,
+        @RequestParam(required = false) String sellerEmail,
+        @RequestParam(required = false) String sellerPhone,
+        Model model) {
         try {
             String sellerId;
             if (findType.equals("email")) {
@@ -56,8 +56,8 @@ public class SellerController {
                     throw new IllegalStateException("올바른 전화번호 형식이 아닙니다.");
                 }
                 // 전화번호 형식 변환 (01012345678 -> 010-1234-5678)
-                String formattedPhone = sellerPhone.substring(0, 3) + "-" 
-                    + sellerPhone.substring(3, 7) + "-" 
+                String formattedPhone = sellerPhone.substring(0, 3) + "-"
+                    + sellerPhone.substring(3, 7) + "-"
                     + sellerPhone.substring(7);
                 sellerId = sellerService.findSellerIdByPhone(formattedPhone);
             }

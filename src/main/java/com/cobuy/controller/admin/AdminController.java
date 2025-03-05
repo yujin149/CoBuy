@@ -42,10 +42,10 @@ public class AdminController {
     /*업체 아이디 찾기 완료*/
     @PostMapping(value = "/admin/find")
     public String findAdminProcess(
-            @RequestParam String findType,
-            @RequestParam(required = false) String adminEmail,
-            @RequestParam(required = false) String adminPhone,
-            Model model) {
+        @RequestParam String findType,
+        @RequestParam(required = false) String adminEmail,
+        @RequestParam(required = false) String adminPhone,
+        Model model) {
         try {
             String adminId;
             if (findType.equals("email")) {
@@ -59,8 +59,8 @@ public class AdminController {
                     throw new IllegalStateException("올바른 전화번호 형식이 아닙니다.");
                 }
                 // 전화번호 형식 변환 (01012345678 -> 010-1234-5678)
-                String formattedPhone = adminPhone.substring(0, 3) + "-" 
-                    + adminPhone.substring(3, 7) + "-" 
+                String formattedPhone = adminPhone.substring(0, 3) + "-"
+                    + adminPhone.substring(3, 7) + "-"
                     + adminPhone.substring(7);
                 adminId = adminService.findAdminIdByPhone(formattedPhone);
             }
