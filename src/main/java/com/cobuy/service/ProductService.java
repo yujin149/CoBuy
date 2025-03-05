@@ -248,7 +248,7 @@ public class ProductService {
         return productPage.map(product -> {
             ProductDto dto = new ProductDto(product);
             // URL 생성
-            String baseUrl = "/product/detail/" + adminId + product.getProductCode();
+            String baseUrl = "/product/detail/" + adminId + "/" + product.getProductCode();
             dto.setShopUrl(baseUrl);
 
             // 판매자별 URL 설정
@@ -258,7 +258,7 @@ public class ProductService {
                     Manage manage = manageRepository.findById(seller.getManageId())
                         .orElseThrow(() -> new IllegalArgumentException("Manage 정보를 찾을 수 없습니다."));
                     String sellerId = manage.getSellerId().getSellerId();
-                    String sellerUrl = baseUrl + sellerId;
+                    String sellerUrl = baseUrl + "/" + sellerId;
                     seller.setProductUrl(sellerUrl);
                 });
             }
@@ -279,7 +279,7 @@ public class ProductService {
         ProductDto productDto = new ProductDto(product);
 
         // URL 생성
-        String baseUrl = "/product/detail/" + adminId + product.getProductCode();
+        String baseUrl = "/product/detail/" + adminId + "/" + product.getProductCode();
         productDto.setShopUrl(baseUrl);
 
         // 판매자별 URL 설정

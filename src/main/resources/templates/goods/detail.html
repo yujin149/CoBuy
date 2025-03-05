@@ -9,24 +9,9 @@
     <div class="prodDetailWrap">
         <div class="swiper prodImgSlide">
             <ul class="swiper-wrapper">
-                <li class="swiper-slide">
+                <li class="swiper-slide" th:each="image : ${product.productImages}">
                     <div class="imgBox">
-                        <img src="https://picsum.photos/800/800"/>
-                    </div>
-                </li>
-                <li class="swiper-slide">
-                    <div class="imgBox">
-                        <img src="https://picsum.photos/700/900"/>
-                    </div>
-                </li>
-                <li class="swiper-slide">
-                    <div class="imgBox">
-                        <img src="https://picsum.photos/900/700"/>
-                    </div>
-                </li>
-                <li class="swiper-slide">
-                    <div class="imgBox">
-                        <img src="https://picsum.photos/600/600"/>
+                        <img th:src="${image.imageUrl}" th:alt="${product.productName}"/>
                     </div>
                 </li>
             </ul>
@@ -35,8 +20,8 @@
 
         <div class="prodDetailInner">
             <div class="prodInfoWrap">
-                <p class="title">플로리드 레이어 블러셔</p>
-                <p class="prodTxt">상품정보 간단하게 설명이 들어갑니다.</p>
+                <p class="title" th:text="${product.productName}">상품명</p>
+                <p class="prodTxt" th:text="${product.productSummary}">상품 요약 설명</p>
                 <!--
                 <p class="priceBox">
                     <span class="percent">36%</span>
@@ -47,11 +32,14 @@
                 <ul class="info">
                     <li>
                         <p class="tit">정상가</p>
-                        <p class="txt"><span class="cost">50,000원</span></p>
+                        <p class="txt"><span class="cost" th:text="${#numbers.formatInteger(product.productOriPrice, 3, 'COMMA')} + '원'">50,000원</span></p>
                     </li>
                     <li class="discount">
                         <p class="tit">판매가</p>
-                        <p class="txt"><span class="percent">36%</span> 31,900원</p>
+                        <p class="txt">
+                            <span class="percent" th:text="${#numbers.formatInteger(T(java.lang.Math).ceil((product.productOriPrice - product.productSalePrice) * 100.0 / product.productOriPrice), 0, 'COMMA')} + '%'">36%</span>
+                            <span th:text="${#numbers.formatInteger(product.productSalePrice, 3, 'COMMA')} + '원'">31,900원</span>
+                        </p>
                     </li>
                     <li>
                         <p class="tit">국내·해외배송</p>
@@ -63,39 +51,43 @@
                     </li>
                     <li class="delivery">
                         <p class="tit">배송비</p>
-                        <p class="txt"><span class="bold">2,500원</span><span class="detail">(20,000원 이상 구매 시 무료)</span>
+                        <p class="txt">
+                            <span class="bold" th:text="${#numbers.formatInteger(product.productFee, 3, 'COMMA')} + '원'">2,500원</span>
                         </p>
                     </li>
                 </ul>
 
-                <div class="optionList">
-                    <p class="tit">옵션</p>
-                    <select id="prodOpt" name="prodOpt">
-                        <option value="선택">[필수] 옵션을 선택해주세요.</option>
-                        <option value="01">선택 옵션01</option>
-                        <option value="02">선택 옵션02</option>
-                        <option value="03">선택 옵션03</option>
-                    </select>
+                <div class="optionList" th:if="${product.productOptionStatus == T(com.cobuy.constant.ProductOptionStatus).OPTION_ON and not #lists.isEmpty(product.productOptions)}">
+                    <div th:each="option, stat : ${product.productOptions}">
+                        <p class="tit" th:text="${option.optionName}">옵션</p>
+                        <select th:id="'prodOpt' + ${stat.index}" class="prodOpt" th:name="'prodOpt' + ${stat.index}">
+                            <option value="선택">[필수] 옵션을 선택해주세요.</option>
+                            <option th:each="value : ${#strings.arraySplit(option.optionValues, ';')}"
+                                    th:value="${value}"
+                                    th:text="${value}">옵션값</option>
+                        </select>
+                    </div>
                 </div>
 
-                <ul class="prodCntWrap">
+                <ul class="prodCntWrap" th:if="${product.productOptionStatus == T(com.cobuy.constant.ProductOptionStatus).OPTION_OFF}">
                     <li>
                         <div class="leftBox">
-                            <p class="tit">플로리드 레이어 블러셔</p>
-                            <p class="option">선택 옵션01</p>
+                            <p class="tit" th:text="${product.productName}">상품명</p>
                             <div class="countBox">
-                                <input id="quantity" type="number" value="1">
+                                <input id="quantity" type="number" value="1" min="1" th:max="${product.productStock}">
                                 <span class="plus">+</span>
                                 <span class="minus">-</span>
                             </div>
-
                         </div>
-                        <p class="price">31,900원 <a class="delectBtn" href="#">삭제</a></p>
+                        <p class="price" th:text="${#numbers.formatInteger(product.productSalePrice, 3, 'COMMA')} + '원'">31,900원</p>
                     </li>
                 </ul>
                 <div class="totalPrice">
                     <p class="tit">총 상품 금액</p>
-                    <p class="total">31,900원 <span class="count">(1개)</span></p>
+                    <p class="total">
+                        <span th:text="${#numbers.formatInteger(product.productSalePrice, 3, 'COMMA')} + '원'">31,900원</span>
+                        <span class="count">(1개)</span>
+                    </p>
                 </div>
 
                 <div class="buyWrap">
@@ -112,9 +104,8 @@
                 <li><a href="#tab03">교환 및 반품안내</a></li>
             </ul>
 
-            <div class="tabCont active" id="tab01">
-                <img src="https://picsum.photos/800/300"/>
-                <img src="https://picsum.photos/800/1200"/>
+            <div class="tabCont active" id="tab01" th:utext="${product.productContents}">
+                <!-- 상품 상세 정보가 여기에 들어갑니다 -->
             </div>
 
             <ul class="tabCont cont01" id="tab02">
@@ -159,6 +150,164 @@
     </ul>
 </div>
 
+<th:block layout:fragment="script">
+    <script th:inline="javascript">
+        // jQuery가 로드되었는지 확인
+        if (typeof jQuery === 'undefined') {
+            console.error('jQuery is not loaded!');
+        } else {
+            console.log('jQuery is loaded');
+        }
 
+        // 옵션 선택 이벤트 처리
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded');
+
+            const optionSelects = document.querySelectorAll('.prodOpt');
+            if (optionSelects.length > 0) {
+                console.log('Found option selects:', optionSelects.length);
+
+                // 모든 옵션 선택 이벤트에 리스너 추가
+                optionSelects.forEach(select => {
+                    select.addEventListener('change', function() {
+                        console.log('Option changed:', this.id, this.value);
+                        checkAllOptionsSelected();
+                    });
+                });
+            }
+        });
+
+        // 모든 옵션이 선택되었는지 확인하는 함수
+        function checkAllOptionsSelected() {
+            const optionSelects = document.querySelectorAll('.prodOpt');
+            const allSelected = Array.from(optionSelects).every(select => select.value !== '선택');
+
+            if (allSelected) {
+                // 기존 prodCntWrap 제거
+                const existingWrap = document.querySelector('.prodCntWrap');
+                if (existingWrap) {
+                    existingWrap.remove();
+                }
+
+                // 새로운 prodCntWrap 생성
+                const prodCntWrap = document.createElement('ul');
+                prodCntWrap.className = 'prodCntWrap';
+
+                const productName = /*[[${product.productName}]]*/ '';
+                const productStock = /*[[${product.productStock}]]*/ 0;
+                const productSalePrice = /*[[${product.productSalePrice}]]*/ 0;
+
+                // 선택된 모든 옵션값 가져오기
+                const selectedOptions = Array.from(document.querySelectorAll('.prodOpt'))
+                    .map(select => select.value)
+                    .join(' / ');
+
+                prodCntWrap.innerHTML = `
+                    <li>
+                        <div class="leftBox">
+                            <p class="tit">${productName}</p>
+                            <p class="option">${selectedOptions}</p>
+                            <div class="countBox">
+                                <input type="number" value="1" min="1" max="${productStock}">
+                                <span class="plus">+</span>
+                                <span class="minus">-</span>
+                            </div>
+                        </div>
+                        <p class="price">${productSalePrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원</p>
+                    </li>
+                `;
+
+                document.querySelector('.optionList').after(prodCntWrap);
+                updateTotalPrice();
+            } else {
+                // 옵션이 모두 선택되지 않은 경우 prodCntWrap 제거
+                const existingWrap = document.querySelector('.prodCntWrap');
+                if (existingWrap) {
+                    existingWrap.remove();
+                }
+                updateTotalPrice();
+            }
+        }
+
+        // 총 가격 업데이트 함수
+        function updateTotalPrice() {
+            console.log('Updating total price');
+            const productSalePrice = /*[[${product.productSalePrice}]]*/ 0;
+            let totalQuantity = 0;
+            let totalPrice = 0;
+
+            // 모든 수량 입력 필드에 대해 처리
+            document.querySelectorAll('.prodCntWrap input[type="number"]').forEach(function(input) {
+                const quantity = parseInt(input.value);
+                totalQuantity += quantity;
+                totalPrice += productSalePrice * quantity;
+
+                // 개별 상품의 가격 업데이트
+                const priceElement = input.closest('li').querySelector('.price');
+                if (priceElement) {
+                    const itemPrice = productSalePrice * quantity;
+                    priceElement.textContent = itemPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '원';
+                }
+            });
+
+            console.log('Total Price Calculation:', {
+                totalQuantity,
+                totalPrice,
+                productSalePrice
+            });
+
+            // 총 가격 업데이트
+            const formattedTotalPrice = totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            const totalElement = document.querySelector('.totalPrice .total');
+            if (totalElement) {
+                totalElement.innerHTML = `${formattedTotalPrice}원 <span class="count">(${totalQuantity}개)</span>`;
+            }
+        }
+
+        // 수량 변경 이벤트
+        $(document).on('change', '#quantity, .prodCntWrap input[type="number"]', function() {
+            console.log('Quantity changed');
+            updateTotalPrice();
+        });
+
+        // jQuery를 사용한 수량 증가/감소 버튼 이벤트
+        $(document).on('click', '.countBox .plus', function() {
+            const input = $(this).siblings('input');
+            const currentValue = parseInt(input.val());
+            const maxValue = parseInt(input.attr('max'));
+
+            if (currentValue < maxValue) {
+                input.val(currentValue + 1).trigger('change');
+            } else {
+                alert("더 이상 재고가 없습니다!");
+            }
+        });
+
+        $(document).on('click', '.countBox .minus', function() {
+            const input = $(this).siblings('input');
+            const currentValue = parseInt(input.val());
+
+            if (currentValue > 1) {
+                input.val(currentValue - 1).trigger('change');
+            } else {
+                alert("최소 구매 수량은 1개입니다.");
+            }
+        });
+
+        // 직접 입력 시 0 이하의 값이 들어가면 경고
+        $(document).on('input', '.countBox input', function() {
+            const value = parseInt($(this).val());
+            const maxValue = parseInt($(this).attr('max'));
+
+            if (value < 1) {
+                alert("최소 구매 수량은 1개입니다.");
+                $(this).val(1).trigger('change');
+            } else if (value > maxValue) {
+                alert("더 이상 재고가 없습니다!");
+                $(this).val(maxValue).trigger('change');
+            }
+        });
+    </script>
+</th:block>
 </body>
 </html>

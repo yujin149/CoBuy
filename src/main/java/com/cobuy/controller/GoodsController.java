@@ -13,15 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class GoodsController {
     private final ProductService productService;
 
-    /*상품 리스트 페이지*/
-    @GetMapping(value = "/product")
-    public String productList(Model model) {
-        model.addAttribute("pageTitle", "최근 본 상품");
-        return "goods/list";
-    }
-
     /*상품 상세페이지 - 일반*/
-    @GetMapping(value = "/product/detail/{adminId}{productCode}")
+    @GetMapping(value = "/product/detail/{adminId}/{productCode}")
     public String productDetail(@PathVariable String adminId,
                                 @PathVariable String productCode,
                                 Model model) {
@@ -29,7 +22,7 @@ public class GoodsController {
             // 상품 정보 조회
             ProductDto productDto = productService.getProductByCode(productCode, adminId);
             model.addAttribute("product", productDto);
-            model.addAttribute("pageTitle", productDto.getProductName());
+            model.addAttribute("pageTitle", "상품 정보");
             return "goods/detail";
         } catch (Exception e) {
             model.addAttribute("errorMessage", "상품 정보를 찾을 수 없습니다.");
@@ -38,7 +31,7 @@ public class GoodsController {
     }
 
     /*상품 상세페이지 - 셀러별*/
-    @GetMapping(value = "/product/detail/{adminId}{productCode}/{sellerId}")
+    @GetMapping(value = "/product/detail/{adminId}/{productCode}/{sellerId}")
     public String productDetailWithSeller(@PathVariable String adminId,
                                           @PathVariable String productCode,
                                           @PathVariable String sellerId,
@@ -54,7 +47,7 @@ public class GoodsController {
                     productDto.setCurrentSeller(seller);
                 });
             model.addAttribute("product", productDto);
-            model.addAttribute("pageTitle", productDto.getProductName());
+            model.addAttribute("pageTitle", "상품 정보");
             return "goods/detail";
         } catch (Exception e) {
             model.addAttribute("errorMessage", "상품 정보를 찾을 수 없습니다.");
