@@ -19,7 +19,7 @@
 
 .cartWrap .mypageInner{background:var(--gray-bg1); min-height: calc(100vh - 196px);}
 .cartWrap .cartList li{background:var(--white-color); padding:20px; display: flex; justify-content: space-between; align-items: flex-start; border-radius: 10px; position:relative; margin-bottom:10px; flex-wrap: wrap;}
-.cartWrap .cartList li .list{display: flex; justify-content: space-between; align-items: flex-start;  border-top:1px dashed var(--gray-color);  margin-top:15px; padding-top:15px; width:100%;}
+.cartWrap .cartList li .list{display: flex; justify-content: space-between; align-items: flex-start;  border-top:1px dashed var(--gray-color);  margin-top:15px; padding-top:15px; width:100%; position:relative;}
 .cartWrap .cartList li .list:first-child{border:none; margin-top:0; padding-top:0;}
 .cartWrap .cartList li input{width:16px; height:16px; cursor: pointer;}
 .cartWrap .cartList li .prodInfoWrap{width:calc(100% - 26px); display: flex;  flex-wrap: wrap;}
@@ -53,7 +53,8 @@
 .cartWrap .cartList li .totalPrice span{font-size:14px; color:var(--small-color);}
 .cartWrap .cartList li .totalPrice span.total{color:var(--bk-color); font-weight:600;}
 
-.cartWrap .cartList li .deleteBtn{position:absolute; top:20px; right:20px; display: block; width:28px; height:28px; font-size:0;}
+.cartWrap .cartList li .deleteBtn{position:absolute; top:15px; right:0; display: block; width:28px; height:28px; font-size:0;}
+.cartWrap .cartList li .list:first-child .deleteBtn{top:0;}
 .cartWrap .cartList li .deleteBtn:before{content:'';display: block; width:1.5px; height:20px; background: var(--gray-color); position:absolute; top:4px; right:50%; transform:rotate(45deg) translateX(-50%); }
 .cartWrap .cartList li .deleteBtn:after{content:'';display: block; width:1.5px; height:20px; background: var(--gray-color); position:absolute; top:4px; right:50%; transform:rotate(-45deg) translateX(-50%); }
 
@@ -132,7 +133,7 @@
 .payWrap .totalProd li .tit{font-weight:400; color:var(--small-color);}
 .payWrap .totalProd li .discount{color:var(--red-color);}
 .payWrap .totalProd li.total{padding-top:15px; border-top:1px solid
-    var(--gray-color);}
+var(--gray-color);}
 .payWrap .totalProd li.total .tit{color:var(--bk-color); font-size:18px; font-weight:700;}
 .payWrap .totalProd li.total .txt{color:var(--main-color2); font-size:18px; font-weight:700;}
 
