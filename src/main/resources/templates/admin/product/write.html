@@ -5,8 +5,6 @@
     xmlns:th="http://www.thymeleaf.org">
 <head>
     <title th:text="${isModify} ? '상품 수정' : '상품 등록'">상품 등록</title>
-    <meta name="_csrf" th:content="${_csrf.token}"/>
-    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 </head>
 <body class="bodyCont">
 <div layout:fragment="content">

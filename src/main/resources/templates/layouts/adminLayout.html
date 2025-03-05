@@ -7,6 +7,10 @@
 
     <title>CoBuy</title>
 
+    <!-- CSRF 토큰 메타 태그 -->
+    <meta name="_csrf" th:content="${_csrf?.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf?.headerName}"/>
+
     <!-- 공통 css 영역 -->
     <th:block th:replace="fragments/adminCss :: adminCss"></th:block>
 </head>
