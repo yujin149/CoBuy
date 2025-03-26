@@ -1,4 +1,4 @@
-package com.cobuy.service.impl;
+package com.cobuy.service;
 
 import com.cobuy.dto.CartItemDto;
 import com.cobuy.dto.ProductImageDto;

@@ -108,7 +108,7 @@
                     const totalProductPrice = items.reduce((sum, item) => sum + (item.productSalePrice * item.quantity), 0);
                     const $totalPrice = $(`
                         <p class="totalPrice">
-                            <span class="prod">상품 금액 <span>${totalProductPrice.toLocaleString()}원</span></span>
+       K                     <span class="prod">상품 금액 <span>${totalProductPrice.toLocaleString()}원</span></span>
                             <span>+</span>
                             <span class="fee">배송비 <span>${items[0].productFee.toLocaleString()}원</span></span>
                             <span>=</span>
