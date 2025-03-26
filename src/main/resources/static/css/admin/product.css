@@ -99,7 +99,7 @@
 .prodListWrap .tableWrap table tr td .prodInfo .imgBox{width:100px; height:100px; margin-right:10px;}
 .prodListWrap .tableWrap table tr td .prodInfo .imgBox img{width:100%; height:100%; object-fit: cover; border:1px solid var(--gray-color); border-radius: 5px;}
 .prodListWrap .tableWrap table tr td .prodInfo .info{display: flex; flex-direction: column; justify-content: center; align-items: flex-start; width:calc(100% - 110px); margin-top:5px;}
-.prodListWrap .tableWrap table tr td .prodInfo .info .tit{color:var(--bk-color); font-size:16px; font-weight:600;}
+.prodListWrap .tableWrap table tr td .prodInfo .info .tit{color:var(--bk-color); font-size:16px; font-weight:600; text-align: left;}
 .prodListWrap .tableWrap table tr td .prodInfo .info .option{display: flex; flex-direction: column; justify-content: center; align-items: flex-start;}
 .prodListWrap .tableWrap table tr td .prodInfo .info .option li{display: flex; justify-content: flex-start; align-items: flex-start; flex-direction: column; margin-top:8px;}
 .prodListWrap .tableWrap table tr td .prodInfo .info .option li .optTit{font-size:14px;  font-weight:700; color:var(--small-color)}
